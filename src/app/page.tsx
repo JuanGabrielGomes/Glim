@@ -38,8 +38,9 @@ type HeroProps = {
   reduceMotion: boolean;
 };
 
-const CONTACT_EMAIL_ADDRESS = 'glim.contato@gmail.com';
-const CONTACT_EMAIL_HREF = `mailto:${CONTACT_EMAIL_ADDRESS}?subject=Novo%20projeto%20com%20a%20glim.`;
+const CONTACT_WHATSAPP_NUMBER = '5554992181886';
+const CONTACT_WHATSAPP_LABEL = '+55 54 99218-1886';
+const CONTACT_WHATSAPP_HREF = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent('Ola, vim pelo site da glim. Quero iniciar um projeto.')}`;
 const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? 'https://instagram.com/glim.dev';
 const HERO_TITLE = 'Do conceito ao código, o insight é claro.';
 const VIEWPORT = { once: true, amount: 0.2 } as const;
@@ -615,9 +616,10 @@ function ContactSection() {
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <SocialLinkButton
-                  href={CONTACT_EMAIL_HREF}
-                  label="Contato direto"
-                  icon={<MailIcon />}
+                  href={CONTACT_WHATSAPP_HREF}
+                  label="WhatsApp"
+                  icon={<WhatsAppIcon />}
+                  external
                 />
                 <SocialLinkButton
                   href={INSTAGRAM_URL}
@@ -631,12 +633,14 @@ function ContactSection() {
                   Carlos Barbosa, RS | Brasil
                 </p>
                 <p className="text-sm text-[#726a64] dark:text-[#cfc8c2]">
-                  Ou, se preferir, escreva direto para{' '}
+                  Se preferir, fale direto no WhatsApp pelo{' '}
                   <a
-                    href={CONTACT_EMAIL_HREF}
+                    href={CONTACT_WHATSAPP_HREF}
                     className="text-glim-dark decoration-glim-diamond/50 dark:text-glim-light font-medium underline underline-offset-4"
+                    target="_blank"
+                    rel="noreferrer"
                   >
-                    {CONTACT_EMAIL_ADDRESS}
+                    {CONTACT_WHATSAPP_LABEL}
                   </a>
                   .
                 </p>
@@ -763,7 +767,12 @@ function Footer() {
           <p>© {new Date().getFullYear()} glim. Engenharia de Software e Design Digital.</p>
         </div>
         <div className="flex flex-wrap items-center gap-4">
-          <SocialLinkButton href="#contato" label="Contato" icon={<MailIcon />} />
+          <SocialLinkButton
+            href={CONTACT_WHATSAPP_HREF}
+            label="WhatsApp"
+            icon={<WhatsAppIcon />}
+            external
+          />
           <SocialLinkButton
             href={INSTAGRAM_URL}
             label="Instagram"
@@ -783,10 +792,12 @@ function Footer() {
             Serviços
           </a>
           <a
-            href={CONTACT_EMAIL_HREF}
+            href={CONTACT_WHATSAPP_HREF}
             className="hover:text-glim-dark transition-colors dark:hover:text-white"
+            target="_blank"
+            rel="noreferrer"
           >
-            {CONTACT_EMAIL_ADDRESS}
+            {CONTACT_WHATSAPP_LABEL}
           </a>
         </div>
       </div>
@@ -963,7 +974,7 @@ function SocialLinkButton({
   );
 }
 
-function MailIcon() {
+function WhatsAppIcon() {
   return (
     <svg
       aria-hidden="true"
@@ -975,8 +986,8 @@ function MailIcon() {
       strokeLinejoin="round"
       strokeWidth="1.8"
     >
-      <path d="M4 6.75h16A1.25 1.25 0 0 1 21.25 8v8A1.25 1.25 0 0 1 20 17.25H4A1.25 1.25 0 0 1 2.75 16V8A1.25 1.25 0 0 1 4 6.75Z" />
-      <path d="m3.5 8 8.5 6 8.5-6" />
+      <path d="M12 21a8.94 8.94 0 0 1-4.55-1.24L3.5 21l1.3-3.78A9 9 0 1 1 12 21Z" />
+      <path d="M8.9 9.25c.18-.4.37-.4.55-.41h.47c.14 0 .37.05.56.45.18.4.64 1.58.7 1.7.06.13.1.27.02.44-.08.18-.12.29-.25.44-.12.14-.26.31-.37.42-.12.12-.24.25-.1.49.14.24.63 1.04 1.35 1.68.93.84 1.72 1.1 1.97 1.22.24.11.39.1.53-.06.17-.19.71-.82.9-1.1.19-.27.39-.23.66-.14.27.1 1.7.8 2 1 .3.2.5.3.57.47.07.17.07.98-.23 1.92-.3.95-1.74 1.81-2.4 1.9-.62.08-1.4.11-2.26-.16a9.2 9.2 0 0 1-3.73-2.27 10.3 10.3 0 0 1-2.1-2.78c-.55-.95-.98-2.14-.98-3.04 0-.9.47-1.35.64-1.54.18-.18.4-.23.54-.23Z" />
     </svg>
   );
 }
