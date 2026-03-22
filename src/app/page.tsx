@@ -4,12 +4,14 @@ import {
   useActionState,
   useEffect,
   useRef,
+  useState,
   type InputHTMLAttributes,
   type ReactElement,
   type RefObject,
   type TextareaHTMLAttributes,
 } from 'react';
 import {
+  AnimatePresence,
   LazyMotion,
   MotionConfig,
   domAnimation,
@@ -141,7 +143,7 @@ export default function HomePage() {
     return () => window.removeEventListener('mousemove', handlePointerMove);
   }, [pointerX, pointerY, reduceMotion]);
 
-  const headerOpacity = useTransform(scrollY, [0, 140], [0.55, 0.96]);
+  const headerOpacity = useTransform(scrollY, [0, 36, 128], [0.68, 0.76, 0.97]);
   const headerTranslateY = useTransform(scrollY, [0, 140], [12, 0]);
   const glowX = useTransform(pointerX, [0, 1], [16, 84]);
   const glowY = useTransform(pointerY, [0, 1], [12, 80]);
@@ -192,6 +194,30 @@ export default function HomePage() {
 }
 
 function Header({ panelOpacity, translateY }: HeaderProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isMenuOpen]);
+
+  const toggleMenu = () => setIsMenuOpen((current) => !current);
+  const closeMenu = () => setIsMenuOpen(false);
+
   return (
     <m.header
       className="fixed inset-x-0 top-0 z-50 px-4 py-4 sm:px-6 lg:px-8"
@@ -200,12 +226,12 @@ function Header({ panelOpacity, translateY }: HeaderProps) {
       <div className="relative mx-auto max-w-7xl">
         <m.div
           aria-hidden="true"
-          className="glass-panel absolute inset-0 rounded-full"
+          className="glass-panel absolute inset-0 rounded-full bg-white/80 backdrop-blur-2xl dark:bg-[#4A4643]/78"
           style={{ opacity: panelOpacity }}
         />
         <nav
           aria-label="Navegação principal"
-          className="relative flex items-center justify-between gap-4 rounded-full px-5 py-3 sm:px-6"
+          className="relative z-20 flex items-center justify-between gap-4 rounded-full px-5 py-3 sm:px-6"
         >
           <Logo href="#topo" />
           <div className="hidden items-center gap-6 md:flex">
@@ -219,15 +245,105 @@ function Header({ panelOpacity, translateY }: HeaderProps) {
               </a>
             ))}
           </div>
-          <m.a
-            href="#contato"
-            className="border-glim-diamond/50 bg-glim-diamond text-glim-dark inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]"
-            whileHover={{ y: -2, scale: 1.01 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            Iniciar Projeto
-          </m.a>
+          <div className="flex items-center gap-2">
+            <m.a
+              href="#contato"
+              className="border-glim-diamond/50 bg-glim-diamond text-glim-dark hidden items-center rounded-full border px-5 py-2.5 text-sm font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] md:inline-flex"
+              whileHover={{ y: -2, scale: 1.01 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Iniciar Projeto
+            </m.a>
+            <m.button
+              type="button"
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-navigation"
+              aria-label={isMenuOpen ? 'Fechar menu principal' : 'Abrir menu principal'}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/55 text-[#2f2b28] shadow-[0_16px_40px_rgba(74,70,67,0.12)] backdrop-blur-xl transition-colors hover:bg-white/72 dark:border-white/10 dark:bg-white/[0.07] dark:text-[#fbfaf8] dark:hover:bg-white/[0.12] md:hidden"
+              whileTap={{ scale: 0.96 }}
+              onClick={toggleMenu}
+            >
+              <span className="relative h-4 w-5" aria-hidden="true">
+                <m.span
+                  className="absolute top-0 left-0 h-[1.5px] w-5 rounded-full bg-current"
+                  animate={isMenuOpen ? { y: 7, rotate: 45 } : { y: 0, rotate: 0 }}
+                  transition={SPRING}
+                />
+                <m.span
+                  className="absolute top-[7px] left-0 h-[1.5px] w-5 rounded-full bg-current"
+                  animate={isMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+                  transition={SPRING}
+                />
+                <m.span
+                  className="absolute top-[14px] left-0 h-[1.5px] w-5 rounded-full bg-current"
+                  animate={isMenuOpen ? { y: -7, rotate: -45 } : { y: 0, rotate: 0 }}
+                  transition={SPRING}
+                />
+              </span>
+            </m.button>
+          </div>
         </nav>
+
+        <AnimatePresence initial={false}>
+          {isMenuOpen ? (
+            [
+              <m.button
+                key="mobile-navigation-scrim"
+                type="button"
+                aria-label="Fechar menu principal"
+                className="fixed inset-0 z-10 bg-[#2f2b28]/12 backdrop-blur-[2px] md:hidden dark:bg-black/24"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.18, ease: 'easeOut' }}
+                onClick={closeMenu}
+              />,
+              <m.div
+                key="mobile-navigation-panel"
+                id="mobile-navigation"
+                className="absolute inset-x-0 top-[calc(100%+0.8rem)] z-20 md:hidden"
+                initial={{ opacity: 0, y: -10, scale: 0.985 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.985 }}
+                transition={{ type: 'spring', stiffness: 220, damping: 24, mass: 0.8 }}
+              >
+                <div className="glass-panel relative overflow-hidden rounded-[1.9rem] border border-white/55 bg-white/82 p-3 shadow-[0_28px_70px_rgba(74,70,67,0.16)] backdrop-blur-2xl dark:border-white/12 dark:bg-[#4A4643]/82">
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute top-0 inset-x-8 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.95),transparent)]"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 bg-[linear-gradient(140deg,rgba(255,255,255,0.42),transparent_38%,transparent_64%,rgba(242,183,123,0.14)_100%)] dark:bg-[linear-gradient(140deg,rgba(255,255,255,0.12),transparent_38%,transparent_64%,rgba(242,183,123,0.12)_100%)]"
+                  />
+                  <div className="relative flex flex-col gap-2">
+                    {NAV_ITEMS.map((item) => (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        className="rounded-[1.2rem] px-4 py-3 text-sm font-medium text-[#4f4945] transition-colors hover:bg-black/[0.045] hover:text-[#2f2b28] dark:text-[#ebe6e1] dark:hover:bg-white/[0.06] dark:hover:text-white"
+                        onClick={closeMenu}
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                    <m.a
+                      href="#contato"
+                      className="border-glim-diamond/45 bg-glim-diamond text-glim-dark mt-2 inline-flex items-center justify-center rounded-[1.2rem] border px-5 py-3.5 text-sm font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.38)]"
+                      whileTap={{ scale: 0.985 }}
+                      onClick={closeMenu}
+                    >
+                      Iniciar Projeto
+                    </m.a>
+                    <p className="font-mono px-1 pt-2 text-[11px] tracking-[0.18em] text-[#7e7771] uppercase dark:text-[#bdb6b0]">
+                      Design digital . engenharia full-stack . Brasil
+                    </p>
+                  </div>
+                </div>
+              </m.div>,
+            ]
+          ) : null}
+        </AnimatePresence>
       </div>
     </m.header>
   );
@@ -265,11 +381,11 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
             </m.p>
             <m.h1
               id="hero-title"
-              className="mt-6 max-w-[13ch] text-[clamp(3.25rem,8vw,7.5rem)] leading-[0.96] tracking-[-0.08em] text-[#2f2b28] dark:text-[#fbfaf8]"
+              className="mt-6 max-w-[13.6ch] pr-[0.08em] pb-[0.08em] text-[clamp(3.25rem,8vw,7.5rem)] leading-[0.98] tracking-[-0.08em] text-[#2f2b28] dark:text-[#fbfaf8]"
               variants={WORD_PARENT}
             >
               {words.map((word, index) => (
-                <span key={`${word}-${index}`} className="inline-block overflow-hidden pr-[0.14em]">
+                <span key={`${word}-${index}`} className="inline-block pr-[0.16em] pb-[0.08em]">
                   <m.span className="font-google inline-block" variants={WORD_CHILD}>
                     {word}
                   </m.span>
