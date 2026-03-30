@@ -478,7 +478,7 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
           >
             <m.h1
               id="hero-title"
-              className="max-w-[8.7ch] pr-[0.08em] pb-[0.08em] text-[clamp(2.85rem,13.5vw,8.1rem)] leading-[0.92] tracking-[-0.085em] text-[#2f2b28] sm:max-w-[9.8ch] sm:leading-[0.94] lg:max-w-[10.9ch] dark:text-[#fbfaf8]"
+              className="max-w-[8.7ch] pr-[0.08em] pb-[0.08em] text-[clamp(2.85rem,13.5vw,8.1rem)] leading-[0.92] tracking-[-0.065em] text-[#2f2b28] sm:max-w-[9.8ch] sm:leading-[0.94] sm:tracking-[-0.07em] lg:max-w-[10.9ch] dark:text-[#fbfaf8]"
               variants={WORD_PARENT}
             >
               {words.map((word, index) => (
@@ -605,7 +605,11 @@ function Approach() {
       <div className="mx-auto max-w-7xl">
         <SectionIntro
           eyebrow="Como pensamos"
-          title="Clareza vem antes do acabamento."
+          title={
+            <>
+              <HeadingAccent>Clareza</HeadingAccent> vem antes do acabamento.
+            </>
+          }
           description="Quando conteúdo, hierarquia e implementação não conversam, a percepção cai. A Glim organiza essas camadas para que o negócio seja entendido com mais rapidez, confiança e consistência."
           titleId="abordagem-title"
         />
@@ -671,7 +675,11 @@ function Capabilities() {
       <div className="mx-auto max-w-7xl">
         <SectionIntro
           eyebrow="Serviços"
-          title="Sites para posicionar melhor o seu negócio."
+          title={
+            <>
+              Sites para <HeadingAccent>posicionar melhor</HeadingAccent> o seu negócio.
+            </>
+          }
           description="Projetamos páginas e experiências digitais com boa leitura, navegação simples e implementação sólida, para que a presença digital ajude a conversa comercial em vez de atrapalhar."
           titleId="servicos-title"
         />
@@ -735,7 +743,11 @@ function CaseStudies() {
       <div className="mx-auto max-w-7xl">
         <SectionIntro
           eyebrow="Case"
-          title="Case: Ottea Studio"
+          title={
+            <>
+              Case: <HeadingAccent>Ottea Studio</HeadingAccent>
+            </>
+          }
           description="Um projeto que saiu do discurso de marca e ganhou forma em navegação, conteúdo, atmosfera e estrutura comercial."
           titleId="case-title"
         />
@@ -909,7 +921,7 @@ function ContactSection() {
                 id="contato-title"
                 className="font-google mt-5 max-w-3xl text-[clamp(2.5rem,5vw,4.75rem)] leading-[0.98] tracking-[-0.06em] text-[#2f2b28] dark:text-[#fbfaf8]"
               >
-                Vamos entender o que precisa ser construído.
+                Vamos entender o que precisa ser <HeadingAccent>construído</HeadingAccent>.
               </h2>
               <p className="mt-6 max-w-2xl text-base leading-8 text-[#5f5955] sm:text-lg dark:text-[#dbd6d1]">
                 Seja para lançar o primeiro site, reposicionar a apresentação da empresa ou melhorar
@@ -1162,6 +1174,14 @@ function SectionIntro({
         {description}
       </m.p>
     </m.div>
+  );
+}
+
+function HeadingAccent({ children }: { children: ReactNode }) {
+  return (
+    <span className="text-[#8b5d33] font-semibold dark:text-[#f2c48f] [text-shadow:0_8px_24px_rgba(242,183,123,0.14)] dark:[text-shadow:0_8px_24px_rgba(242,183,123,0.08)]">
+      {children}
+    </span>
   );
 }
 
