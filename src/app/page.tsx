@@ -78,7 +78,7 @@ const HERO_ACCENT_WORDS = new Set(['valor', 'aparecer']);
 const INITIAL_FORM_STATE: ContactFormState = { status: 'idle', message: '' };
 
 const NAV_ITEMS: readonly NavItem[] = [
-  { href: '#abordagem', label: 'Abordagem' },
+  { href: '#abordagem', label: 'Pilares' },
   { href: '#servicos', label: 'Serviços' },
   { href: '#contato', label: 'Contato' },
 ];
@@ -1167,7 +1167,7 @@ function Footer() {
             href="#abordagem"
             className="hover:text-glim-dark transition-colors dark:hover:text-white"
           >
-            Abordagem
+            Pilares
           </a>
           <a
             href="#servicos"
