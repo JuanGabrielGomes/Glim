@@ -7,6 +7,7 @@ import {
   useState,
   type InputHTMLAttributes,
   type ReactElement,
+  type ReactNode,
   type RefObject,
   type TextareaHTMLAttributes,
 } from 'react';
@@ -447,9 +448,9 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
       id="hero"
       ref={heroRef}
       aria-labelledby="hero-title"
-      className="relative px-4 pt-28 pb-24 sm:px-6 sm:pt-32 lg:px-8 lg:pt-40 lg:pb-28"
+      className="relative px-4 pt-26 pb-18 sm:px-6 sm:pt-32 sm:pb-24 lg:px-8 lg:pt-40 lg:pb-28"
     >
-      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(22rem,0.92fr)]">
+      <div className="mx-auto grid max-w-7xl items-start gap-8 sm:gap-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(22rem,0.92fr)] lg:items-center lg:gap-12">
         <div className="relative">
           <div className="absolute top-3 -left-2 hidden xl:flex xl:flex-col xl:items-center xl:gap-6">
             <span className="font-mono text-[10px] tracking-[0.26em] text-[#8d867f] uppercase dark:text-[#bfb8b2]">
@@ -475,15 +476,9 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
             variants={STAGGER}
             style={{ y: copyY }}
           >
-            <m.p
-              variants={FADE_UP}
-              className="font-mono text-xs tracking-[0.34em] text-[#7e7771] uppercase dark:text-[#bfb8b2]"
-            >
-              Design digital e engenharia de software
-            </m.p>
             <m.h1
               id="hero-title"
-              className="mt-6 max-w-[10.9ch] pr-[0.08em] pb-[0.08em] text-[clamp(3.45rem,8.8vw,8.1rem)] leading-[0.94] tracking-[-0.085em] text-[#2f2b28] dark:text-[#fbfaf8]"
+              className="max-w-[8.7ch] pr-[0.08em] pb-[0.08em] text-[clamp(2.85rem,13.5vw,8.1rem)] leading-[0.92] tracking-[-0.085em] text-[#2f2b28] sm:max-w-[9.8ch] sm:leading-[0.94] lg:max-w-[10.9ch] dark:text-[#fbfaf8]"
               variants={WORD_PARENT}
             >
               {words.map((word, index) => (
@@ -509,11 +504,11 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
             </m.p>
             <m.div
               variants={FADE_UP}
-              className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center"
+              className="mt-8 flex flex-col items-stretch gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center"
             >
               <m.a
                 href="#contato"
-                className="group bg-glim-diamond text-glim-dark relative inline-flex items-center overflow-hidden rounded-full px-7 py-4 text-base font-semibold shadow-[0_18px_44px_-22px_rgba(242,183,123,0.85)]"
+                className="group bg-glim-diamond text-glim-dark relative inline-flex w-full items-center justify-center overflow-hidden rounded-full px-7 py-4 text-base font-semibold shadow-[0_18px_44px_-22px_rgba(242,183,123,0.85)] sm:w-auto"
                 whileHover={{ y: -2, scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -523,12 +518,12 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
                 />
                 <span className="relative">Iniciar Projeto</span>
               </m.a>
-              <span className="font-mono text-xs tracking-[0.2em] text-[#7e7771] uppercase dark:text-[#bfb8b2]">
+              <span className="font-mono px-2 text-center text-[10px] tracking-[0.24em] text-[#7e7771] uppercase sm:px-0 sm:text-left dark:text-[#bfb8b2]">
                 ou
               </span>
               <m.a
                 href={CONTACT_WHATSAPP_HREF}
-                className="inline-flex items-center rounded-full border border-black/10 bg-white/70 px-6 py-4 text-base font-medium text-[#3d3834] transition hover:bg-white/85 dark:border-white/10 dark:bg-white/[0.05] dark:text-[#f3efec] dark:hover:bg-white/[0.08]"
+                className="inline-flex w-full items-center justify-center rounded-full border border-black/10 bg-white/70 px-6 py-4 text-base font-medium text-[#3d3834] transition hover:bg-white/85 sm:w-auto dark:border-white/10 dark:bg-white/[0.05] dark:text-[#f3efec] dark:hover:bg-white/[0.08]"
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 target="_blank"
@@ -541,7 +536,7 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
         </div>
 
         <m.aside
-          className="relative overflow-hidden rounded-[2.1rem] border border-black/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(249,248,246,0.74))] p-6 shadow-[0_36px_100px_-58px_rgba(74,70,67,0.52)] sm:p-7 lg:self-center lg:-mt-10 dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(249,248,246,0.08),rgba(249,248,246,0.03))]"
+          className="relative mt-1 max-w-xl overflow-hidden rounded-[1.85rem] border border-black/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(249,248,246,0.74))] p-5 shadow-[0_36px_100px_-58px_rgba(74,70,67,0.52)] sm:mt-2 sm:rounded-[2.1rem] sm:p-7 lg:mt-0 lg:max-w-none lg:self-center lg:-mt-10 dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(249,248,246,0.08),rgba(249,248,246,0.03))]"
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
@@ -567,10 +562,10 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
           </div>
           <div className="mt-8 space-y-6">
             <div>
-              <p className="font-google text-3xl tracking-[-0.05em] text-[#2f2b28] dark:text-[#fbfaf8]">
+              <p className="font-google text-[1.55rem] leading-[1.02] tracking-[-0.05em] text-[#2f2b28] sm:text-3xl dark:text-[#fbfaf8]">
                 Clareza que sustenta a conversa.
               </p>
-              <p className="mt-3 text-sm leading-7 text-[#5c5652] dark:text-[#d9d3cf]">
+              <p className="mt-3 text-sm leading-6 sm:leading-7 text-[#5c5652] dark:text-[#d9d3cf]">
                 Organizamos mensagem, interface e implementação para que o site não pareça só
                 bonito: ele precisa ajudar a apresentar, posicionar e vender melhor.
               </p>
@@ -581,7 +576,7 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
               <Metric label="Código" value="Enxuto" />
               <Metric label="Leitura" value="Rápida" />
             </div>
-            <div className="border-t border-black/[0.08] pt-5 dark:border-white/10">
+            <div className="hidden border-t border-black/[0.08] pt-5 sm:block dark:border-white/10">
               <p className="font-mono text-[10px] tracking-[0.24em] text-[#857e78] uppercase dark:text-[#bdb6b0]">
                 Quando o site faz seu papel:
               </p>
@@ -607,7 +602,12 @@ function Approach() {
       <div className="mx-auto max-w-7xl">
         <SectionIntro
           eyebrow="Como pensamos"
-          title="Muita empresa boa parece menor do que realmente é, porque o site não ajuda."
+          title={
+            <>
+              Seu site precisa <HeadingAccent>explicar</HeadingAccent>,{' '}
+              <HeadingAccent>posicionar</HeadingAccent> e vender melhor.
+            </>
+          }
           description="Nem sempre o problema é falta de esforço. Às vezes a mensagem está difusa, a navegação não conduz, ou a interface não sustenta a qualidade do que a empresa já entrega. A Glim entra para organizar isso."
           titleId="abordagem-title"
         />
@@ -673,7 +673,11 @@ function Capabilities() {
       <div className="mx-auto max-w-7xl">
         <SectionIntro
           eyebrow="Serviços"
-          title="Sites para empresas que precisam se apresentar melhor, vender melhor e parecer à altura do que entregam"
+          title={
+            <>
+              Sites que apresentam <HeadingAccent>melhor</HeadingAccent> o seu negócio.
+            </>
+          }
           description="Projetamos páginas e experiências digitais com boa leitura, navegação simples e implementação sólida, para que a presença digital ajude a conversa comercial em vez de atrapalhar."
           titleId="servicos-title"
         />
@@ -737,7 +741,11 @@ function CaseStudies() {
       <div className="mx-auto max-w-7xl">
         <SectionIntro
           eyebrow="Case"
-          title="Ottea Studio: narrativa, atmosfera e estrutura em um site com identidade própria"
+          title={
+            <>
+              Case: <HeadingAccent>Ottea Studio</HeadingAccent>
+            </>
+          }
           description="Um projeto que saiu do discurso de marca e ganhou forma em navegação, conteúdo, atmosfera e estrutura comercial."
           titleId="case-title"
         />
@@ -911,7 +919,7 @@ function ContactSection() {
                 id="contato-title"
                 className="font-google mt-5 max-w-3xl text-[clamp(2.5rem,5vw,4.75rem)] leading-[0.98] tracking-[-0.06em] text-[#2f2b28] dark:text-[#fbfaf8]"
               >
-                Seu site hoje ajuda ou atrapalha a conversa com o cliente?
+                Seu site ajuda a <HeadingAccent>fechar conversas</HeadingAccent>?
               </h2>
               <p className="mt-6 max-w-2xl text-base leading-8 text-[#5f5955] sm:text-lg dark:text-[#dbd6d1]">
                 Se a apresentação está confusa, se a navegação não ajuda ou se o visual não sustenta
@@ -1124,7 +1132,7 @@ function SectionIntro({
   titleId,
 }: {
   eyebrow: string;
-  title: string;
+  title: ReactNode;
   description: string;
   titleId: string;
 }) {
@@ -1164,6 +1172,18 @@ function SectionIntro({
         {description}
       </m.p>
     </m.div>
+  );
+}
+
+function HeadingAccent({ children }: { children: ReactNode }) {
+  return (
+    <span className="relative inline-block whitespace-nowrap text-[#8f5d30] dark:text-[#f2b77b]">
+      <span className="relative z-10 font-semibold">{children}</span>
+      <span
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-[0.08em] h-[0.2em] rounded-full bg-[#f2b77b]/35 dark:bg-[#f2b77b]/18"
+      />
+    </span>
   );
 }
 
