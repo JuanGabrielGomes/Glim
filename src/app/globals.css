@@ -29,10 +29,18 @@
 html {
   min-height: 100%;
   scroll-behavior: smooth;
+  color-scheme: light;
 }
 
 body {
   min-height: 100vh;
+  transition:
+    background-color 220ms ease,
+    color 220ms ease;
+}
+
+.dark {
+  color-scheme: dark;
 }
 
 ::selection {
@@ -66,17 +74,18 @@ body {
 }
 
 .dark .glass-panel {
-  border-color: rgba(249, 248, 246, 0.12);
+  border-color: rgba(249, 248, 246, 0.14);
   background:
-    linear-gradient(180deg, rgba(249, 248, 246, 0.08), rgba(249, 248, 246, 0.03)),
-    rgba(255, 255, 255, 0.02);
-  box-shadow: 0 32px 110px -58px rgba(0, 0, 0, 0.7);
+    linear-gradient(180deg, rgba(249, 248, 246, 0.09), rgba(249, 248, 246, 0.03)),
+    linear-gradient(145deg, rgba(242, 183, 123, 0.06), transparent 68%),
+    rgba(255, 255, 255, 0.018);
+  box-shadow: 0 32px 110px -58px rgba(0, 0, 0, 0.76);
 }
 
 .dark .glass-panel::before {
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.14),
     rgba(255, 255, 255, 0.04) 36%,
     transparent 70%
   );

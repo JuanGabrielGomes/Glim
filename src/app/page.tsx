@@ -45,7 +45,13 @@ type CaseStudy = {
   highlights: readonly string[];
   deliverables: readonly string[];
 };
-type HeaderProps = { panelOpacity: MotionValue<number>; translateY: MotionValue<number> };
+type Theme = 'light' | 'dark';
+type HeaderProps = {
+  panelOpacity: MotionValue<number>;
+  translateY: MotionValue<number>;
+  isDark: boolean;
+  onToggleTheme: () => void;
+};
 type BrandBackdropProps = {
   glowBackground: MotionValue<string>;
   prismY: MotionValue<number>;
@@ -170,6 +176,7 @@ const WORD_CHILD: Variants = {
 
 export default function HomePage() {
   const heroRef = useRef<HTMLElement | null>(null);
+  const [theme, setTheme] = useState<Theme | null>(null);
   const reduceMotion = useReducedMotion() ?? false;
   const pointerX = useMotionValue(0.42);
   const pointerY = useMotionValue(0.18);
@@ -189,6 +196,27 @@ export default function HomePage() {
     return () => window.removeEventListener('mousemove', handlePointerMove);
   }, [pointerX, pointerY, reduceMotion]);
 
+  useEffect(() => {
+    const storedTheme = window.localStorage.getItem('glim-theme');
+    const resolvedTheme: Theme =
+      storedTheme === 'dark' || storedTheme === 'light'
+        ? storedTheme
+        : window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light';
+
+    setTheme(resolvedTheme);
+  }, []);
+
+  useEffect(() => {
+    if (!theme) return;
+
+    const root = document.documentElement;
+    root.classList.toggle('dark', theme === 'dark');
+    root.style.colorScheme = theme;
+    window.localStorage.setItem('glim-theme', theme);
+  }, [theme]);
+
   const headerOpacity = useTransform(scrollY, [0, 36, 128], [0.68, 0.76, 0.97]);
   const headerTranslateY = useTransform(scrollY, [0, 140], [12, 0]);
   const glowX = useTransform(pointerX, [0, 1], [16, 84]);
@@ -205,13 +233,14 @@ export default function HomePage() {
     radial-gradient(circle at 78% ${secondaryGlowY}%, rgba(74, 70, 67, 0.14), transparent 32%),
     linear-gradient(135deg, rgba(249, 248, 246, 0.94), rgba(249, 248, 246, 0.08) 58%, transparent 100%)
   `;
+  const isDark = theme === 'dark';
 
   return (
     <LazyMotion features={domAnimation}>
       <MotionConfig reducedMotion="user" transition={SPRING}>
         <div
           id="topo"
-          className="relative min-h-screen overflow-x-clip bg-[linear-gradient(180deg,rgba(249,248,246,0.98)_0%,rgba(249,248,246,0.92)_100%)] dark:bg-[linear-gradient(180deg,rgba(74,70,67,1)_0%,rgba(58,55,53,1)_100%)]"
+          className="relative min-h-screen overflow-x-clip bg-[linear-gradient(180deg,rgba(249,248,246,0.98)_0%,rgba(249,248,246,0.92)_100%)] dark:bg-[radial-gradient(circle_at_top,rgba(242,183,123,0.1),transparent_24%),linear-gradient(180deg,rgba(74,70,67,1)_0%,rgba(54,50,48,1)_100%)]"
         >
           <a
             href="#conteudo"
@@ -231,7 +260,12 @@ export default function HomePage() {
             gridOpacity={gridOpacity}
           />
 
-          <Header panelOpacity={headerOpacity} translateY={headerTranslateY} />
+          <Header
+            panelOpacity={headerOpacity}
+            translateY={headerTranslateY}
+            isDark={isDark}
+            onToggleTheme={() => setTheme((current) => (current === 'dark' ? 'light' : 'dark'))}
+          />
 
           <main id="conteudo" className="relative">
             <Hero
@@ -288,7 +322,7 @@ function BrandBackdrop({
   );
 }
 
-function Header({ panelOpacity, translateY }: HeaderProps) {
+function Header({ panelOpacity, translateY, isDark, onToggleTheme }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -341,6 +375,7 @@ function Header({ panelOpacity, translateY }: HeaderProps) {
             ))}
           </div>
           <div className="flex items-center gap-2">
+            <ThemeToggleButton isDark={isDark} onToggle={onToggleTheme} />
             <m.a
               href="#contato"
               className="border-glim-diamond/50 bg-glim-diamond text-glim-dark hidden items-center rounded-full border px-5 py-2.5 text-sm font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] md:inline-flex"
@@ -430,6 +465,17 @@ function Header({ panelOpacity, translateY }: HeaderProps) {
                     >
                       Iniciar Projeto
                     </m.a>
+                    <button
+                      type="button"
+                      className="mt-1 inline-flex items-center justify-between rounded-[1.2rem] border border-black/10 px-4 py-3 text-sm font-medium text-[#4f4945] transition hover:bg-black/[0.045] dark:border-white/10 dark:text-[#ebe6e1] dark:hover:bg-white/[0.06]"
+                      onClick={onToggleTheme}
+                    >
+                      <span>{isDark ? 'Ativar modo claro' : 'Ativar modo escuro'}</span>
+                      <span
+                        aria-hidden="true"
+                        className="bg-glim-diamond ml-3 h-2.5 w-2.5 rotate-45 rounded-[2px]"
+                      />
+                    </button>
                     <p className="font-mono px-1 pt-2 text-[11px] tracking-[0.18em] text-[#7e7771] uppercase dark:text-[#bdb6b0]">
                       Design digital, engenharia full stack, Brasil
                     </p>
@@ -1223,6 +1269,41 @@ function CaseDetail({ label, value }: { label: string; value: string }) {
   );
 }
 
+function ThemeToggleButton({
+  isDark,
+  onToggle,
+}: {
+  isDark: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <m.button
+      type="button"
+      aria-label={isDark ? 'Ativar modo claro' : 'Ativar modo escuro'}
+      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/55 text-[#2f2b28] shadow-[0_16px_40px_rgba(74,70,67,0.12)] backdrop-blur-xl transition-colors hover:bg-white/72 dark:border-white/10 dark:bg-white/[0.07] dark:text-[#fbfaf8] dark:hover:bg-white/[0.12]"
+      whileTap={{ scale: 0.96 }}
+      onClick={onToggle}
+    >
+      <span className="relative inline-flex h-5 w-5 items-center justify-center">
+        <m.span
+          className="absolute inset-0"
+          animate={isDark ? { rotate: 0, scale: 1, opacity: 1 } : { rotate: -28, scale: 0.72, opacity: 0 }}
+          transition={SPRING}
+        >
+          <SunIcon />
+        </m.span>
+        <m.span
+          className="absolute inset-0"
+          animate={isDark ? { rotate: 28, scale: 0.72, opacity: 0 } : { rotate: 0, scale: 1, opacity: 1 }}
+          transition={SPRING}
+        >
+          <MoonIcon />
+        </m.span>
+      </span>
+    </m.button>
+  );
+}
+
 function Logo({ href, compact = false }: { href: string; compact?: boolean }) {
   return (
     <a
@@ -1371,6 +1452,48 @@ function InstagramIcon() {
       <rect x="3.5" y="3.5" width="17" height="17" rx="4.5" />
       <circle cx="12" cy="12" r="4" />
       <circle cx="17.4" cy="6.6" r="0.9" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function SunIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.8"
+    >
+      <circle cx="12" cy="12" r="4.2" />
+      <path d="M12 2.75v2.1" />
+      <path d="M12 19.15v2.1" />
+      <path d="m5.46 5.46 1.48 1.48" />
+      <path d="m17.06 17.06 1.48 1.48" />
+      <path d="M2.75 12h2.1" />
+      <path d="M19.15 12h2.1" />
+      <path d="m5.46 18.54 1.48-1.48" />
+      <path d="m17.06 6.94 1.48-1.48" />
+    </svg>
+  );
+}
+
+function MoonIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.8"
+    >
+      <path d="M20.35 15.55A8.75 8.75 0 1 1 8.45 3.65 7.1 7.1 0 0 0 20.35 15.55Z" />
     </svg>
   );
 }
