@@ -505,7 +505,6 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
                 );
               })}
             </m.h1>
-            <HeroSiteSignal reduceMotion={reduceMotion} />
             <m.p
               variants={FADE_UP}
               className="mt-8 max-w-[40rem] text-lg leading-8 text-[#595450] sm:text-xl dark:text-[#ded9d4]"
@@ -555,7 +554,7 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
         </div>
 
         <m.aside
-          className="relative mt-1 max-w-xl overflow-hidden rounded-[1.85rem] border border-black/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(249,248,246,0.74))] p-5 shadow-[0_36px_100px_-58px_rgba(74,70,67,0.52)] sm:mt-2 sm:rounded-[2.1rem] sm:p-7 lg:mt-0 lg:max-w-none lg:self-start lg:-mt-[4px] xl:-mt-[20px] dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(249,248,246,0.08),rgba(249,248,246,0.03))]"
+          className="relative mt-1 max-w-xl overflow-hidden rounded-[1.85rem] border border-black/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(249,248,246,0.74))] p-5 shadow-[0_36px_100px_-58px_rgba(74,70,67,0.52)] sm:mt-2 sm:rounded-[2.1rem] sm:p-7 lg:mt-[15px] lg:max-w-none lg:self-start xl:mt-[15px] dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(249,248,246,0.08),rgba(249,248,246,0.03))]"
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
@@ -609,38 +608,6 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
         </m.aside>
       </div>
     </section>
-  );
-}
-
-function HeroSiteSignal({ reduceMotion }: { reduceMotion: boolean }) {
-  return (
-    <m.div
-      aria-hidden="true"
-      variants={FADE_UP}
-      className="mt-5 inline-flex items-center gap-3 rounded-full border border-black/[0.08] bg-white/58 px-3 py-2 backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.05]"
-    >
-      <span className="font-mono text-[11px] tracking-[0.24em] text-[#8b5f37] uppercase dark:text-[#f2c48f]">
-        www.
-      </span>
-      <div className="relative h-[1px] w-24 overflow-visible bg-black/10 sm:w-32 dark:bg-white/10">
-        <m.span
-          className="absolute top-1/2 h-3.5 w-3.5 -translate-y-1/2 rounded-[3px] border border-white/60 bg-glim-diamond shadow-[0_0_18px_rgba(242,183,123,0.55)]"
-          animate={reduceMotion ? { opacity: [0.85, 1, 0.85] } : { x: [0, 72, 0], opacity: [0.9, 1, 0.9] }}
-          transition={
-            reduceMotion
-              ? { duration: 2.2, repeat: Infinity, ease: 'easeInOut' }
-              : { duration: 3.4, repeat: Infinity, ease: 'easeInOut' }
-          }
-        />
-      </div>
-      <m.span
-        className="font-mono text-[11px] tracking-[0.22em] text-[#7a746e] uppercase dark:text-[#bdb6b0]"
-        animate={reduceMotion ? undefined : { opacity: [0.35, 1, 0.35] }}
-        transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        cursor
-      </m.span>
-    </m.div>
   );
 }
 
