@@ -34,6 +34,16 @@ type Capability = {
   badge: string;
   idealFor: readonly string[];
 };
+type CaseStudy = {
+  client: string;
+  category: string;
+  headline: string;
+  summary: string;
+  outcome: string;
+  href: string;
+  highlights: readonly string[];
+  deliverables: readonly string[];
+};
 type HeaderProps = { panelOpacity: MotionValue<number>; translateY: MotionValue<number> };
 type HeroProps = {
   heroRef: RefObject<HTMLElement | null>;
@@ -103,6 +113,26 @@ const CAPABILITIES: readonly Capability[] = [
     ],
   },
 ];
+
+const CASE_STUDIES: readonly CaseStudy[] = [
+  {
+    client: 'Ottea Studio',
+    category: 'Branding, conteúdo e estratégia de marca',
+    headline: 'Um site editorial, sensorial e claro para apresentar processo, serviços e posicionamento.',
+    summary:
+      'Para a Ottea Studio, organizamos uma presença digital com atmosfera própria, narrativa forte e estrutura comercial mais legível.',
+    outcome:
+      'O resultado é um site que transmite direção, cuidado e consistência, sem perder clareza na oferta nem sofisticação na experiência.',
+    href: 'https://teastrategystudio.com',
+    highlights: ['pt-BR + EN', 'Tema claro e escuro', 'SEO estrutural', 'Motion responsivo'],
+    deliverables: [
+      'Arquitetura da informação',
+      'Landing institucional',
+      'Direção visual editorial',
+      'Base técnica em Next.js',
+    ],
+  },
+] as const;
 
 const FADE_UP: Variants = {
   hidden: { opacity: 0, y: 32, filter: 'blur(8px)' },
@@ -190,6 +220,7 @@ export default function HomePage() {
             />
             <Approach />
             <Capabilities />
+            <CaseStudies />
             <ContactSection />
           </main>
 
@@ -593,6 +624,153 @@ function Capabilities() {
   );
 }
 
+function CaseStudies() {
+  const caseStudy = CASE_STUDIES[0];
+
+  return (
+    <section className="px-4 py-20 sm:px-6 lg:px-8 lg:py-24" aria-labelledby="case-title">
+      <div className="mx-auto max-w-7xl">
+        <SectionIntro
+          eyebrow="Case"
+          title="Ottea Studio: narrativa, atmosfera e estrutura em um site com identidade própria"
+          description="Um projeto que mostra como posicionamento pode virar experiência digital, com clareza comercial, presença premium e base técnica consistente."
+          titleId="case-title"
+        />
+
+        <div className="mt-10 grid gap-5 xl:grid-cols-[minmax(0,1.1fr)_minmax(22rem,0.9fr)]">
+          <m.article
+            className="glass-panel glass-shimmer relative overflow-hidden rounded-[2.3rem] p-7 sm:p-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={VIEWPORT}
+            variants={FADE_UP}
+          >
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-glim-diamond font-mono text-xs tracking-[0.22em] uppercase">
+                Case 01
+              </span>
+              <span className="rounded-full border border-black/10 px-3 py-1 font-mono text-[11px] tracking-[0.18em] text-[#7b746e] uppercase dark:border-white/10 dark:text-[#c2bbb6]">
+                {caseStudy.client}
+              </span>
+            </div>
+
+            <h3 className="font-google mt-6 max-w-3xl text-[clamp(2rem,4.2vw,4rem)] leading-[1] tracking-[-0.06em] text-[#2f2b28] dark:text-[#fbfaf8]">
+              {caseStudy.headline}
+            </h3>
+            <p className="mt-5 max-w-2xl text-base leading-8 text-[#5d5753] dark:text-[#dad4cf]">
+              {caseStudy.summary}
+            </p>
+            <p className="mt-4 max-w-2xl text-base leading-8 text-[#5d5753] dark:text-[#dad4cf]">
+              {caseStudy.outcome}
+            </p>
+            <p className="mt-5 text-sm text-[#6c6560] dark:text-[#cfc8c2]">
+              Link direto:{' '}
+              <a
+                href={caseStudy.href}
+                className="text-glim-dark decoration-glim-diamond/50 dark:text-glim-light font-medium underline underline-offset-4"
+                target="_blank"
+                rel="noreferrer"
+              >
+                teastrategystudio.com
+              </a>
+            </p>
+
+            <div className="mt-8">
+              <p className="font-mono text-[11px] tracking-[0.2em] text-[#8a837d] uppercase dark:text-[#bdb6b0]">
+                Destaques do projeto:
+              </p>
+              <ul className="mt-3 flex flex-wrap gap-2" aria-label={`Destaques do case ${caseStudy.client}`}>
+                {caseStudy.highlights.map((item) => (
+                  <FitPill key={item}>{item}</FitPill>
+                ))}
+              </ul>
+            </div>
+
+            <div className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center">
+              <m.a
+                href={caseStudy.href}
+                className="bg-glim-dark text-glim-light inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold transition dark:bg-[#fbfaf8] dark:text-[#2f2b28]"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Ver site ao vivo
+              </m.a>
+              <m.a
+                href="#contato"
+                className="inline-flex items-center rounded-full border border-black/10 bg-white/70 px-6 py-3 text-sm font-medium text-[#3f3936] transition hover:bg-white/85 dark:border-white/10 dark:bg-white/[0.05] dark:text-[#f1edeb] dark:hover:bg-white/[0.08]"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Quero um projeto nesse nível
+              </m.a>
+            </div>
+          </m.article>
+
+          <m.aside
+            className="glass-panel relative overflow-hidden rounded-[2.3rem] p-4 sm:p-5"
+            initial="hidden"
+            whileInView="visible"
+            viewport={VIEWPORT}
+            variants={FADE_UP}
+          >
+            <div className="rounded-[1.9rem] bg-[linear-gradient(180deg,#24463f_0%,#1d3934_100%)] p-6 text-[#f2e9dc] shadow-[0_28px_80px_rgba(29,57,52,0.18)]">
+              <div className="flex items-center justify-between gap-4">
+                <p className="font-mono text-[11px] tracking-[0.24em] uppercase text-[#d8ccb9]">
+                  {caseStudy.client}
+                </p>
+                <span
+                  aria-hidden="true"
+                  className="h-2.5 w-2.5 rounded-full bg-[#d8ccb9] shadow-[0_0_24px_rgba(242,233,220,0.45)]"
+                />
+              </div>
+
+              <p className="mt-5 font-mono text-[11px] tracking-[0.22em] uppercase text-[#d8ccb9]/82">
+                {caseStudy.category}
+              </p>
+              <h3 className="font-google mt-6 max-w-[11ch] text-[clamp(2rem,4vw,3.4rem)] leading-[0.95] tracking-[-0.06em] text-[#f7efe4]">
+                Toda marca precisa do seu tempo de infusão.
+              </h3>
+              <p className="mt-5 max-w-md text-sm leading-7 text-[#efe4d5]/88">
+                Branding e estratégia com identidade visual, conteúdo, redes sociais e tráfego pago
+                para marcas que querem crescer com direção.
+              </p>
+
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                <CaseDetail label="Idioma" value="PT, EN" />
+                <CaseDetail label="Tema" value="Claro, escuro" />
+                <CaseDetail label="Estrutura" value="Serviços, processo" />
+                <CaseDetail label="Base" value="SEO, performance" />
+              </div>
+            </div>
+
+            <div className="mt-5 rounded-[1.9rem] border border-black/[0.08] bg-black/[0.03] p-5 dark:border-white/10 dark:bg-white/[0.04]">
+              <p className="font-mono text-[11px] tracking-[0.22em] text-[#827b75] uppercase dark:text-[#bdb6b0]">
+                O que entrou no projeto:
+              </p>
+              <ul className="mt-4 space-y-3" aria-label={`Entregas do projeto ${caseStudy.client}`}>
+                {caseStudy.deliverables.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-sm leading-7 text-[#5b5551] dark:text-[#d7d1cc]"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="bg-glim-diamond mt-2 h-2.5 w-2.5 shrink-0 rotate-45 rounded-[2px]"
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </m.aside>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ContactSection() {
   const formRef = useRef<HTMLFormElement | null>(null);
   const [state, formAction, pending] = useActionState(submitContactForm, INITIAL_FORM_STATE);
@@ -879,6 +1057,15 @@ function Metric({ label, value }: { label: string; value: string }) {
       <p className="font-google mt-2 text-xl tracking-[-0.04em] text-[#2f2b28] dark:text-[#fbfaf8]">
         {value}
       </p>
+    </div>
+  );
+}
+
+function CaseDetail({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-[1.3rem] border border-white/10 bg-white/[0.05] p-4">
+      <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-[#d8ccb9]/72">{label}</p>
+      <p className="font-google mt-2 text-lg tracking-[-0.04em] text-[#f7efe4]">{value}</p>
     </div>
   );
 }
