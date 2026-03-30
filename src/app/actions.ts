@@ -57,7 +57,7 @@ function buildValidationErrors(values: {
 
   if (values.currentIssue.length < 10) {
     fieldErrors.currentIssue =
-      'Conte em poucas palavras o que hoje nao esta funcionando como deveria.';
+      'Conte em poucas palavras o que voce precisa criar, organizar ou melhorar agora.';
   }
 
   if (values.message.length < 20) {
@@ -82,7 +82,7 @@ function buildEmailText(values: {
     `E-mail: ${values.email}`,
     `Empresa: ${values.company || 'Nao informado'}`,
     `Tipo de projeto: ${values.projectType || 'Nao informado'}`,
-    `O que nao esta funcionando: ${values.currentIssue}`,
+    `O que precisa ser criado ou melhorado: ${values.currentIssue}`,
     '',
     'Mensagem:',
     values.message,
@@ -108,7 +108,7 @@ function buildEmailHtml(values: {
       <p style="margin: 0 0 16px;"><strong>Tipo de projeto:</strong> ${escapeHtml(
         values.projectType || 'Nao informado'
       )}</p>
-      <p style="margin: 0 0 16px;"><strong>O que nao esta funcionando:</strong> ${escapeHtml(
+      <p style="margin: 0 0 16px;"><strong>O que precisa ser criado ou melhorado:</strong> ${escapeHtml(
         values.currentIssue
       )}</p>
       <div style="padding: 16px; border-radius: 16px; background: #f9f8f6; border: 1px solid rgba(74, 70, 67, 0.12);">

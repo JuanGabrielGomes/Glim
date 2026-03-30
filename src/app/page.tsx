@@ -65,7 +65,7 @@ const CONTACT_WHATSAPP_NUMBER = '5554992181886';
 const CONTACT_WHATSAPP_LABEL = '+55 54 99218-1886';
 const CONTACT_WHATSAPP_HREF = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent('Ola, vim pelo site da glim. Quero iniciar um projeto.')}`;
 const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? 'https://instagram.com/glim.dev';
-const HERO_TITLE = 'Seu site precisa explicar bem o valor do seu negócio.';
+const HERO_TITLE = 'O valor do seu negócio precisa aparecer antes da conversa.';
 const VIEWPORT = { once: true, amount: 0.2 } as const;
 const SPRING = { type: 'spring', stiffness: 150, damping: 24, mass: 0.8 } as const;
 const INITIAL_FORM_STATE: ContactFormState = { status: 'idle', message: '' };
@@ -493,14 +493,16 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
               variants={FADE_UP}
               className="mt-8 max-w-[40rem] text-lg leading-8 text-[#595450] sm:text-xl dark:text-[#ded9d4]"
             >
-              A Glim cria sites e experiências digitais com direção visual, organização de conteúdo
-              e base técnica para empresas que precisam se apresentar melhor no digital.
+              A Glim projeta e desenvolve sites e experiências digitais com direção visual,
+              arquitetura de informação e base técnica, para empresas que precisam transmitir mais
+              confiança no digital.
             </m.p>
             <m.p
               variants={FADE_UP}
               className="mt-4 max-w-[36rem] text-base leading-8 text-[#6b645f] dark:text-[#cfc8c2]"
             >
-              Menos ruído, mais leitura de valor, mais segurança para quem chega.
+              Do primeiro site ao redesenho de uma presença já existente, organizamos mensagem,
+              interface e implementação para que a apresentação acompanhe o nível real do negócio.
             </m.p>
             <m.div
               variants={FADE_UP}
@@ -563,11 +565,12 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
           <div className="mt-8 space-y-6">
             <div>
               <p className="font-google text-[1.55rem] leading-[1.02] tracking-[-0.05em] text-[#2f2b28] sm:text-3xl dark:text-[#fbfaf8]">
-                Clareza que sustenta a conversa.
+                Confiança começa na forma como você se apresenta.
               </p>
               <p className="mt-3 text-sm leading-6 sm:leading-7 text-[#5c5652] dark:text-[#d9d3cf]">
-                Organizamos mensagem, interface e implementação para que o site não pareça só
-                bonito: ele precisa ajudar a apresentar, posicionar e vender melhor.
+                Seja para sair do zero ou corrigir uma presença digital que já não representa a
+                empresa, estruturamos conteúdo, interface e implementação com a mesma régua de
+                clareza.
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -581,8 +584,8 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
                 Quando o site faz seu papel:
               </p>
               <p className="mt-3 text-sm leading-7 text-[#5c5652] dark:text-[#d9d3cf]">
-                a proposta fica mais fácil de entender, a empresa parece mais preparada e a
-                conversa comercial começa melhor.
+                a empresa é entendida mais rápido, a percepção de qualidade sobe e a conversa
+                comercial parte de um lugar melhor.
               </p>
             </div>
           </div>
@@ -602,13 +605,8 @@ function Approach() {
       <div className="mx-auto max-w-7xl">
         <SectionIntro
           eyebrow="Como pensamos"
-          title={
-            <>
-              Seu site precisa <HeadingAccent>explicar</HeadingAccent>,{' '}
-              <HeadingAccent>posicionar</HeadingAccent> e vender melhor.
-            </>
-          }
-          description="Nem sempre o problema é falta de esforço. Às vezes a mensagem está difusa, a navegação não conduz, ou a interface não sustenta a qualidade do que a empresa já entrega. A Glim entra para organizar isso."
+          title="Clareza vem antes do acabamento."
+          description="Quando conteúdo, hierarquia e implementação não conversam, a percepção cai. A Glim organiza essas camadas para que o negócio seja entendido com mais rapidez, confiança e consistência."
           titleId="abordagem-title"
         />
         <m.div
@@ -673,11 +671,7 @@ function Capabilities() {
       <div className="mx-auto max-w-7xl">
         <SectionIntro
           eyebrow="Serviços"
-          title={
-            <>
-              Sites que apresentam <HeadingAccent>melhor</HeadingAccent> o seu negócio.
-            </>
-          }
+          title="Sites para posicionar melhor o seu negócio."
           description="Projetamos páginas e experiências digitais com boa leitura, navegação simples e implementação sólida, para que a presença digital ajude a conversa comercial em vez de atrapalhar."
           titleId="servicos-title"
         />
@@ -741,11 +735,7 @@ function CaseStudies() {
       <div className="mx-auto max-w-7xl">
         <SectionIntro
           eyebrow="Case"
-          title={
-            <>
-              Case: <HeadingAccent>Ottea Studio</HeadingAccent>
-            </>
-          }
+          title="Case: Ottea Studio"
           description="Um projeto que saiu do discurso de marca e ganhou forma em navegação, conteúdo, atmosfera e estrutura comercial."
           titleId="case-title"
         />
@@ -919,11 +909,11 @@ function ContactSection() {
                 id="contato-title"
                 className="font-google mt-5 max-w-3xl text-[clamp(2.5rem,5vw,4.75rem)] leading-[0.98] tracking-[-0.06em] text-[#2f2b28] dark:text-[#fbfaf8]"
               >
-                Seu site ajuda a <HeadingAccent>fechar conversas</HeadingAccent>?
+                Vamos entender o que precisa ser construído.
               </h2>
               <p className="mt-6 max-w-2xl text-base leading-8 text-[#5f5955] sm:text-lg dark:text-[#dbd6d1]">
-                Se a apresentação está confusa, se a navegação não ajuda ou se o visual não sustenta
-                o valor do negócio, a Glim entra para reorganizar a experiência.
+                Seja para lançar o primeiro site, reposicionar a apresentação da empresa ou melhorar
+                uma experiência que já existe, começamos entendendo contexto, objetivo e prioridade.
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <SocialLinkButton
@@ -967,11 +957,11 @@ function ContactSection() {
               <div className="mb-6 flex items-center justify-between gap-4">
                 <div>
                   <p className="font-google text-2xl tracking-[-0.05em] text-[#2f2b28] dark:text-[#fbfaf8]">
-                    Iniciar Projeto com a Glim
+                    Conte o contexto
                   </p>
                   <p className="mt-2 text-sm leading-7 text-[#655e59] dark:text-[#d2cbc6]">
-                    Preencha o briefing inicial e nos conte o que hoje está confuso, travado ou
-                    abaixo do nível que sua empresa já entrega.
+                    Preencha o briefing inicial. Queremos entender o momento da empresa, o objetivo
+                    do projeto e o que precisa ser criado, organizado ou revisto.
                   </p>
                 </div>
                 <span
@@ -1027,8 +1017,8 @@ function ContactSection() {
                 <InputField
                   id="currentIssue"
                   name="currentIssue"
-                  label="O que hoje não está funcionando como deveria no seu site ou produto?"
-                  placeholder="Ex.: mensagem confusa, visual genérico, navegação ruim ou baixa conversão."
+                  label="O que você precisa criar, organizar ou melhorar agora?"
+                  placeholder="Ex.: ainda não temos site, o atual não representa a empresa, a mensagem está confusa ou queremos aumentar a conversão."
                   required
                   error={state.fieldErrors?.currentIssue}
                 />
@@ -1036,7 +1026,7 @@ function ContactSection() {
                   id="message"
                   name="message"
                   label="Mensagem"
-                  placeholder="Descreva seu contexto, o problema atual e o que você quer melhorar."
+                  placeholder="Descreva o contexto da empresa, o estágio do projeto e o que seria uma boa entrega para você."
                   required
                   error={state.fieldErrors?.message}
                 />
@@ -1172,18 +1162,6 @@ function SectionIntro({
         {description}
       </m.p>
     </m.div>
-  );
-}
-
-function HeadingAccent({ children }: { children: ReactNode }) {
-  return (
-    <span className="relative inline-block whitespace-nowrap text-[#8f5d30] dark:text-[#f2b77b]">
-      <span className="relative z-10 font-semibold">{children}</span>
-      <span
-        aria-hidden="true"
-        className="absolute inset-x-0 bottom-[0.08em] h-[0.2em] rounded-full bg-[#f2b77b]/35 dark:bg-[#f2b77b]/18"
-      />
-    </span>
   );
 }
 
