@@ -28,12 +28,14 @@ import {
 import { submitContactForm, type ContactFormState } from './actions';
 
 type NavItem = { href: '#abordagem' | '#servicos' | '#contato'; label: string };
-type Pillar = { title: string; description: string };
+type Pillar = { title: string; description: string; mobileDescription: string };
 type Capability = {
   title: string;
   description: string;
+  mobileDescription: string;
   badge: string;
   idealFor: readonly string[];
+  mobileIdealFor: string;
 };
 type CaseStudy = {
   client: string;
@@ -86,16 +88,19 @@ const NAV_ITEMS: readonly NavItem[] = [
 const PILLARS: readonly Pillar[] = [
   {
     title: 'Agilidade Lúcida',
+    mobileDescription: 'Colocamos no ar o que importa, com direção clara.',
     description:
       'Começamos pelo que precisa entrar no ar e pelo que precisa ficar claro para quem visita.',
   },
   {
     title: 'Precisão Geométrica',
+    mobileDescription: 'Texto, layout e interação trabalham a favor da leitura.',
     description:
       'Texto, layout e interação têm função. Nada entra só para enfeitar a interface.',
   },
   {
     title: 'Experiência Fluida',
+    mobileDescription: 'Interfaces simples, leves e fáceis de entender.',
     description:
       'O site precisa ser fácil de percorrer, entender e acionar, no desktop e no mobile.',
   },
@@ -104,20 +109,25 @@ const PILLARS: readonly Pillar[] = [
 const CAPABILITIES: readonly Capability[] = [
   {
     title: 'Landing Pages',
+    mobileDescription: 'Páginas objetivas para lançamento, campanha ou validação.',
     description:
       'Páginas para lançamento, campanha ou validação, com proposta bem apresentada, boa hierarquia de informação e CTA resolvido.',
     badge: 'Lançamento e conversão',
     idealFor: ['Validação de produto', 'Campanhas', 'Geração de leads'],
+    mobileIdealFor: 'Validação, campanhas e leads',
   },
   {
     title: 'Sites Institucionais',
+    mobileDescription: 'Sites que apresentam empresa e serviços com mais autoridade.',
     description:
       'Sites que apresentam empresa, serviços e diferenciais com mais consistência, ajudando a construir percepção de valor desde a primeira visita.',
     badge: 'Posicionamento e apresentação',
     idealFor: ['Empresas em crescimento', 'Reposicionamento', 'Fortalecimento de marca'],
+    mobileIdealFor: 'Crescimento, reposicionamento e marca',
   },
   {
     title: 'E-commerce',
+    mobileDescription: 'Lojas claras, rápidas e com compra sem fricção.',
     description:
       'Lojas com navegação simples, páginas de produto objetivas e fluxo de compra sem fricção desnecessária.',
     badge: 'Operação e venda',
@@ -126,6 +136,7 @@ const CAPABILITIES: readonly Capability[] = [
       'Operações que precisam de eficiência',
       'Produtos com alto valor percebido',
     ],
+    mobileIdealFor: 'Venda, eficiência e percepção de valor',
   },
 ];
 
@@ -465,17 +476,6 @@ function Header({ panelOpacity, translateY, isDark, onToggleTheme }: HeaderProps
                     >
                       Iniciar Projeto
                     </m.a>
-                    <button
-                      type="button"
-                      className="mt-1 inline-flex items-center justify-between rounded-[1.2rem] border border-black/10 px-4 py-3 text-sm font-medium text-[#4f4945] transition hover:bg-black/[0.045] dark:border-white/10 dark:text-[#ebe6e1] dark:hover:bg-white/[0.06]"
-                      onClick={onToggleTheme}
-                    >
-                      <span>{isDark ? 'Ativar modo claro' : 'Ativar modo escuro'}</span>
-                      <span
-                        aria-hidden="true"
-                        className="bg-glim-diamond ml-3 h-2.5 w-2.5 rotate-45 rounded-[2px]"
-                      />
-                    </button>
                     <p className="font-mono px-1 pt-2 text-[11px] tracking-[0.18em] text-[#7e7771] uppercase dark:text-[#bdb6b0]">
                       Design digital, engenharia full stack, Brasil
                     </p>
@@ -553,15 +553,21 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
             </m.h1>
             <m.p
               variants={FADE_UP}
-              className="mt-8 max-w-[40rem] text-lg leading-8 text-[#595450] sm:text-xl dark:text-[#ded9d4]"
+              className="mt-8 max-w-[40rem] text-base leading-7 text-[#595450] sm:text-xl sm:leading-8 dark:text-[#ded9d4]"
             >
-              A Glim projeta e desenvolve sites e experiências digitais com direção visual,
-              arquitetura de informação e base técnica, para empresas que precisam transmitir mais
-              confiança no digital.
+              <span className="sm:hidden">
+                Sites e experiências digitais com direção visual e base técnica para empresas que
+                precisam transmitir mais confiança.
+              </span>
+              <span className="hidden sm:inline">
+                A Glim projeta e desenvolve sites e experiências digitais com direção visual,
+                arquitetura de informação e base técnica, para empresas que precisam transmitir
+                mais confiança no digital.
+              </span>
             </m.p>
             <m.p
               variants={FADE_UP}
-              className="mt-4 max-w-[36rem] text-base leading-8 text-[#6b645f] dark:text-[#cfc8c2]"
+              className="mt-4 hidden max-w-[36rem] text-base leading-8 text-[#6b645f] sm:block dark:text-[#cfc8c2]"
             >
               Do primeiro site ao redesenho de uma presença já existente, organizamos mensagem,
               interface e implementação para que a apresentação acompanhe o nível real do negócio.
@@ -630,9 +636,14 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
                 Confiança começa na forma como você se apresenta.
               </p>
               <p className="mt-3 text-sm leading-6 sm:leading-7 text-[#5c5652] dark:text-[#d9d3cf]">
-                Seja para sair do zero ou corrigir uma presença digital que já não representa a
-                empresa, estruturamos conteúdo, interface e implementação com a mesma régua de
-                clareza.
+                <span className="sm:hidden">
+                  Organizamos conteúdo, interface e implementação com a mesma régua de clareza.
+                </span>
+                <span className="hidden sm:inline">
+                  Seja para sair do zero ou corrigir uma presença digital que já não representa a
+                  empresa, estruturamos conteúdo, interface e implementação com a mesma régua de
+                  clareza.
+                </span>
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -672,6 +683,7 @@ function Approach() {
               <HeadingAccent>Clareza</HeadingAccent> vem antes do acabamento.
             </>
           }
+          mobileDescription="Organizamos conteúdo, hierarquia e implementação para que o negócio seja entendido com mais clareza."
           description="Quando conteúdo, hierarquia e implementação não conversam, a percepção cai. A Glim organiza essas camadas para que o negócio seja entendido com mais rapidez, confiança e consistência."
           titleId="abordagem-title"
         />
@@ -711,7 +723,8 @@ function Approach() {
                 {pillar.title}
               </h3>
               <p className="mt-4 text-base leading-8 text-[#5d5753] dark:text-[#d9d4cf]">
-                {pillar.description}
+                <span className="sm:hidden">{pillar.mobileDescription}</span>
+                <span className="hidden sm:inline">{pillar.description}</span>
               </p>
               <span
                 aria-hidden="true"
@@ -742,6 +755,7 @@ function Capabilities() {
               Sites para <HeadingAccent>posicionar melhor</HeadingAccent> o seu negócio.
             </>
           }
+          mobileDescription="Sites com leitura clara, navegação simples e base sólida para apoiar a conversa comercial."
           description="Projetamos páginas e experiências digitais com boa leitura, navegação simples e implementação sólida, para que a presença digital ajude a conversa comercial em vez de atrapalhar."
           titleId="servicos-title"
         />
@@ -779,12 +793,19 @@ function Capabilities() {
                 {capability.title}
               </h3>
               <p className="mt-4 text-base leading-8 text-[#5c5652] dark:text-[#dad5d0]">
-                {capability.description}
+                <span className="sm:hidden">{capability.mobileDescription}</span>
+                <span className="hidden sm:inline">{capability.description}</span>
               </p>
-              <p className="mt-8 font-mono text-[11px] tracking-[0.2em] text-[#8a837d] uppercase dark:text-[#bdb6b0]">
+              <p className="mt-6 font-mono text-[11px] tracking-[0.2em] text-[#8a837d] uppercase dark:text-[#bdb6b0]">
                 Ideal para:
               </p>
-              <ul className="mt-3 flex flex-wrap gap-2" aria-label={`Ideal para ${capability.title}`}>
+              <p className="mt-2 text-sm leading-6 text-[#6a635e] sm:hidden dark:text-[#d8d2ce]">
+                {capability.mobileIdealFor}
+              </p>
+              <ul
+                className="mt-3 hidden flex-wrap gap-2 sm:flex"
+                aria-label={`Ideal para ${capability.title}`}
+              >
                 {capability.idealFor.map((detail) => (
                   <FitPill key={detail}>{detail}</FitPill>
                 ))}
@@ -810,6 +831,7 @@ function CaseStudies() {
               Case: <HeadingAccent>Ottea Studio</HeadingAccent>
             </>
           }
+          mobileDescription="Um projeto com navegação clara, atmosfera autoral e presença digital mais consistente."
           description="Um projeto que saiu do discurso de marca e ganhou forma em navegação, conteúdo, atmosfera e estrutura comercial."
           titleId="case-title"
         />
@@ -837,7 +859,7 @@ function CaseStudies() {
             <p className="mt-5 max-w-2xl text-base leading-8 text-[#5d5753] dark:text-[#dad4cf]">
               {caseStudy.summary}
             </p>
-            <p className="mt-4 max-w-2xl text-base leading-8 text-[#5d5753] dark:text-[#dad4cf]">
+            <p className="mt-4 hidden max-w-2xl text-base leading-8 text-[#5d5753] sm:block dark:text-[#dad4cf]">
               {caseStudy.outcome}
             </p>
             <p className="mt-5 text-sm text-[#6c6560] dark:text-[#cfc8c2]">
@@ -886,7 +908,7 @@ function CaseStudies() {
           </m.article>
 
           <m.aside
-            className="glass-panel relative overflow-hidden rounded-[2.3rem] p-4 sm:p-5"
+            className="glass-panel relative hidden overflow-hidden rounded-[2.3rem] p-4 sm:p-5 lg:block"
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT}
@@ -985,9 +1007,16 @@ function ContactSection() {
               >
                 Vamos entender o que precisa ser <HeadingAccent>construído</HeadingAccent>.
               </h2>
-              <p className="mt-6 max-w-2xl text-base leading-8 text-[#5f5955] sm:text-lg dark:text-[#dbd6d1]">
-                Seja para lançar o primeiro site, reposicionar a apresentação da empresa ou melhorar
-                uma experiência que já existe, começamos entendendo contexto, objetivo e prioridade.
+              <p className="mt-6 max-w-2xl text-base leading-7 sm:text-lg sm:leading-8 text-[#5f5955] dark:text-[#dbd6d1]">
+                <span className="sm:hidden">
+                  Seja para lançar o primeiro site ou revisar algo que já existe, começamos pelo
+                  contexto e pela prioridade.
+                </span>
+                <span className="hidden sm:inline">
+                  Seja para lançar o primeiro site, reposicionar a apresentação da empresa ou
+                  melhorar uma experiência que já existe, começamos entendendo contexto, objetivo e
+                  prioridade.
+                </span>
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <SocialLinkButton
@@ -1007,7 +1036,7 @@ function ContactSection() {
                 <p className="font-mono text-xs tracking-[0.22em] text-[#7d7670] uppercase dark:text-[#bcb6b0]">
                   Carlos Barbosa, RS | Brasil
                 </p>
-                <p className="text-sm text-[#726a64] dark:text-[#cfc8c2]">
+                <p className="hidden text-sm sm:block text-[#726a64] dark:text-[#cfc8c2]">
                   Se preferir, fale direto no WhatsApp pelo{' '}
                   <a
                     href={CONTACT_WHATSAPP_HREF}
@@ -1034,8 +1063,14 @@ function ContactSection() {
                     Conte o contexto
                   </p>
                   <p className="mt-2 text-sm leading-7 text-[#655e59] dark:text-[#d2cbc6]">
-                    Preencha o briefing inicial. Queremos entender o momento da empresa, o objetivo
-                    do projeto e o que precisa ser criado, organizado ou revisto.
+                    <span className="sm:hidden">
+                      Preencha o briefing inicial com o momento da empresa e o que precisa ser
+                      feito.
+                    </span>
+                    <span className="hidden sm:inline">
+                      Preencha o briefing inicial. Queremos entender o momento da empresa, o
+                      objetivo do projeto e o que precisa ser criado, organizado ou revisto.
+                    </span>
                   </p>
                 </div>
                 <span
@@ -1193,11 +1228,13 @@ function SectionIntro({
   eyebrow,
   title,
   description,
+  mobileDescription,
   titleId,
 }: {
   eyebrow: string;
   title: ReactNode;
   description: string;
+  mobileDescription?: string;
   titleId: string;
 }) {
   return (
@@ -1231,9 +1268,10 @@ function SectionIntro({
       </div>
       <m.p
         variants={FADE_UP}
-        className="mt-6 max-w-3xl text-base leading-8 text-[#5d5753] sm:text-lg dark:text-[#d9d3ce]"
+        className="mt-6 max-w-3xl text-base leading-7 sm:text-lg sm:leading-8 text-[#5d5753] dark:text-[#d9d3ce]"
       >
-        {description}
+        <span className="sm:hidden">{mobileDescription ?? description}</span>
+        <span className="hidden sm:inline">{description}</span>
       </m.p>
     </m.div>
   );
