@@ -45,6 +45,13 @@ type CaseStudy = {
   deliverables: readonly string[];
 };
 type HeaderProps = { panelOpacity: MotionValue<number>; translateY: MotionValue<number> };
+type BrandBackdropProps = {
+  glowBackground: MotionValue<string>;
+  prismY: MotionValue<number>;
+  prismRotate: MotionValue<number>;
+  latticeX: MotionValue<number>;
+  gridOpacity: MotionValue<number>;
+};
 type HeroProps = {
   heroRef: RefObject<HTMLElement | null>;
   glowBackground: MotionValue<string>;
@@ -57,7 +64,7 @@ const CONTACT_WHATSAPP_NUMBER = '5554992181886';
 const CONTACT_WHATSAPP_LABEL = '+55 54 99218-1886';
 const CONTACT_WHATSAPP_HREF = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent('Ola, vim pelo site da glim. Quero iniciar um projeto.')}`;
 const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? 'https://instagram.com/glim.dev';
-const HERO_TITLE = 'Se seu produto não é claro, ele não cresce.';
+const HERO_TITLE = 'Seu site precisa explicar bem o valor do seu negócio.';
 const VIEWPORT = { once: true, amount: 0.2 } as const;
 const SPRING = { type: 'spring', stiffness: 150, damping: 24, mass: 0.8 } as const;
 const INITIAL_FORM_STATE: ContactFormState = { status: 'idle', message: '' };
@@ -72,17 +79,17 @@ const PILLARS: readonly Pillar[] = [
   {
     title: 'Agilidade Lúcida',
     description:
-      'Transformamos ideias em produtos funcionais com rapidez e direção clara.',
+      'Começamos pelo que precisa entrar no ar e pelo que precisa ficar claro para quem visita.',
   },
   {
     title: 'Precisão Geométrica',
     description:
-      'Engenharia sólida e design refinado. Cada detalhe comunica qualidade.',
+      'Texto, layout e interação têm função. Nada entra só para enfeitar a interface.',
   },
   {
     title: 'Experiência Fluida',
     description:
-      'Interfaces simples, intuitivas e leves, feitas para não gerar esforço.',
+      'O site precisa ser fácil de percorrer, entender e acionar, no desktop e no mobile.',
   },
 ];
 
@@ -90,22 +97,22 @@ const CAPABILITIES: readonly Capability[] = [
   {
     title: 'Landing Pages',
     description:
-      'Páginas focadas em conversão, com estrutura clara, narrativa objetiva e execução rápida.',
-    badge: 'Conversão com clareza',
+      'Páginas para lançamento, campanha ou validação, com proposta bem apresentada, boa hierarquia de informação e CTA resolvido.',
+    badge: 'Lançamento e conversão',
     idealFor: ['Validação de produto', 'Campanhas', 'Geração de leads'],
   },
   {
     title: 'Sites Institucionais',
     description:
-      'Presença digital profissional que transmite autoridade, clareza e posicionamento premium.',
-    badge: 'Autoridade e posicionamento',
+      'Sites que apresentam empresa, serviços e diferenciais com mais consistência, ajudando a construir percepção de valor desde a primeira visita.',
+    badge: 'Posicionamento e apresentação',
     idealFor: ['Empresas em crescimento', 'Reposicionamento', 'Fortalecimento de marca'],
   },
   {
     title: 'E-commerce',
     description:
-      'Experiências de compra simples, rápidas e confiáveis, com foco em performance e conversão.',
-    badge: 'Performance para vender',
+      'Lojas com navegação simples, páginas de produto objetivas e fluxo de compra sem fricção desnecessária.',
+    badge: 'Operação e venda',
     idealFor: [
       'Marcas que querem vender mais',
       'Operações que precisam de eficiência',
@@ -120,11 +127,11 @@ const CASE_STUDIES: readonly CaseStudy[] = [
     category: 'Branding, conteúdo e estratégia de marca',
     headline: 'Um site editorial, sensorial e claro para apresentar processo, serviços e posicionamento.',
     summary:
-      'Para a Ottea Studio, organizamos uma presença digital com atmosfera própria, narrativa forte e estrutura comercial mais legível.',
+      'Para a Ottea Studio, desenhamos um site que organiza serviços, história e proposta em uma navegação autoral, sem perder objetividade comercial.',
     outcome:
-      'O resultado é um site que transmite direção, cuidado e consistência, sem perder clareza na oferta nem sofisticação na experiência.',
+      'O resultado equilibra identidade forte com leitura fácil do que a empresa faz, como trabalha e por onde começar.',
     href: 'https://teastrategystudio.com',
-    highlights: ['pt-BR + EN', 'Tema claro e escuro', 'SEO estrutural', 'Motion responsivo'],
+    highlights: ['PT e EN', 'Tema claro e escuro', 'SEO estrutural', 'Motion leve'],
     deliverables: [
       'Arquitetura da informação',
       'Landing institucional',
@@ -187,6 +194,10 @@ export default function HomePage() {
   const secondaryGlowY = useTransform(scrollYProgress, [0, 1], [18, 74]);
   const copyY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 72]);
   const haloY = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 120]);
+  const prismY = useTransform(scrollY, [0, 1600], [0, reduceMotion ? 0 : -180]);
+  const prismRotate = useTransform(pointerX, [0, 1], [12, 19]);
+  const latticeX = useTransform(pointerY, [0, 1], [0, reduceMotion ? 0 : 34]);
+  const gridOpacity = useTransform(scrollY, [0, 420], [0.48, 0.22]);
   const glowBackground = useMotionTemplate`
     radial-gradient(circle at ${glowX}% ${glowY}%, rgba(242, 183, 123, 0.42), transparent 30%),
     radial-gradient(circle at 78% ${secondaryGlowY}%, rgba(74, 70, 67, 0.14), transparent 32%),
@@ -206,6 +217,13 @@ export default function HomePage() {
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(242,183,123,0.16),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(74,70,67,0.08),transparent_38%)] dark:bg-[radial-gradient(circle_at_top_left,rgba(242,183,123,0.14),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(249,248,246,0.08),transparent_36%)]"
+          />
+          <BrandBackdrop
+            glowBackground={glowBackground}
+            prismY={prismY}
+            prismRotate={prismRotate}
+            latticeX={latticeX}
+            gridOpacity={gridOpacity}
           />
 
           <Header panelOpacity={headerOpacity} translateY={headerTranslateY} />
@@ -228,6 +246,40 @@ export default function HomePage() {
         </div>
       </MotionConfig>
     </LazyMotion>
+  );
+}
+
+function BrandBackdrop({
+  glowBackground,
+  prismY,
+  prismRotate,
+  latticeX,
+  gridOpacity,
+}: BrandBackdropProps) {
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+      <m.div className="absolute inset-0" style={{ opacity: gridOpacity }}>
+        <div className="absolute inset-0 [background-image:linear-gradient(rgba(74,70,67,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(74,70,67,0.08)_1px,transparent_1px)] [background-size:72px_72px] [mask-image:radial-gradient(circle_at_50%_18%,black_0%,black_24%,transparent_78%)] dark:[background-image:linear-gradient(rgba(249,248,246,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(249,248,246,0.08)_1px,transparent_1px)]" />
+        <div className="absolute inset-x-6 top-[6.8rem] h-px bg-[linear-gradient(90deg,transparent,rgba(74,70,67,0.18),transparent)] dark:bg-[linear-gradient(90deg,transparent,rgba(249,248,246,0.15),transparent)]" />
+      </m.div>
+
+      <m.div
+        className="absolute top-[7rem] right-[-8rem] hidden h-[33rem] w-[33rem] rounded-[4rem] border border-white/45 bg-[linear-gradient(165deg,rgba(255,255,255,0.34),rgba(255,255,255,0.06)_48%,rgba(242,183,123,0.12)_100%)] shadow-[0_60px_160px_-92px_rgba(74,70,67,0.72)] backdrop-blur-[6px] lg:block"
+        style={{ y: prismY, rotate: prismRotate }}
+      />
+      <m.div
+        className="absolute top-[24rem] left-[-9rem] hidden h-[22rem] w-[22rem] rounded-[3rem] border border-black/[0.06] bg-[linear-gradient(180deg,rgba(74,70,67,0.08),transparent_72%)] lg:block dark:border-white/8 dark:bg-[linear-gradient(180deg,rgba(249,248,246,0.08),transparent_72%)]"
+        style={{ x: latticeX, rotate: -22 }}
+      />
+      <m.div
+        className="absolute top-[9rem] left-[8%] h-[18rem] w-[18rem] rounded-full opacity-75 blur-3xl"
+        style={{ backgroundImage: glowBackground, y: prismY }}
+      />
+      <div className="absolute inset-x-4 top-[6rem] hidden items-center justify-between px-2 font-mono text-[10px] tracking-[0.24em] text-[#8d867f] uppercase lg:flex dark:text-[#bdb6b0]">
+        <span>GLIM / SYSTEM</span>
+        <span>DESIGN, ENGINEERING, DELIVERY</span>
+      </div>
+    </div>
   );
 }
 
@@ -395,17 +447,29 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
       id="hero"
       ref={heroRef}
       aria-labelledby="hero-title"
-      className="relative px-4 pt-28 pb-20 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36"
+      className="relative px-4 pt-28 pb-24 sm:px-6 sm:pt-32 lg:px-8 lg:pt-40 lg:pb-28"
     >
-      <div className="mx-auto grid max-w-7xl items-end gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(18rem,0.8fr)]">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[minmax(0,1.08fr)_minmax(22rem,0.92fr)]">
         <div className="relative">
+          <div className="absolute top-3 -left-2 hidden xl:flex xl:flex-col xl:items-center xl:gap-6">
+            <span className="font-mono text-[10px] tracking-[0.26em] text-[#8d867f] uppercase dark:text-[#bfb8b2]">
+              GLIM / 01
+            </span>
+            <span className="h-24 w-px bg-black/10 dark:bg-white/10" />
+            <span
+              className="font-mono text-[10px] tracking-[0.26em] text-[#8d867f] uppercase dark:text-[#bfb8b2]"
+              style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
+            >
+              Signal, structure, polish
+            </span>
+          </div>
           <m.div
             aria-hidden="true"
             className="pointer-events-none absolute top-[-3rem] -left-12 h-[26rem] w-[26rem] rounded-full blur-3xl dark:opacity-75"
             style={{ backgroundImage: glowBackground, y: haloY }}
           />
           <m.div
-            className="relative max-w-4xl"
+            className="relative max-w-4xl lg:border-l lg:border-black/[0.08] lg:pl-8 dark:lg:border-white/10"
             initial="hidden"
             animate="visible"
             variants={STAGGER}
@@ -415,11 +479,11 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
               variants={FADE_UP}
               className="font-mono text-xs tracking-[0.34em] text-[#7e7771] uppercase dark:text-[#bfb8b2]"
             >
-              Boutique de engenharia de software e design digital
+              Design digital e engenharia de software
             </m.p>
             <m.h1
               id="hero-title"
-              className="mt-6 max-w-[11.8ch] pr-[0.08em] pb-[0.08em] text-[clamp(3.25rem,8vw,7.5rem)] leading-[0.98] tracking-[-0.08em] text-[#2f2b28] dark:text-[#fbfaf8]"
+              className="mt-6 max-w-[10.9ch] pr-[0.08em] pb-[0.08em] text-[clamp(3.45rem,8.8vw,8.1rem)] leading-[0.94] tracking-[-0.085em] text-[#2f2b28] dark:text-[#fbfaf8]"
               variants={WORD_PARENT}
             >
               {words.map((word, index) => (
@@ -432,17 +496,16 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
             </m.h1>
             <m.p
               variants={FADE_UP}
-              className="mt-8 max-w-2xl text-lg leading-8 text-[#595450] sm:text-xl dark:text-[#ded9d4]"
+              className="mt-8 max-w-[40rem] text-lg leading-8 text-[#595450] sm:text-xl dark:text-[#ded9d4]"
             >
-              A Glim transforma ideias e negócios em experiências digitais claras, rápidas e bem
-              construídas, do conceito ao deploy.
+              A Glim cria sites e experiências digitais com direção visual, organização de conteúdo
+              e base técnica para empresas que precisam se apresentar melhor no digital.
             </m.p>
             <m.p
               variants={FADE_UP}
-              className="mt-4 max-w-2xl text-base leading-8 text-[#6b645f] dark:text-[#cfc8c2]"
+              className="mt-4 max-w-[36rem] text-base leading-8 text-[#6b645f] dark:text-[#cfc8c2]"
             >
-              Design preciso, engenharia sólida e interfaces que transmitem confiança desde o
-              primeiro contato.
+              Menos ruído, mais leitura de valor, mais segurança para quem chega.
             </m.p>
             <m.div
               variants={FADE_UP}
@@ -478,16 +541,24 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
         </div>
 
         <m.aside
-          className="glass-panel glass-shimmer relative rounded-[2rem] p-6 sm:p-7 lg:self-center lg:-mt-8"
+          className="relative overflow-hidden rounded-[2.1rem] border border-black/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(249,248,246,0.74))] p-6 shadow-[0_36px_100px_-58px_rgba(74,70,67,0.52)] sm:p-7 lg:self-center lg:-mt-10 dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(249,248,246,0.08),rgba(249,248,246,0.03))]"
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
           variants={FADE_UP}
           whileHover={reduceMotion ? undefined : { y: -6 }}
         >
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-6 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(74,70,67,0.24),transparent)] dark:bg-[linear-gradient(90deg,transparent,rgba(249,248,246,0.18),transparent)]"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute top-4 right-4 h-20 w-20 rotate-12 rounded-[1.5rem] border border-black/[0.05] bg-[linear-gradient(180deg,rgba(242,183,123,0.16),transparent)] dark:border-white/8 dark:bg-[linear-gradient(180deg,rgba(242,183,123,0.12),transparent)]"
+          />
           <div className="flex items-center justify-between gap-4">
             <p className="text-glim-diamond font-mono text-xs tracking-[0.2em] uppercase">
-              Clareza aplicada
+              GLIM / SIGNAL
             </p>
             <span
               aria-hidden="true"
@@ -497,18 +568,27 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
           <div className="mt-8 space-y-6">
             <div>
               <p className="font-google text-3xl tracking-[-0.05em] text-[#2f2b28] dark:text-[#fbfaf8]">
-                Clareza que gera confiança.
+                Clareza que sustenta a conversa.
               </p>
               <p className="mt-3 text-sm leading-7 text-[#5c5652] dark:text-[#d9d3cf]">
-                Organizamos a comunicação, a interface e a base técnica para que seu produto seja
-                entendido, confiável e pronto para crescer.
+                Organizamos mensagem, interface e implementação para que o site não pareça só
+                bonito: ele precisa ajudar a apresentar, posicionar e vender melhor.
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
-              <Metric label="Comunicação" value="Clara" />
-              <Metric label="Interface" value="Confiável" />
-              <Metric label="Base técnica" value="Sólida" />
-              <Metric label="Crescimento" value="Pronto" />
+              <Metric label="Mensagem" value="Direta" />
+              <Metric label="Navegação" value="Simples" />
+              <Metric label="Código" value="Enxuto" />
+              <Metric label="Leitura" value="Rápida" />
+            </div>
+            <div className="border-t border-black/[0.08] pt-5 dark:border-white/10">
+              <p className="font-mono text-[10px] tracking-[0.24em] text-[#857e78] uppercase dark:text-[#bdb6b0]">
+                Quando o site faz seu papel:
+              </p>
+              <p className="mt-3 text-sm leading-7 text-[#5c5652] dark:text-[#d9d3cf]">
+                a proposta fica mais fácil de entender, a empresa parece mais preparada e a
+                conversa comercial começa melhor.
+              </p>
             </div>
           </div>
         </m.aside>
@@ -526,9 +606,9 @@ function Approach() {
     >
       <div className="mx-auto max-w-7xl">
         <SectionIntro
-          eyebrow="Manifesto"
-          title="Produtos digitais não falham por falta de design. Falham por falta de clareza."
-          description="A Glim existe para resolver isso. Cada decisão de design e engenharia reduz ambiguidade, melhora percepção e aumenta a capacidade do produto gerar resultado."
+          eyebrow="Como pensamos"
+          title="Muita empresa boa parece menor do que realmente é, porque o site não ajuda."
+          description="Nem sempre o problema é falta de esforço. Às vezes a mensagem está difusa, a navegação não conduz, ou a interface não sustenta a qualidade do que a empresa já entrega. A Glim entra para organizar isso."
           titleId="abordagem-title"
         />
         <m.div
@@ -541,11 +621,19 @@ function Approach() {
           {PILLARS.map((pillar, index) => (
             <m.article
               key={pillar.title}
-              className="glass-panel glass-shimmer relative rounded-[2rem] p-7"
+              className={`relative overflow-hidden rounded-[2rem] border p-7 shadow-[0_28px_90px_-60px_rgba(74,70,67,0.42)] ${
+                index === 1
+                  ? 'border-black/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.82),rgba(249,248,246,0.72))] lg:-translate-y-5 dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(249,248,246,0.08),rgba(249,248,246,0.03))]'
+                  : 'border-black/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(255,255,255,0.58))] dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(249,248,246,0.07),rgba(249,248,246,0.02))]'
+              }`}
               variants={FADE_UP}
               whileHover={{ y: -6, scale: 1.01 }}
               transition={{ type: 'spring', stiffness: 220, damping: 22, delay: index * 0.03 }}
             >
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-6 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(74,70,67,0.2),transparent)] dark:bg-[linear-gradient(90deg,transparent,rgba(249,248,246,0.14),transparent)]"
+              />
               <div className="flex items-center justify-between gap-4">
                 <p className="text-glim-diamond font-mono text-xs tracking-[0.2em] uppercase">
                   0{index + 1}
@@ -561,6 +649,12 @@ function Approach() {
               <p className="mt-4 text-base leading-8 text-[#5d5753] dark:text-[#d9d4cf]">
                 {pillar.description}
               </p>
+              <span
+                aria-hidden="true"
+                className="font-google absolute right-5 bottom-2 text-[4.5rem] leading-none tracking-[-0.08em] text-black/[0.06] dark:text-white/[0.05]"
+              >
+                0{index + 1}
+              </span>
             </m.article>
           ))}
         </m.div>
@@ -579,8 +673,8 @@ function Capabilities() {
       <div className="mx-auto max-w-7xl">
         <SectionIntro
           eyebrow="Serviços"
-          title="Sites para empresas que precisam transmitir clareza, confiança e nível técnico"
-          description="Não criamos apenas páginas. Estruturamos experiências digitais que posicionam seu negócio e facilitam decisões."
+          title="Sites para empresas que precisam se apresentar melhor, vender melhor e parecer à altura do que entregam"
+          description="Projetamos páginas e experiências digitais com boa leitura, navegação simples e implementação sólida, para que a presença digital ajude a conversa comercial em vez de atrapalhar."
           titleId="servicos-title"
         />
         <m.div
@@ -590,16 +684,27 @@ function Capabilities() {
           viewport={VIEWPORT}
           variants={STAGGER}
         >
-          {CAPABILITIES.map((capability) => (
+          {CAPABILITIES.map((capability, index) => (
             <m.article
               key={capability.title}
-              className="glass-panel glass-shimmer relative rounded-[2rem] p-7"
+              className={`relative overflow-hidden rounded-[2rem] border border-black/[0.08] p-7 shadow-[0_28px_90px_-60px_rgba(74,70,67,0.4)] dark:border-white/10 ${
+                index === 1
+                  ? 'bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(249,248,246,0.72))] xl:translate-y-10 dark:bg-[linear-gradient(180deg,rgba(249,248,246,0.08),rgba(249,248,246,0.03))]'
+                  : 'bg-[linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.56))] dark:bg-[linear-gradient(180deg,rgba(249,248,246,0.07),rgba(249,248,246,0.02))]'
+              }`}
               variants={FADE_UP}
               whileHover={{ y: -5, scale: 1.008 }}
             >
+              <div
+                aria-hidden="true"
+                className="absolute top-0 left-0 h-full w-[3px] bg-[linear-gradient(180deg,rgba(242,183,123,0.85),rgba(242,183,123,0))]"
+              />
               <div className="flex flex-wrap items-center gap-3">
                 <span className="rounded-full border border-black/10 px-3 py-1 font-mono text-[11px] tracking-[0.22em] text-[#7a736d] uppercase dark:border-white/10 dark:text-[#bab4af]">
                   {capability.badge}
+                </span>
+                <span className="font-mono text-[11px] tracking-[0.22em] text-[#9b938d] uppercase dark:text-[#bdb6b0]">
+                  0{index + 1}
                 </span>
               </div>
               <h3 className="font-google mt-6 text-3xl tracking-[-0.05em] text-[#2f2b28] dark:text-[#fbfaf8]">
@@ -633,7 +738,7 @@ function CaseStudies() {
         <SectionIntro
           eyebrow="Case"
           title="Ottea Studio: narrativa, atmosfera e estrutura em um site com identidade própria"
-          description="Um projeto que mostra como posicionamento pode virar experiência digital, com clareza comercial, presença premium e base técnica consistente."
+          description="Um projeto que saiu do discurso de marca e ganhou forma em navegação, conteúdo, atmosfera e estrutura comercial."
           titleId="case-title"
         />
 
@@ -703,7 +808,7 @@ function CaseStudies() {
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Quero um projeto nesse nível
+                Quero um site assim
               </m.a>
             </div>
           </m.article>
@@ -806,11 +911,11 @@ function ContactSection() {
                 id="contato-title"
                 className="font-google mt-5 max-w-3xl text-[clamp(2.5rem,5vw,4.75rem)] leading-[0.98] tracking-[-0.06em] text-[#2f2b28] dark:text-[#fbfaf8]"
               >
-                Seu site hoje transmite o nível do seu negócio?
+                Seu site hoje ajuda ou atrapalha a conversa com o cliente?
               </h2>
               <p className="mt-6 max-w-2xl text-base leading-8 text-[#5f5955] sm:text-lg dark:text-[#dbd6d1]">
-                Se falta clareza, estrutura ou confiança, a Glim entra para organizar, desenhar e
-                construir a base digital certa.
+                Se a apresentação está confusa, se a navegação não ajuda ou se o visual não sustenta
+                o valor do negócio, a Glim entra para reorganizar a experiência.
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <SocialLinkButton
@@ -857,8 +962,8 @@ function ContactSection() {
                     Iniciar Projeto com a Glim
                   </p>
                   <p className="mt-2 text-sm leading-7 text-[#655e59] dark:text-[#d2cbc6]">
-                    Preencha o briefing inicial e nos conte onde hoje falta clareza, estrutura ou
-                    confiança.
+                    Preencha o briefing inicial e nos conte o que hoje está confuso, travado ou
+                    abaixo do nível que sua empresa já entrega.
                   </p>
                 </div>
                 <span
@@ -915,7 +1020,7 @@ function ContactSection() {
                   id="currentIssue"
                   name="currentIssue"
                   label="O que hoje não está funcionando como deveria no seu site ou produto?"
-                  placeholder="Ex.: falta clareza, baixa conversão, visual desalinhado ou estrutura confusa."
+                  placeholder="Ex.: mensagem confusa, visual genérico, navegação ruim ou baixa conversão."
                   required
                   error={state.fieldErrors?.currentIssue}
                 />
@@ -1025,22 +1130,36 @@ function SectionIntro({
 }) {
   return (
     <m.div initial="hidden" whileInView="visible" viewport={VIEWPORT} variants={STAGGER}>
+      <div className="flex items-center gap-4">
+        <m.p
+          variants={FADE_UP}
+          className="font-mono text-xs tracking-[0.28em] text-[#7f7872] uppercase dark:text-[#bdb6b0]"
+        >
+          {eyebrow}
+        </m.p>
+        <m.span
+          variants={FADE_UP}
+          className="h-px w-16 bg-black/[0.12] dark:bg-white/12"
+        />
+      </div>
+      <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_12rem] lg:items-start">
+        <m.h2
+          id={titleId}
+          variants={FADE_UP}
+          className="font-google max-w-4xl text-[clamp(2rem,4vw,4rem)] leading-[1.02] tracking-[-0.06em] text-[#2f2b28] dark:text-[#fbfaf8]"
+        >
+          {title}
+        </m.h2>
+        <m.div
+          variants={FADE_UP}
+          className="hidden border-l border-black/[0.08] pl-4 font-mono text-[10px] tracking-[0.22em] text-[#8b847e] uppercase lg:block dark:border-white/10 dark:text-[#bdb6b0]"
+        >
+          GLIM / {eyebrow}
+        </m.div>
+      </div>
       <m.p
         variants={FADE_UP}
-        className="font-mono text-xs tracking-[0.28em] text-[#7f7872] uppercase dark:text-[#bdb6b0]"
-      >
-        {eyebrow}
-      </m.p>
-      <m.h2
-        id={titleId}
-        variants={FADE_UP}
-        className="font-google mt-4 max-w-4xl text-[clamp(2rem,4vw,4rem)] leading-[1.02] tracking-[-0.06em] text-[#2f2b28] dark:text-[#fbfaf8]"
-      >
-        {title}
-      </m.h2>
-      <m.p
-        variants={FADE_UP}
-        className="mt-5 max-w-3xl text-base leading-8 text-[#5d5753] sm:text-lg dark:text-[#d9d3ce]"
+        className="mt-6 max-w-3xl text-base leading-8 text-[#5d5753] sm:text-lg dark:text-[#d9d3ce]"
       >
         {description}
       </m.p>
