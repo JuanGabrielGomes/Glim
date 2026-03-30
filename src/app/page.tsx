@@ -1179,7 +1179,7 @@ function SectionIntro({
 
 function HeadingAccent({ children }: { children: ReactNode }) {
   return (
-    <span className="text-[#8b5d33] font-semibold dark:text-[#f2c48f] [text-shadow:0_8px_24px_rgba(242,183,123,0.14)] dark:[text-shadow:0_8px_24px_rgba(242,183,123,0.08)]">
+    <span className="font-sans font-semibold tracking-[-0.038em] text-[#8f6238] dark:text-[#f2c48f]">
       {children}
     </span>
   );
