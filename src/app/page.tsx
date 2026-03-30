@@ -478,7 +478,7 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
         </div>
 
         <m.aside
-          className="glass-panel glass-shimmer relative rounded-[2rem] p-6 sm:p-7"
+          className="glass-panel glass-shimmer relative rounded-[2rem] p-6 sm:p-7 lg:self-center lg:-mt-8"
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
@@ -715,7 +715,7 @@ function CaseStudies() {
             viewport={VIEWPORT}
             variants={FADE_UP}
           >
-            <div className="rounded-[1.9rem] bg-[linear-gradient(180deg,#24463f_0%,#1d3934_100%)] p-6 text-[#f2e9dc] shadow-[0_28px_80px_rgba(29,57,52,0.18)]">
+            <div className="rounded-[1.9rem] bg-[linear-gradient(180deg,#5b4639_0%,#3d2e26_100%)] p-6 text-[#f2e9dc] shadow-[0_28px_80px_rgba(61,46,38,0.18)]">
               <div className="flex items-center justify-between gap-4">
                 <p className="font-mono text-[11px] tracking-[0.24em] uppercase text-[#d8ccb9]">
                   {caseStudy.client}
