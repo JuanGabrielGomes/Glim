@@ -28,7 +28,12 @@ import { submitContactForm, type ContactFormState } from './actions';
 
 type NavItem = { href: '#abordagem' | '#servicos' | '#contato'; label: string };
 type Pillar = { title: string; description: string };
-type Capability = { title: string; description: string; stack: readonly string[] };
+type Capability = {
+  title: string;
+  description: string;
+  badge: string;
+  idealFor: readonly string[];
+};
 type HeaderProps = { panelOpacity: MotionValue<number>; translateY: MotionValue<number> };
 type HeroProps = {
   heroRef: RefObject<HTMLElement | null>;
@@ -42,7 +47,7 @@ const CONTACT_WHATSAPP_NUMBER = '5554992181886';
 const CONTACT_WHATSAPP_LABEL = '+55 54 99218-1886';
 const CONTACT_WHATSAPP_HREF = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent('Ola, vim pelo site da glim. Quero iniciar um projeto.')}`;
 const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? 'https://instagram.com/glim.dev';
-const HERO_TITLE = 'Do conceito ao código, o insight é claro.';
+const HERO_TITLE = 'Se seu produto não é claro, ele não cresce.';
 const VIEWPORT = { once: true, amount: 0.2 } as const;
 const SPRING = { type: 'spring', stiffness: 150, damping: 24, mass: 0.8 } as const;
 const INITIAL_FORM_STATE: ContactFormState = { status: 'idle', message: '' };
@@ -57,44 +62,45 @@ const PILLARS: readonly Pillar[] = [
   {
     title: 'Agilidade Lúcida',
     description:
-      'Ação purposeful baseada em insights claros. Transformamos complexidade em MVPs funcionais de forma transparente.',
+      'Transformamos ideias em produtos funcionais com rapidez e direção clara.',
   },
   {
     title: 'Precisão Geométrica',
     description:
-      'Fundação técnica sólida e exata com uma interface humana e fluida. Beleza na matemática e no pixel-perfection.',
+      'Engenharia sólida e design refinado. Cada detalhe comunica qualidade.',
   },
   {
     title: 'Experiência Fluida',
     description:
-      'Software sutil, intuitivo e leve. Usamos minimalismo e translucidez para oferecer clareza sem esforço.',
+      'Interfaces simples, intuitivas e leves, feitas para não gerar esforço.',
   },
 ];
 
 const CAPABILITIES: readonly Capability[] = [
   {
-    title: 'Design de Produto Digital',
+    title: 'Landing Pages',
     description:
-      'Sistemas visuais e jornadas com clareza estratégica, hierarquia precisa e interação refinada para produtos que precisam converter e escalar.',
-    stack: ['Discovery', 'UX Strategy', 'UI Systems', 'Framer Motion'],
+      'Páginas focadas em conversão, com estrutura clara, narrativa objetiva e execução rápida.',
+    badge: 'Conversão com clareza',
+    idealFor: ['Validação de produto', 'Campanhas', 'Geração de leads'],
   },
   {
-    title: 'Engenharia de Software (Full-Stack)',
+    title: 'Sites Institucionais',
     description:
-      'Arquitetura moderna para plataformas robustas, da interface ao backend, com foco em performance, legibilidade e evolução contínua.',
-    stack: ['Next.js 16', 'React 19', 'TypeScript', 'APIs & Edge'],
+      'Presença digital profissional que transmite autoridade, clareza e posicionamento premium.',
+    badge: 'Autoridade e posicionamento',
+    idealFor: ['Empresas em crescimento', 'Reposicionamento', 'Fortalecimento de marca'],
   },
   {
-    title: 'Otimização e Resgate de Plataformas',
+    title: 'E-commerce',
     description:
-      'Refatoramos produtos desalinhados, reduzimos fricção operacional e recuperamos confiança técnica em bases críticas já em produção.',
-    stack: ['Auditoria', 'Performance', 'Refactor', 'DX & Observability'],
-  },
-  {
-    title: 'Consultoria em Agilidade',
-    description:
-      'Modelamos cadência, escopo e tomada de decisão para transformar visão em entregas enxutas, consistentes e mensuráveis.',
-    stack: ['Roadmapping', 'MVP Scope', 'Ops Rituals', 'Product Delivery'],
+      'Experiências de compra simples, rápidas e confiáveis, com foco em performance e conversão.',
+    badge: 'Performance para vender',
+    idealFor: [
+      'Marcas que querem vender mais',
+      'Operações que precisam de eficiência',
+      'Produtos com alto valor percebido',
+    ],
   },
 ];
 
@@ -337,7 +343,7 @@ function Header({ panelOpacity, translateY }: HeaderProps) {
                       Iniciar Projeto
                     </m.a>
                     <p className="font-mono px-1 pt-2 text-[11px] tracking-[0.18em] text-[#7e7771] uppercase dark:text-[#bdb6b0]">
-                      Design digital . engenharia full-stack . Brasil
+                      Design digital, engenharia full stack, Brasil
                     </p>
                   </div>
                 </div>
@@ -382,7 +388,7 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
             </m.p>
             <m.h1
               id="hero-title"
-              className="mt-6 max-w-[13.6ch] pr-[0.08em] pb-[0.08em] text-[clamp(3.25rem,8vw,7.5rem)] leading-[0.98] tracking-[-0.08em] text-[#2f2b28] dark:text-[#fbfaf8]"
+              className="mt-6 max-w-[11.8ch] pr-[0.08em] pb-[0.08em] text-[clamp(3.25rem,8vw,7.5rem)] leading-[0.98] tracking-[-0.08em] text-[#2f2b28] dark:text-[#fbfaf8]"
               variants={WORD_PARENT}
             >
               {words.map((word, index) => (
@@ -397,12 +403,19 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
               variants={FADE_UP}
               className="mt-8 max-w-2xl text-lg leading-8 text-[#595450] sm:text-xl dark:text-[#ded9d4]"
             >
-              Interfaces transparentes, engenharia de software precisa. Somos a glim., uma boutique
-              de design digital e desenvolvimento ágil de elite.
+              A Glim transforma ideias e negócios em experiências digitais claras, rápidas e bem
+              construídas, do conceito ao deploy.
+            </m.p>
+            <m.p
+              variants={FADE_UP}
+              className="mt-4 max-w-2xl text-base leading-8 text-[#6b645f] dark:text-[#cfc8c2]"
+            >
+              Design preciso, engenharia sólida e interfaces que transmitem confiança desde o
+              primeiro contato.
             </m.p>
             <m.div
               variants={FADE_UP}
-              className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
+              className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center"
             >
               <m.a
                 href="#contato"
@@ -414,11 +427,21 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
                   aria-hidden="true"
                   className="absolute inset-[1px] rounded-full bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.46),transparent_52%)] opacity-80 transition-opacity group-hover:opacity-100"
                 />
-                <span className="relative">Agendar um Vislumbre</span>
+                <span className="relative">Iniciar Projeto</span>
               </m.a>
-              <p className="font-mono text-xs tracking-[0.2em] text-[#7e7771] uppercase dark:text-[#bfb8b2]">
-                Clareza visual. Engenharia precisa. Entrega sem ruído.
-              </p>
+              <span className="font-mono text-xs tracking-[0.2em] text-[#7e7771] uppercase dark:text-[#bfb8b2]">
+                ou
+              </span>
+              <m.a
+                href={CONTACT_WHATSAPP_HREF}
+                className="inline-flex items-center rounded-full border border-black/10 bg-white/70 px-6 py-4 text-base font-medium text-[#3d3834] transition hover:bg-white/85 dark:border-white/10 dark:bg-white/[0.05] dark:text-[#f3efec] dark:hover:bg-white/[0.08]"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Agendar Diagnóstico
+              </m.a>
             </m.div>
           </m.div>
         </div>
@@ -433,7 +456,7 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
         >
           <div className="flex items-center justify-between gap-4">
             <p className="text-glim-diamond font-mono text-xs tracking-[0.2em] uppercase">
-              The Glimmer
+              Clareza aplicada
             </p>
             <span
               aria-hidden="true"
@@ -443,18 +466,18 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
           <div className="mt-8 space-y-6">
             <div>
               <p className="font-google text-3xl tracking-[-0.05em] text-[#2f2b28] dark:text-[#fbfaf8]">
-                Clareza que acelera.
+                Clareza que gera confiança.
               </p>
               <p className="mt-3 text-sm leading-7 text-[#5c5652] dark:text-[#d9d3cf]">
-                Do diagnóstico ao deploy, o trabalho da glim. traduz complexidade em direção
-                concreta, interface refinada e software pronto para ganhar tração.
+                Organizamos a comunicação, a interface e a base técnica para que seu produto seja
+                entendido, confiável e pronto para crescer.
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
-              <Metric label="Stack" value="Next.js 16" />
-              <Metric label="Compasso" value="React 19" />
-              <Metric label="Base" value="TypeScript" />
-              <Metric label="Polimento" value="Tailwind + Motion" />
+              <Metric label="Comunicação" value="Clara" />
+              <Metric label="Interface" value="Confiável" />
+              <Metric label="Base técnica" value="Sólida" />
+              <Metric label="Crescimento" value="Pronto" />
             </div>
           </div>
         </m.aside>
@@ -473,8 +496,8 @@ function Approach() {
       <div className="mx-auto max-w-7xl">
         <SectionIntro
           eyebrow="Manifesto"
-          title="Polimos produtos digitais com velocidade lúcida e precisão emocional."
-          description="Cada decisão de design e engenharia precisa reduzir ambiguidade, aumentar tração e manter a experiência leve para quem usa e para quem opera."
+          title="Produtos digitais não falham por falta de design. Falham por falta de clareza."
+          description="A Glim existe para resolver isso. Cada decisão de design e engenharia reduz ambiguidade, melhora percepção e aumenta a capacidade do produto gerar resultado."
           titleId="abordagem-title"
         />
         <m.div
@@ -525,12 +548,12 @@ function Capabilities() {
       <div className="mx-auto max-w-7xl">
         <SectionIntro
           eyebrow="Serviços"
-          title="Design e engenharia para produtos que precisam parecer simples e funcionar com rigor."
-          description="Atuamos como boutique: pouca vaidade, muita precisão. Cada frente é desenhada para gerar legibilidade estratégica, aceleração técnica e execução com acabamento premium."
+          title="Sites para empresas que precisam transmitir clareza, confiança e nível técnico"
+          description="Não criamos apenas páginas. Estruturamos experiências digitais que posicionam seu negócio e facilitam decisões."
           titleId="servicos-title"
         />
         <m.div
-          className="mt-10 grid gap-5 lg:grid-cols-2"
+          className="mt-10 grid gap-5 xl:grid-cols-3"
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
@@ -545,10 +568,7 @@ function Capabilities() {
             >
               <div className="flex flex-wrap items-center gap-3">
                 <span className="rounded-full border border-black/10 px-3 py-1 font-mono text-[11px] tracking-[0.22em] text-[#7a736d] uppercase dark:border-white/10 dark:text-[#bab4af]">
-                  Engenharia aplicada
-                </span>
-                <span className="border-glim-diamond/30 bg-glim-diamond/10 rounded-full border px-3 py-1 font-mono text-[11px] tracking-[0.22em] text-[#9b6f3e] uppercase">
-                  Precisão operacional
+                  {capability.badge}
                 </span>
               </div>
               <h3 className="font-google mt-6 text-3xl tracking-[-0.05em] text-[#2f2b28] dark:text-[#fbfaf8]">
@@ -557,12 +577,12 @@ function Capabilities() {
               <p className="mt-4 text-base leading-8 text-[#5c5652] dark:text-[#dad5d0]">
                 {capability.description}
               </p>
-              <ul
-                className="mt-8 flex flex-wrap gap-2"
-                aria-label={`Contexto técnico de ${capability.title}`}
-              >
-                {capability.stack.map((detail) => (
-                  <StackPill key={detail}>{detail}</StackPill>
+              <p className="mt-8 font-mono text-[11px] tracking-[0.2em] text-[#8a837d] uppercase dark:text-[#bdb6b0]">
+                Ideal para:
+              </p>
+              <ul className="mt-3 flex flex-wrap gap-2" aria-label={`Ideal para ${capability.title}`}>
+                {capability.idealFor.map((detail) => (
+                  <FitPill key={detail}>{detail}</FitPill>
                 ))}
               </ul>
             </m.article>
@@ -608,11 +628,11 @@ function ContactSection() {
                 id="contato-title"
                 className="font-google mt-5 max-w-3xl text-[clamp(2.5rem,5vw,4.75rem)] leading-[0.98] tracking-[-0.06em] text-[#2f2b28] dark:text-[#fbfaf8]"
               >
-                Pronto para polir seu próximo produto digital?
+                Seu site hoje transmite o nível do seu negócio?
               </h2>
               <p className="mt-6 max-w-2xl text-base leading-8 text-[#5f5955] sm:text-lg dark:text-[#dbd6d1]">
-                Se o desafio pede clareza, ritmo e acabamento real, a glim. entra para organizar o
-                insight, desenhar a experiência e construir a base técnica certa.
+                Se falta clareza, estrutura ou confiança, a Glim entra para organizar, desenhar e
+                construir a base digital certa.
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <SocialLinkButton
@@ -656,10 +676,11 @@ function ContactSection() {
               <div className="mb-6 flex items-center justify-between gap-4">
                 <div>
                   <p className="font-google text-2xl tracking-[-0.05em] text-[#2f2b28] dark:text-[#fbfaf8]">
-                    Iniciar Jornada com a glim.
+                    Iniciar Projeto com a Glim
                   </p>
                   <p className="mt-2 text-sm leading-7 text-[#655e59] dark:text-[#d2cbc6]">
-                    Preencha o briefing inicial e enviamos o retorno diretamente por e-mail.
+                    Preencha o briefing inicial e nos conte onde hoje falta clareza, estrutura ou
+                    confiança.
                   </p>
                 </div>
                 <span
@@ -712,11 +733,19 @@ function ContactSection() {
                     error={state.fieldErrors?.projectType}
                   />
                 </div>
+                <InputField
+                  id="currentIssue"
+                  name="currentIssue"
+                  label="O que hoje não está funcionando como deveria no seu site ou produto?"
+                  placeholder="Ex.: falta clareza, baixa conversão, visual desalinhado ou estrutura confusa."
+                  required
+                  error={state.fieldErrors?.currentIssue}
+                />
                 <TextareaField
                   id="message"
                   name="message"
                   label="Mensagem"
-                  placeholder="Conte o contexto, o desafio atual e o que você espera destravar."
+                  placeholder="Descreva seu contexto, o problema atual e o que você quer melhorar."
                   required
                   error={state.fieldErrors?.message}
                 />
@@ -745,7 +774,7 @@ function ContactSection() {
                       transition={{ repeat: Infinity, duration: 10, ease: 'linear' }}
                     />
                     <span className="text-glim-light dark:text-glim-dark relative inline-flex items-center rounded-full bg-[#2f2b28] px-7 py-4 text-sm font-semibold tracking-[0.02em] dark:bg-[#fbfaf8]">
-                      {pending ? 'Enviando...' : 'Iniciar Jornada com a glim.'}
+                      {pending ? 'Enviando...' : 'Iniciar Projeto com a Glim'}
                     </span>
                   </m.button>
                 </div>
@@ -872,7 +901,7 @@ function Logo({ href, compact = false }: { href: string; compact?: boolean }) {
   );
 }
 
-function StackPill({ children }: { children: string }) {
+function FitPill({ children }: { children: string }) {
   return (
     <li className="rounded-full bg-black/[0.045] px-3 py-2 font-mono text-[11px] tracking-[0.18em] text-[#6a635e] uppercase dark:bg-white/[0.06] dark:text-[#d8d2ce]">
       {children}

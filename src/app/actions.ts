@@ -2,7 +2,7 @@
 
 import nodemailer from 'nodemailer';
 
-type ContactField = 'name' | 'email' | 'company' | 'projectType' | 'message';
+type ContactField = 'name' | 'email' | 'company' | 'projectType' | 'currentIssue' | 'message';
 
 type ContactFieldErrors = Partial<Record<ContactField, string>>;
 
@@ -34,6 +34,7 @@ function buildValidationErrors(values: {
   email: string;
   company: string;
   projectType: string;
+  currentIssue: string;
   message: string;
 }) {
   const fieldErrors: ContactFieldErrors = {};
@@ -54,6 +55,11 @@ function buildValidationErrors(values: {
     fieldErrors.projectType = 'Descreva melhor o tipo de projeto.';
   }
 
+  if (values.currentIssue.length < 10) {
+    fieldErrors.currentIssue =
+      'Conte em poucas palavras o que hoje nao esta funcionando como deveria.';
+  }
+
   if (values.message.length < 20) {
     fieldErrors.message = 'Conte um pouco mais sobre o desafio. Minimo de 20 caracteres.';
   }
@@ -66,6 +72,7 @@ function buildEmailText(values: {
   email: string;
   company: string;
   projectType: string;
+  currentIssue: string;
   message: string;
 }) {
   return [
@@ -75,6 +82,7 @@ function buildEmailText(values: {
     `E-mail: ${values.email}`,
     `Empresa: ${values.company || 'Nao informado'}`,
     `Tipo de projeto: ${values.projectType || 'Nao informado'}`,
+    `O que nao esta funcionando: ${values.currentIssue}`,
     '',
     'Mensagem:',
     values.message,
@@ -86,6 +94,7 @@ function buildEmailHtml(values: {
   email: string;
   company: string;
   projectType: string;
+  currentIssue: string;
   message: string;
 }) {
   return `
@@ -98,6 +107,9 @@ function buildEmailHtml(values: {
       )}</p>
       <p style="margin: 0 0 16px;"><strong>Tipo de projeto:</strong> ${escapeHtml(
         values.projectType || 'Nao informado'
+      )}</p>
+      <p style="margin: 0 0 16px;"><strong>O que nao esta funcionando:</strong> ${escapeHtml(
+        values.currentIssue
       )}</p>
       <div style="padding: 16px; border-radius: 16px; background: #f9f8f6; border: 1px solid rgba(74, 70, 67, 0.12);">
         <p style="margin: 0 0 8px;"><strong>Mensagem:</strong></p>
@@ -125,6 +137,7 @@ export async function submitContactForm(
     email: getField(formData, 'email'),
     company: getField(formData, 'company'),
     projectType: getField(formData, 'projectType'),
+    currentIssue: getField(formData, 'currentIssue'),
     message: getField(formData, 'message'),
   };
 
