@@ -68,6 +68,7 @@ const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? 'https://instagra
 const HERO_TITLE = 'O valor do seu negócio precisa aparecer antes da conversa.';
 const VIEWPORT = { once: true, amount: 0.2 } as const;
 const SPRING = { type: 'spring', stiffness: 150, damping: 24, mass: 0.8 } as const;
+const HERO_ACCENT_WORDS = new Set(['valor', 'aparecer']);
 const INITIAL_FORM_STATE: ContactFormState = { status: 'idle', message: '' };
 
 const NAV_ITEMS: readonly NavItem[] = [
@@ -208,7 +209,10 @@ export default function HomePage() {
   return (
     <LazyMotion features={domAnimation}>
       <MotionConfig reducedMotion="user" transition={SPRING}>
-        <div className="relative min-h-screen overflow-x-clip bg-[linear-gradient(180deg,rgba(249,248,246,0.98)_0%,rgba(249,248,246,0.92)_100%)] dark:bg-[linear-gradient(180deg,rgba(74,70,67,1)_0%,rgba(58,55,53,1)_100%)]">
+        <div
+          id="topo"
+          className="relative min-h-screen overflow-x-clip bg-[linear-gradient(180deg,rgba(249,248,246,0.98)_0%,rgba(249,248,246,0.92)_100%)] dark:bg-[linear-gradient(180deg,rgba(74,70,67,1)_0%,rgba(58,55,53,1)_100%)]"
+        >
           <a
             href="#conteudo"
             className="focus:bg-glim-diamond focus:text-glim-dark sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded-full focus:px-4 focus:py-2 focus:text-sm focus:font-medium"
@@ -481,13 +485,25 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
               className="max-w-[8.7ch] pr-[0.08em] pb-[0.08em] text-[clamp(2.85rem,13.5vw,8.1rem)] leading-[0.92] tracking-[-0.065em] text-[#2f2b28] sm:max-w-[9.8ch] sm:leading-[0.94] sm:tracking-[-0.07em] lg:max-w-[10.9ch] dark:text-[#fbfaf8]"
               variants={WORD_PARENT}
             >
-              {words.map((word, index) => (
-                <span key={`${word}-${index}`} className="inline-block pr-[0.16em] pb-[0.08em]">
-                  <m.span className="font-google inline-block" variants={WORD_CHILD}>
-                    {word}
-                  </m.span>
-                </span>
-              ))}
+              {words.map((word, index) => {
+                const normalizedWord = word.toLocaleLowerCase().replace(/[.,!?;:]/g, '');
+                const isAccentWord = HERO_ACCENT_WORDS.has(normalizedWord);
+
+                return (
+                  <span key={`${word}-${index}`} className="inline-block pr-[0.16em] pb-[0.08em]">
+                    <m.span
+                      className={
+                        isAccentWord
+                          ? 'inline-block font-sans font-semibold tracking-[-0.052em] text-[#8f6238] dark:text-[#f2c48f] sm:tracking-[-0.058em] lg:bg-[linear-gradient(135deg,#8f6238,#cf9a63)] lg:bg-clip-text lg:text-transparent lg:dark:bg-[linear-gradient(135deg,#f7dcc0,#f2b77b)]'
+                          : 'font-google inline-block'
+                      }
+                      variants={WORD_CHILD}
+                    >
+                      {word}
+                    </m.span>
+                  </span>
+                );
+              })}
             </m.h1>
             <m.p
               variants={FADE_UP}
@@ -538,7 +554,7 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
         </div>
 
         <m.aside
-          className="relative mt-1 max-w-xl overflow-hidden rounded-[1.85rem] border border-black/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(249,248,246,0.74))] p-5 shadow-[0_36px_100px_-58px_rgba(74,70,67,0.52)] sm:mt-2 sm:rounded-[2.1rem] sm:p-7 lg:mt-0 lg:max-w-none lg:self-center lg:-mt-10 dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(249,248,246,0.08),rgba(249,248,246,0.03))]"
+          className="relative mt-1 max-w-xl overflow-hidden rounded-[1.85rem] border border-black/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(249,248,246,0.74))] p-5 shadow-[0_36px_100px_-58px_rgba(74,70,67,0.52)] sm:mt-2 sm:rounded-[2.1rem] sm:p-7 lg:mt-0 lg:max-w-none lg:self-center lg:-mt-16 xl:-mt-20 dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(249,248,246,0.08),rgba(249,248,246,0.03))]"
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
