@@ -554,7 +554,7 @@ function Hero({ heroRef, glowBackground, copyY, haloY, reduceMotion }: HeroProps
         </div>
 
         <m.aside
-          className="relative mt-1 max-w-xl overflow-hidden rounded-[1.85rem] border border-black/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(249,248,246,0.74))] p-5 shadow-[0_36px_100px_-58px_rgba(74,70,67,0.52)] sm:mt-2 sm:rounded-[2.1rem] sm:p-7 lg:mt-0 lg:max-w-none lg:self-center lg:-mt-16 xl:-mt-20 dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(249,248,246,0.08),rgba(249,248,246,0.03))]"
+          className="relative mt-1 max-w-xl overflow-hidden rounded-[1.85rem] border border-black/[0.08] bg-[linear-gradient(180deg,rgba(255,255,255,0.84),rgba(249,248,246,0.74))] p-5 shadow-[0_36px_100px_-58px_rgba(74,70,67,0.52)] sm:mt-2 sm:rounded-[2.1rem] sm:p-7 lg:mt-0 lg:max-w-none lg:self-start lg:-mt-6 xl:-mt-10 dark:border-white/10 dark:bg-[linear-gradient(180deg,rgba(249,248,246,0.08),rgba(249,248,246,0.03))]"
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
