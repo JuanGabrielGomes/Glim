@@ -87,9 +87,9 @@ export function Hero({ heroRef, copyY, reduceMotion }: HeroProps) {
           <div className="text-center lg:text-left">
             <m.p
               variants={FADE_UP}
-              className="font-mono text-[10px] tracking-[0.32em] text-[#b7ada2] uppercase sm:text-xs"
+              className="mx-auto max-w-[26ch] text-balance font-mono text-[10px] tracking-[0.2em] text-[#b7ada2] uppercase sm:max-w-none sm:text-xs sm:tracking-[0.32em] lg:mx-0"
             >
-              Do conceito ao código, o insight é claro.
+              Glim / Do conceito ao código, o insight é claro.
             </m.p>
 
             <m.h1
