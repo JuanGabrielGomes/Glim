@@ -8,11 +8,13 @@
   --glim-dark: #4a4643;
   --glim-light: #f9f8f6;
   --glim-diamond: #f2b77b;
+  --glim-cinema: #14100e;
+  --glim-cinema-deep: #0b0908;
 }
 
 .dark {
-  --background: #4a4643;
-  --foreground: #f9f8f6;
+  --background: #14100e;
+  --foreground: #f5f0ea;
 }
 
 @theme inline {
@@ -21,6 +23,8 @@
   --color-glim-dark: var(--glim-dark);
   --color-glim-light: var(--glim-light);
   --color-glim-diamond: var(--glim-diamond);
+  --color-glim-cinema: var(--glim-cinema);
+  --color-glim-cinema-deep: var(--glim-cinema-deep);
   --font-google: var(--font-google-sans);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-space-mono);
@@ -121,4 +125,47 @@ body {
 .glass-shimmer:hover::after {
   opacity: 1;
   transform: translateX(420%) rotate(18deg);
+}
+
+@keyframes glim-marquee {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-33.3333%);
+  }
+}
+
+.animate-marquee {
+  animation: glim-marquee 34s linear infinite;
+}
+
+@keyframes glim-shimmer {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.custom-cursor-active,
+.custom-cursor-active * {
+  cursor: none !important;
+}
+
+.grain-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.045 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
 }

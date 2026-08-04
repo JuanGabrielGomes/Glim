@@ -1,0 +1,30 @@
+import Image from 'next/image';
+import glimMarkCream from '../../../public/brand/glim-mark-cream.png';
+import { SocialLinkButton } from '@/components/ui/SocialLinkButton';
+import { WhatsAppIcon, InstagramIcon } from '@/components/ui/icons';
+import { CONTACT_WHATSAPP_HREF, INSTAGRAM_URL } from '@/lib/content';
+
+export function Footer() {
+  return (
+    <footer className="bg-[#0b0908] px-4 pt-4 pb-8 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col gap-5 border-t border-white/10 pt-6 text-sm text-white/55 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-4">
+          <a href="#topo" aria-label="Voltar ao topo da página" className="inline-flex items-center">
+            <Image src={glimMarkCream} alt="glim." className="h-4 w-auto" priority />
+          </a>
+          <p>© {new Date().getFullYear()} glim. Engenharia de Software e Design Digital.</p>
+        </div>
+        <div className="flex flex-wrap items-center gap-4">
+          <SocialLinkButton href={CONTACT_WHATSAPP_HREF} label="WhatsApp" icon={<WhatsAppIcon />} external />
+          <SocialLinkButton href={INSTAGRAM_URL} label="Instagram" icon={<InstagramIcon />} external />
+          <a href="#abordagem" className="transition-colors hover:text-white">
+            Pilares
+          </a>
+          <a href="#servicos" className="transition-colors hover:text-white">
+            Serviços
+          </a>
+        </div>
+      </div>
+    </footer>
+  );
+}

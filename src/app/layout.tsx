@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Space_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
+import { MagneticCursor } from '@/components/cursor/MagneticCursor';
+import { SmoothScroll } from '@/components/providers/SmoothScroll';
 import './globals.css';
 
 const googleSans = localFont({
@@ -30,7 +32,7 @@ export const metadata: Metadata = {
     template: '%s | glim.',
   },
   description:
-    'Interfaces transparentes, engenharia de software precisa. Design digital e desenvolvimento ágil para empresas e produtos de tecnologia.',
+    'Sites e produtos digitais lapidados com direção visual e engenharia sólida, para negócios cujo padrão técnico não pode ficar escondido atrás de um site genérico.',
   icons: {
     icon: [{ url: '/icon.png', type: 'image/png' }],
     apple: [{ url: '/apple-icon.png', type: 'image/png' }],
@@ -39,11 +41,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  colorScheme: 'light dark',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#F9F8F6' },
-    { media: '(prefers-color-scheme: dark)', color: '#4A4643' },
-  ],
+  colorScheme: 'dark',
+  themeColor: '#14100E',
 };
 
 export default function RootLayout({
@@ -52,11 +51,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className="h-full" suppressHydrationWarning>
+    <html lang="pt-BR" className="dark h-full">
       <body
-        className={`${inter.className} ${googleSans.variable} ${inter.variable} ${spaceMono.variable} min-h-full bg-[#F9F8F6] text-[#4A4643] antialiased dark:bg-[#4A4643] dark:text-[#F9F8F6]`}
+        className={`${inter.className} ${googleSans.variable} ${inter.variable} ${spaceMono.variable} min-h-full bg-[#14100E] text-[#F5F0EA] antialiased`}
       >
-        {children}
+        <SmoothScroll>
+          {children}
+          <MagneticCursor />
+        </SmoothScroll>
       </body>
     </html>
   );
