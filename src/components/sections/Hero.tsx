@@ -61,7 +61,8 @@ export function Hero({ heroRef, copyY, reduceMotion }: HeroProps) {
             className="h-full w-full object-cover opacity-90"
           />
         )}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_18%,rgba(11,9,8,0.55)_62%,rgba(11,9,8,0.92)_100%)]" />
+        <div className="absolute inset-0 block bg-[radial-gradient(ellipse_at_center,rgba(11,9,8,0.5)_0%,rgba(11,9,8,0.82)_55%,rgba(11,9,8,0.95)_100%)] lg:hidden" />
+        <div className="absolute inset-0 hidden bg-[radial-gradient(ellipse_at_center,transparent_18%,rgba(11,9,8,0.55)_62%,rgba(11,9,8,0.92)_100%)] lg:block" />
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0b0908] to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0b0908] to-transparent" />
       </div>
