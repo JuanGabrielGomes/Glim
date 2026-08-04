@@ -102,12 +102,15 @@ export function Hero({ heroRef, copyY, reduceMotion }: HeroProps) {
 
                 return (
                   <span key={`${word}-${index}`} className="inline-block pr-[0.16em] pb-[0.08em]">
-                    <m.span className="inline-block" variants={WORD_CHILD}>
-                      {isAccentWord ? (
-                        <LiquidLogo text={word} showMark={false} ariaLabel={word} />
-                      ) : (
-                        <span className="font-google inline-block">{word}</span>
-                      )}
+                    <m.span
+                      className={
+                        isAccentWord
+                          ? 'inline-block bg-[linear-gradient(135deg,#f7dcc0,#f2b77b)] bg-clip-text font-sans font-semibold tracking-[-0.048em] text-transparent'
+                          : 'font-google inline-block'
+                      }
+                      variants={WORD_CHILD}
+                    >
+                      {word}
                     </m.span>
                   </span>
                 );
