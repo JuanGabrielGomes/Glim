@@ -2,7 +2,7 @@ import Image from 'next/image';
 import glimMarkCream from '../../../public/brand/glim-mark-cream.png';
 import { SocialLinkButton } from '@/components/ui/SocialLinkButton';
 import { WhatsAppIcon, InstagramIcon } from '@/components/ui/icons';
-import { CONTACT_WHATSAPP_HREF, INSTAGRAM_URL } from '@/lib/content';
+import { CONTACT_WHATSAPP_HREF, INSTAGRAM_URL, NAV_ITEMS } from '@/lib/content';
 
 export function Footer() {
   return (
@@ -17,12 +17,11 @@ export function Footer() {
         <div className="flex flex-wrap items-center gap-4">
           <SocialLinkButton href={CONTACT_WHATSAPP_HREF} label="WhatsApp" icon={<WhatsAppIcon />} external />
           <SocialLinkButton href={INSTAGRAM_URL} label="Instagram" icon={<InstagramIcon />} external />
-          <a href="#abordagem" className="transition-colors hover:text-white">
-            Pilares
-          </a>
-          <a href="#servicos" className="transition-colors hover:text-white">
-            Serviços
-          </a>
+          {NAV_ITEMS.map((item) => (
+            <a key={item.href} href={item.href} className="transition-colors hover:text-white">
+              {item.label}
+            </a>
+          ))}
         </div>
       </div>
     </footer>
