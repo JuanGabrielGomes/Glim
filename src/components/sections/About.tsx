@@ -22,7 +22,7 @@ export function About() {
         style={{ objectPosition: 'left center' }}
         priority={false}
       />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,transparent_22%,rgba(15,12,10,0.68)_42%,rgba(15,12,10,0.96)_70%)]" />
+      <div className="absolute inset-0 bg-[rgba(15,12,10,0.78)] lg:bg-[linear-gradient(90deg,transparent_0%,transparent_22%,rgba(15,12,10,0.68)_42%,rgba(15,12,10,0.96)_70%)]" />
       <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0f0c0a] to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0f0c0a] to-transparent" />
       <div className="grain-overlay pointer-events-none absolute inset-0 opacity-20" aria-hidden="true" />
