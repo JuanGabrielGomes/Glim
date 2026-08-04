@@ -89,7 +89,7 @@ export function Hero({ heroRef, copyY, reduceMotion }: HeroProps) {
               variants={FADE_UP}
               className="font-mono text-[10px] tracking-[0.32em] text-[#b7ada2] uppercase sm:text-xs"
             >
-              Glim / Sinal, estrutura, acabamento
+              Do conceito ao código, o insight é claro.
             </m.p>
 
             <m.h1
