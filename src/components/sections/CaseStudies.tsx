@@ -51,12 +51,13 @@ export function CaseStudies() {
               </m.a>
 
               <m.div
+                className="text-center lg:text-left"
                 initial="hidden"
                 whileInView="visible"
                 viewport={VIEWPORT}
                 variants={FADE_UP}
               >
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
                   <span
                     className="font-mono text-xs tracking-[0.22em] uppercase"
                     style={{ color: caseStudy.mockupAccent }}
@@ -70,15 +71,18 @@ export function CaseStudies() {
 
                 <h3
                   id={`case-${index}-title`}
-                  className="font-google mt-6 max-w-xl text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.02] tracking-[-0.05em] text-[#f7f3ee]"
+                  className="font-google mx-auto mt-6 max-w-xl text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.02] tracking-[-0.05em] text-[#f7f3ee] lg:mx-0"
                 >
                   {caseStudy.headline}
                 </h3>
-                <p className="mt-5 max-w-lg text-base leading-7 text-white/70 sm:text-lg">
+                <p className="mx-auto mt-5 max-w-lg text-base leading-7 text-white/70 sm:text-lg lg:mx-0">
                   {caseStudy.summary}
                 </p>
 
-                <ul className="mt-6 flex flex-wrap gap-2" aria-label={`Destaques do case ${caseStudy.client}`}>
+                <ul
+                  className="mt-6 flex flex-wrap justify-center gap-2 lg:justify-start"
+                  aria-label={`Destaques do case ${caseStudy.client}`}
+                >
                   {caseStudy.highlights.map((item) => (
                     <li
                       key={item}
@@ -89,7 +93,7 @@ export function CaseStudies() {
                   ))}
                 </ul>
 
-                <div className="mt-9 flex flex-wrap items-center gap-4">
+                <div className="mt-9 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
                   <m.a
                     href={caseStudy.href}
                     data-cursor-hover

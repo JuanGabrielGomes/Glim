@@ -150,7 +150,7 @@ export function Hero({ heroRef, copyY, reduceMotion }: HeroProps) {
                 ref={primaryCtaRef}
                 href="#contato"
                 data-cursor-hover
-                className="group bg-glim-diamond text-glim-dark relative inline-flex w-full items-center justify-center overflow-hidden rounded-full px-8 py-4 text-base font-semibold shadow-[0_18px_44px_-22px_rgba(242,183,123,0.85)] sm:w-auto"
+                className="group bg-glim-diamond text-glim-dark relative inline-flex items-center justify-center overflow-hidden rounded-full px-6 py-3 text-sm font-semibold shadow-[0_18px_44px_-22px_rgba(242,183,123,0.85)] sm:px-8 sm:py-4 sm:text-base"
                 style={primaryCtaStyle}
                 onPointerMove={handlePrimaryCtaPointerMove}
                 onPointerLeave={handlePrimaryCtaPointerLeave}
