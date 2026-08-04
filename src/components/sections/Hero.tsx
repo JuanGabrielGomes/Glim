@@ -2,7 +2,7 @@
 
 import type { MotionValue } from 'framer-motion';
 import { m, useScroll, useTransform } from 'framer-motion';
-import type { RefObject } from 'react';
+import { useEffect, useRef, useState, type RefObject } from 'react';
 import { LiquidLogo } from '@/components/logo/LiquidLogo';
 import { useMagnetic } from '@/components/cursor/useMagnetic';
 import { CONTACT_WHATSAPP_HREF, HERO_ACCENT_WORDS, HERO_TITLE } from '@/lib/content';
@@ -42,17 +42,7 @@ export function Hero({ heroRef, copyY, reduceMotion }: HeroProps) {
     >
       <div aria-hidden="true" className="absolute inset-0">
         {videoAllowed ? (
-          <video
-            className="h-full w-full object-cover opacity-90"
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster="/video/hero-lamp-poster.jpg"
-          >
-            <source src="/video/hero-lamp.webm" type="video/webm" />
-            <source src="/video/hero-lamp.mp4" type="video/mp4" />
-          </video>
+          <HeroVideoBackground />
         ) : (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -190,5 +180,49 @@ export function Hero({ heroRef, copyY, reduceMotion }: HeroProps) {
         />
       </m.div>
     </section>
+  );
+}
+
+function HeroVideoBackground() {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [canPlayVideo, setCanPlayVideo] = useState(true);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const fallbackToPoster = () => setCanPlayVideo(false);
+    const playResult = video.play();
+    if (playResult && typeof playResult.catch === 'function') {
+      playResult.catch(fallbackToPoster);
+    }
+
+    video.addEventListener('error', fallbackToPoster);
+    return () => video.removeEventListener('error', fallbackToPoster);
+  }, []);
+
+  if (!canPlayVideo) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img src="/video/hero-lamp-poster.jpg" alt="" className="h-full w-full object-cover opacity-90" />
+    );
+  }
+
+  return (
+    <video
+      ref={videoRef}
+      className="h-full w-full object-cover opacity-90"
+      autoPlay
+      muted
+      loop
+      playsInline
+      disablePictureInPicture
+      controls={false}
+      preload="auto"
+      poster="/video/hero-lamp-poster.jpg"
+    >
+      <source src="/video/hero-lamp.webm" type="video/webm" />
+      <source src="/video/hero-lamp.mp4" type="video/mp4" />
+    </video>
   );
 }

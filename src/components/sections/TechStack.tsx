@@ -5,12 +5,12 @@ import { TECH_STACK } from '@/lib/content';
 
 export function TechStack() {
   const reduceMotion = useReducedMotion() ?? false;
-  const track = [...TECH_STACK, ...TECH_STACK, ...TECH_STACK];
+  const track = [...TECH_STACK, ...TECH_STACK, ...TECH_STACK, ...TECH_STACK, ...TECH_STACK, ...TECH_STACK];
 
   return (
     <section aria-label="Stack técnica" className="border-y border-black/[0.06] py-6 dark:border-white/[0.06]">
       <div
-        className="relative overflow-hidden"
+        className="relative mx-auto max-w-7xl overflow-hidden"
         style={{
           maskImage: 'linear-gradient(90deg, transparent, black 8%, black 92%, transparent)',
           WebkitMaskImage: 'linear-gradient(90deg, transparent, black 8%, black 92%, transparent)',
