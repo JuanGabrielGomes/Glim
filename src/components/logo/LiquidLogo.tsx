@@ -216,6 +216,11 @@ export function LiquidLogo({
     resize();
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
 
+    let cancelled = false;
+    document.fonts.ready.then(() => {
+      if (!cancelled) drawMask();
+    });
+
     let rafId = 0;
     const start = performance.now();
     const render = (now: number) => {
@@ -232,6 +237,7 @@ export function LiquidLogo({
     rafId = requestAnimationFrame(render);
 
     return () => {
+      cancelled = true;
       cancelAnimationFrame(rafId);
       resizeObserver.disconnect();
       window.removeEventListener('pointermove', handlePointerMove);
