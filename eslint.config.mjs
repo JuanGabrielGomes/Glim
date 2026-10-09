@@ -18,7 +18,7 @@ const eslintConfig = defineConfig([
       ],
     },
   },
-  globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts']),
+  globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts', 'lp-glim-on/**']),
 ]);
 
 export default eslintConfig;
