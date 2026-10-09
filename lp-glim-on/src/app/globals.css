@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-glim-dark font-sans text-glim-light antialiased;
+  }
+
+  ::selection {
+    @apply bg-glim-gold text-glim-dark;
+  }
+}
