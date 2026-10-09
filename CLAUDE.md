@@ -10,7 +10,7 @@ Fluxo: anúncio → esta página (VSL) → checkout Kiwify (externo) → /obriga
 (agendamento da Reunião 1 no Google Agenda) → Reunião 1 → site entregue em até 7 dias.
 
 ## Stack
-- Next.js 14 (App Router) + TypeScript + Tailwind CSS 3
+- Next.js 15 (App Router) + React 19 + TypeScript + Tailwind CSS 3
 - Deploy na Vercel
 - Sem banco de dados, sem autenticação, sem backend próprio
 - Animações: Framer Motion só para microinterações e reveals discretos. Nada de
