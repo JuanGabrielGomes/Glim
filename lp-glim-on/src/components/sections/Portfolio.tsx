@@ -36,7 +36,7 @@ export function Portfolio({ tone }: PortfolioProps) {
                     className="h-auto w-full"
                   />
                   <div className="space-y-1 p-5">
-                    <h3 className="font-display text-lg font-semibold">{item.name}</h3>
+                    <h3 className="font-display text-lg font-normal tracking-[-0.04em]">{item.name}</h3>
                     <p className={cn("text-sm", styles.muted)}>{item.description}</p>
                   </div>
                 </Reveal>

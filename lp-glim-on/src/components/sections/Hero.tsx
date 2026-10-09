@@ -12,7 +12,7 @@ export function Hero() {
           <Diamond />
           {kicker}
         </p>
-        <h1 className="font-display text-2xl font-semibold leading-tight sm:text-3xl md:text-5xl">{title}</h1>
+        <h1 className="font-display text-2xl font-normal tracking-[-0.04em] leading-tight sm:text-3xl md:text-5xl">{title}</h1>
         <p className="text-sm leading-snug text-glim-light/75 md:text-lg">{subtitle}</p>
       </header>
     </Section>

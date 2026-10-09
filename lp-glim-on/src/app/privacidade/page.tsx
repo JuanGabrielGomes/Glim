@@ -31,7 +31,7 @@ export default function PrivacyPage() {
           </Link>
 
           <header className="space-y-3">
-            <h1 className="font-display text-3xl font-semibold md:text-5xl">{privacy.title}</h1>
+            <h1 className="font-display text-3xl font-normal tracking-[-0.04em] md:text-5xl">{privacy.title}</h1>
             {privacy.lastUpdated ? (
               <p className="font-mono text-xs text-glim-dark/80">
                 {privacy.lastUpdatedLabel} {privacy.lastUpdated}
@@ -44,7 +44,7 @@ export default function PrivacyPage() {
 
           {privacy.sections.map((section) => (
             <section key={section.title} className="space-y-4">
-              <h2 className="font-display text-xl font-semibold md:text-2xl">{section.title}</h2>
+              <h2 className="font-display text-xl font-normal tracking-[-0.04em] md:text-2xl">{section.title}</h2>
               {section.blocks.map((block, index) =>
                 block.type === "p" ? (
                   <p key={index} className="leading-relaxed">

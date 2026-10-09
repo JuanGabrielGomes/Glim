@@ -23,7 +23,7 @@ export function SectionTitle({ title, eyebrow, subtitle, align = "left", classNa
           {eyebrow}
         </p>
       ) : null}
-      <h2 className="font-display text-2xl font-semibold leading-tight md:text-4xl">{title}</h2>
+      <h2 className="font-display text-2xl font-normal tracking-[-0.04em] leading-tight md:text-4xl">{title}</h2>
       {subtitle ? <p className="max-w-2xl text-base opacity-80 md:text-lg">{subtitle}</p> : null}
     </div>
   );

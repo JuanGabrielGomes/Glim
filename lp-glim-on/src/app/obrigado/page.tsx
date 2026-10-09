@@ -23,7 +23,7 @@ export default function ThanksPage() {
             <Diamond className="h-6 w-6" />
           </span>
 
-          <h1 className="font-display text-2xl font-semibold leading-tight md:text-4xl">
+          <h1 className="font-display text-2xl font-normal tracking-[-0.04em] leading-tight md:text-4xl">
             <span className="block text-glim-gold">{thanks.titleLead}</span>
             <span className="block">{thanks.titleRest}</span>
           </h1>

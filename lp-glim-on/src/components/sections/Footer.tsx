@@ -23,7 +23,7 @@ export function Footer({ withStickyCta = false }: FooterProps) {
     >
       <Container className="space-y-4 text-sm text-glim-light/70">
         <p className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <span className="font-display font-semibold text-glim-light">{brand}</span>
+          <span className="font-display text-glim-light">{brand}</span>
           {document ? (
             <span className="font-mono text-xs">
               {documentLabel}: {document}

@@ -13,7 +13,7 @@ export function Diamond({ className, glow = false }: DiamondProps) {
       focusable="false"
       className={cn(
         "inline-block h-2.5 w-2.5 shrink-0 fill-glim-gold",
-        glow && "drop-shadow-[0_0_6px_rgba(240,168,85,0.7)]",
+        glow && "drop-shadow-[0_0_6px_rgba(242,183,123,0.7)]",
         className,
       )}
     >

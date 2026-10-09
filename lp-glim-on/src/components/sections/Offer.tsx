@@ -34,7 +34,7 @@ export function Offer({ tone }: OfferProps) {
 
         <Reveal delay={0.08}>
           <div className="space-y-5 rounded-3xl border border-glim-gold/30 bg-glim-dark p-7 text-center text-glim-light md:p-8">
-            <p className="font-mono text-5xl font-bold text-glim-gold [text-shadow:0_0_24px_rgba(240,168,85,0.45)] md:text-6xl">
+            <p className="font-mono text-5xl font-bold text-glim-gold [text-shadow:0_0_24px_rgba(242,183,123,0.45)] md:text-6xl">
               {price}
             </p>
             <p className="font-mono text-sm text-glim-light/80 first-letter:uppercase">{condition}</p>

@@ -21,7 +21,7 @@ export function Faq({ tone }: FaqProps) {
         <Reveal className={cn("border-y", styles.line)}>
           {items.map((item) => (
             <details key={item.question} className={cn("group border-b last:border-b-0", styles.line)}>
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-base font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-glim-gold md:text-lg [&::-webkit-details-marker]:hidden">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-base font-normal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-glim-gold md:text-lg [&::-webkit-details-marker]:hidden">
                 {item.question}
                 <span aria-hidden="true" className="font-mono text-xl leading-none">
                   <span className="group-open:hidden">+</span>

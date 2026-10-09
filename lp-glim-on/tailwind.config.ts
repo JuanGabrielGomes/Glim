@@ -10,10 +10,10 @@ const config: Config = {
     extend: {
       colors: {
         glim: {
-          dark: "#4A4540",
-          light: "#F5F0EB",
-          gold: "#F0A855",
-          "gold-hover": "#e09a45",
+          dark: "#4A4643",
+          light: "#F9F8F6",
+          gold: "#F2B77B",
+          "gold-hover": "#E2A96B",
         },
       },
       fontFamily: {
@@ -22,7 +22,7 @@ const config: Config = {
         mono: ["var(--font-mono)", ...defaultTheme.fontFamily.mono],
       },
       boxShadow: {
-        glow: "0 0 28px rgba(240, 168, 85, 0.35)",
+        glow: "0 0 28px rgba(242, 183, 123, 0.35)",
       },
     },
   },

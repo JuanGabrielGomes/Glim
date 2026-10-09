@@ -27,12 +27,13 @@ Fluxo: anúncio → esta página (VSL) → checkout Kiwify (externo) → /obriga
 - Variáveis de ambiente documentadas em .env.example
 
 ## Identidade visual
-- Cores: glim.dark #4A4540 (fundo escuro, texto principal), glim.light #F5F0EB
-  (fundo claro, off-white), glim.gold #F0A855 (acento — o diamante), hover #e09a45
-- Tipografia: títulos em Google Sans (se não houver licença/fonte disponível,
-  usar uma sans geométrica arredondada equivalente via next/font, ex.: "Outfit" ou
-  "Plus Jakarta Sans" — confirmar com o Juan), corpo em Inter, dados técnicos
-  (preço, prazo, números, garantia) em Space Mono
+- Cores (as mesmas do site institucional, na raiz deste repositório): glim.dark #4A4643
+  (fundo escuro, texto principal), glim.light #F9F8F6 (fundo claro, off-white),
+  glim.gold #F2B77B (acento — o diamante), hover #E2A96B
+- Tipografia: títulos em Google Sans Flex (a mesma do site, licença OFL), peso 400 e
+  tracking negativo, sem negrito — o arquivo src/app/fonts/GoogleSansFlex-latin.woff2
+  só tem o peso 400; corpo em Inter, dados técnicos (preço, prazo, números, garantia)
+  em Space Mono
 - Ponto final em diamante: marcadores de lista e selos usam um losango geométrico
   (não círculo, não check verde, não emoji)
 - Glow sutil no tom gold para destacar UM elemento por vez (o preço, o CTA)
