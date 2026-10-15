@@ -4,6 +4,7 @@ import { About } from "@/components/sections/About";
 import { Faq } from "@/components/sections/Faq";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { Footer } from "@/components/sections/Footer";
+import { Highlights } from "@/components/sections/Highlights";
 import { Guarantee } from "@/components/sections/Guarantee";
 import { Hero } from "@/components/sections/Hero";
 import { HowItWorks } from "@/components/sections/HowItWorks";
@@ -11,6 +12,7 @@ import { NotIncluded } from "@/components/sections/NotIncluded";
 import { Offer } from "@/components/sections/Offer";
 import { Portfolio } from "@/components/sections/Portfolio";
 import { Problem } from "@/components/sections/Problem";
+import { TopStage } from "@/components/sections/TopStage";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { VideoSection } from "@/components/sections/VideoSection";
 import type { Tone } from "@/components/ui/Section";
@@ -65,7 +67,6 @@ const flow: FlowSection[] = [
   { key: "guarantee", show: true, render: (tone) => <Guarantee tone={tone} /> },
   { key: "not-included", show: true, render: (tone) => <NotIncluded tone={tone} /> },
   { key: "faq", show: true, render: (tone) => <Faq tone={tone} /> },
-  { key: "final", show: true, render: (tone) => <FinalCta tone={tone} /> },
 ];
 
 export default function HomePage() {
@@ -73,11 +74,15 @@ export default function HomePage() {
 
   return (
     <main>
-      <Hero />
-      <VideoSection />
+      <TopStage>
+        <Hero />
+        <VideoSection />
+      </TopStage>
+      <Highlights />
       {visible.map((section, index) => (
         <Fragment key={section.key}>{section.render(index % 2 === 0 ? "light" : "dark")}</Fragment>
       ))}
+      <FinalCta />
       <Footer withStickyCta />
       <StickyCta label={landing.cta.label} afterId="video" hideIds={["oferta", "fechamento"]} />
     </main>

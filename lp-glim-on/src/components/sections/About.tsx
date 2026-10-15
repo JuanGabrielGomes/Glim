@@ -11,24 +11,26 @@ interface AboutProps {
 }
 
 export function About({ tone }: AboutProps) {
-  const { title, text, photo } = landing.about;
+  const { eyebrow, title, text, photo } = landing.about;
 
   return (
-    <Section tone={tone}>
-      <Reveal className={cn("mx-auto grid max-w-4xl gap-8 md:items-center", photo && "md:grid-cols-[240px_1fr] md:gap-12")}>
+    <Section tone={tone} glow="left">
+      <Reveal className={cn("grid gap-10 md:items-center", photo && "md:grid-cols-[280px_1fr] md:gap-14")}>
         {photo ? (
-          <Image
-            src={photo.src}
-            alt={photo.alt}
-            width={photo.width}
-            height={photo.height}
-            sizes="(min-width: 768px) 240px, 60vw"
-            className="h-auto w-48 rounded-2xl md:w-full"
-          />
+          <div className="gold-ring w-56 rounded-[1.75rem] p-1.5 md:w-full">
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              width={photo.width}
+              height={photo.height}
+              sizes="(min-width: 768px) 280px, 60vw"
+              className="h-auto w-full rounded-[1.4rem]"
+            />
+          </div>
         ) : null}
-        <div className="space-y-5">
-          <SectionTitle title={title} />
-          <p className="text-base leading-relaxed md:text-lg">{text}</p>
+        <div className="max-w-3xl space-y-6">
+          <SectionTitle eyebrow={eyebrow} title={title} tone={tone} />
+          <p className="font-display text-[1.3rem] leading-[1.4] tracking-[-0.02em] md:text-[1.75rem]">{text}</p>
           {photo ? null : <TodoNotice>{landing.todos.aboutPhoto}</TodoNotice>}
         </div>
       </Reveal>

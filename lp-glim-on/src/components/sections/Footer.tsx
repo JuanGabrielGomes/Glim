@@ -17,13 +17,13 @@ export function Footer({ withStickyCta = false }: FooterProps) {
   return (
     <footer
       className={cn(
-        "border-t border-glim-light/10 bg-glim-dark pb-10 pt-10 text-glim-light",
+        "border-t border-white/10 bg-glim-ink pb-10 pt-10 text-glim-cream",
         withStickyCta && "pb-28 md:pb-10",
       )}
     >
-      <Container className="space-y-4 text-sm text-glim-light/70">
+      <Container className="space-y-4 text-sm text-glim-cream/70">
         <p className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <span className="font-display text-glim-light">{brand}</span>
+          <span className="font-display text-lg text-glim-cream">{brand}</span>
           {document ? (
             <span className="font-mono text-xs">
               {documentLabel}: {document}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 import { listenMessage, buildEmbedUrl, readProgressSeconds, type ResolvedVsl } from "@/lib/vsl";
 
 interface VslPlayerProps {
@@ -13,11 +14,12 @@ interface VslPlayerProps {
   onPlay?: () => void;
   /** Segundos assistidos, quando o provedor informa (mp4, youtube, vimeo). */
   onProgress?: (seconds: number) => void;
+  className?: string;
 }
 
 const FRAME_CLASS = "absolute inset-0 h-full w-full";
 
-export function VslPlayer({ vsl, posterSrc, playLabel, title, onPlay, onProgress }: VslPlayerProps) {
+export function VslPlayer({ vsl, posterSrc, playLabel, title, onPlay, onProgress, className }: VslPlayerProps) {
   const [playing, setPlaying] = useState(false);
   const [origin, setOrigin] = useState("");
   const frameRef = useRef<HTMLIFrameElement>(null);
@@ -73,7 +75,7 @@ export function VslPlayer({ vsl, posterSrc, playLabel, title, onPlay, onProgress
   }, [playing, vsl.provider, onProgress]);
 
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-glim-light/15 bg-black">
+    <div className={cn("relative aspect-video w-full overflow-hidden rounded-2xl bg-black", className)}>
       {!playing ? (
         <button
           type="button"
@@ -89,7 +91,8 @@ export function VslPlayer({ vsl, posterSrc, playLabel, title, onPlay, onProgress
             sizes="(min-width: 768px) 768px, 100vw"
             className="object-cover"
           />
-          <span className="relative flex h-20 w-20 items-center justify-center rounded-full bg-glim-gold text-glim-dark shadow-glow transition-transform duration-200 group-hover:scale-105 md:h-24 md:w-24">
+          <span className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
+          <span className="relative flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full bg-glim-gold text-glim-dark shadow-[0_0_0_10px_rgba(242,183,123,0.18),0_0_50px_rgba(242,183,123,0.55)] transition-transform duration-200 group-hover:scale-105 md:h-24 md:w-24">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" className="ml-1 h-8 w-8 fill-current md:h-10 md:w-10">
               <path d="M8 5v14l11-7Z" />
             </svg>

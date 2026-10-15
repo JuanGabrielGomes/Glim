@@ -14,6 +14,13 @@ const config: Config = {
           light: "#F9F8F6",
           gold: "#F2B77B",
           "gold-hover": "#E2A96B",
+          // Dourado escurecido: só para texto de destaque sobre fundo claro (contraste).
+          "gold-deep": "#9A5F24",
+          // Tons "cinema" do site institucional, para as seções escuras.
+          cinema: "#14100E",
+          ink: "#0B0908",
+          cream: "#F5F0EA",
+          ink2: "#2F2B28",
         },
       },
       fontFamily: {
@@ -23,6 +30,7 @@ const config: Config = {
       },
       boxShadow: {
         glow: "0 0 28px rgba(242, 183, 123, 0.35)",
+        "glow-lg": "0 30px 120px -30px rgba(242, 183, 123, 0.45)",
       },
     },
   },

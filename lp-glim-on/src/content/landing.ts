@@ -22,6 +22,11 @@ export interface HowItWorksStep {
   rest: string;
 }
 
+export interface HighlightItem {
+  value: string;
+  label: string;
+}
+
 export interface FaqItem {
   question: string;
   answer: string;
@@ -39,6 +44,7 @@ export const landing = {
   hero: {
     kicker: `${PRODUCT_NAME} — site profissional em até 7 dias*`,
     title: "Se alguém pesquisar o seu negócio no Google agora, o que aparece?",
+    titleEmphasis: "no Google",
     subtitle:
       "Um site profissional no ar em até 7 dias* — construído e entregue por mim, do início ao fim. Você não precisa entender nada de tecnologia.",
   },
@@ -51,7 +57,17 @@ export const landing = {
     posterSrc: "/vsl-poster.jpg",
   },
 
+  // Números em destaque logo abaixo do vídeo (mesmos fatos da copy, só reapresentados).
+  highlights: [
+    { value: "até 7 dias*", label: "para o seu site ir ao ar" },
+    { value: "~30 min", label: "do seu tempo, somando as duas conversas" },
+    { value: "1 ajuste", label: "ao vivo, na entrega" },
+    { value: "7 dias", label: "de garantia por lei" },
+  ] satisfies HighlightItem[],
+
   problem: {
+    eyebrow: "O problema",
+    titleEmphasis: "numa tela",
     title: "A primeira impressão do seu negócio acontece numa tela",
     text: "Antes de ligar, a pessoa pesquisa. Se o que ela encontra é um perfil parado no Instagram — ou nada —, ela fecha a aba e procura outro. E você nunca fica sabendo quantos foram.",
     statLead: "4 em cada 10",
@@ -60,7 +76,10 @@ export const landing = {
   },
 
   howItWorks: {
+    eyebrow: "4 passos",
     title: "Como funciona",
+    titleEmphasis: "funciona",
+    stepTags: ["15 min", "até 7 dias*", "1 ajuste ao vivo", "no seu endereço"],
     steps: [
       { lead: "Você garante sua vaga", rest: " e agenda uma conversa rápida comigo — uns 15 minutos." },
       { lead: "Eu construo o seu site", rest: " com as suas informações, fotos e contatos." },
@@ -71,12 +90,15 @@ export const landing = {
   },
 
   portfolio: {
+    eyebrow: "Trabalhos",
+    titleEmphasis: "Sites de verdade",
     title: "Sites de verdade, entregues pela glim.",
     // TODO: 2 a 4 projetos construídos pela glim., com autorização do cliente.
     items: [] as PortfolioItem[],
   },
 
   about: {
+    eyebrow: "Quem faz",
     title: "Quem está por trás",
     text: `Eu sou o Juan Gabriel, fundador da glim. Estudo tecnologia desde 2022 e hoje trabalho com projetos e sites para empresas — de lojas virtuais a sites institucionais completos. O ${PRODUCT_NAME} leva esse mesmo padrão de qualidade pra quem precisa de uma solução rápida e objetiva.`,
     // TODO: foto real do Juan.
@@ -84,6 +106,7 @@ export const landing = {
   },
 
   testimonials: {
+    eyebrow: "Depoimentos",
     title: "O que clientes da glim. disseram",
     caption: "cliente da glim.",
     // TODO: 3 a 5 prints reais de WhatsApp, autorizados, com número e foto borrados.
@@ -91,7 +114,9 @@ export const landing = {
   },
 
   offer: {
+    eyebrow: "A oferta",
     title: "O que você recebe",
+    titleEmphasis: "você recebe",
     items: [
       "Site institucional profissional, pensado pro seu segmento",
       "Publicado no ar, com certificado de segurança (o cadeado que mostra que o site é confiável)",
@@ -107,16 +132,23 @@ export const landing = {
   },
 
   guarantee: {
+    eyebrow: "Garantia",
     title: "O risco é meu, não seu",
+    titleEmphasis: "é meu",
+    seal: { value: "7", unit: "dias", caption: "Art. 49 · CDC" },
     text: "Por lei (artigo 49 do Código de Defesa do Consumidor), você tem 7 dias depois da compra para desistir e receber o reembolso total — sem precisar justificar. E na entrega, você só aprova o site depois do ajuste ao vivo, quando ele estiver do seu jeito.",
   },
 
   notIncluded: {
+    eyebrow: "Escopo",
     title: "Pra deixar claro desde já",
-    text: `O ${PRODUCT_NAME} é um site institucional com escopo fechado — é isso que garante o prazo e o preço. Não fazem parte do pacote: loja virtual, blog, sistema de agendamento, criação de logotipo/identidade visual e gestão de anúncios. Se você precisar de algo assim, me chama que a gente conversa sobre um projeto sob medida.`,
+    intro: `O ${PRODUCT_NAME} é um site institucional com escopo fechado — é isso que garante o prazo e o preço. Não fazem parte do pacote:`,
+    items: ["loja virtual", "blog", "sistema de agendamento", "criação de logotipo/identidade visual", "gestão de anúncios"],
+    outro: "Se você precisar de algo assim, me chama que a gente conversa sobre um projeto sob medida.",
   },
 
   faq: {
+    eyebrow: "Dúvidas",
     title: "Perguntas frequentes",
     items: [
       {
@@ -153,6 +185,7 @@ export const landing = {
 
   finalCta: {
     title: "Daqui a uma semana, o seu negócio pode estar aparecendo do jeito que merece.",
+    titleEmphasis: "do jeito que merece",
   },
 
   footer: {
@@ -166,7 +199,7 @@ export const landing = {
 
   // Avisos exibidos só em desenvolvimento quando falta dado.
   todos: {
-    vsl: "configurar NEXT_PUBLIC_VSL_PROVIDER (youtube, vimeo, panda ou mp4) e NEXT_PUBLIC_VSL_URL no .env.local. Capa do vídeo: public/vsl-poster.jpg.",
+    vsl: "configurar NEXT_PUBLIC_VSL_PROVIDER (youtube, vimeo, panda ou mp4) e NEXT_PUBLIC_VSL_URL no .env.local. Capa: no YouTube usa a miniatura do próprio vídeo; nos outros, public/vsl-poster.jpg.",
     portfolio: "2 a 4 projetos (captura + nome + uma linha). Só projetos construídos pela glim., com autorização do cliente. Em src/content/landing.ts → portfolio.items.",
     aboutPhoto: "foto real do Juan. Em src/content/landing.ts → about.photo.",
     testimonials: "3 a 5 prints reais de WhatsApp, autorizados, com número e foto borrados. Em src/content/landing.ts → testimonials.items.",

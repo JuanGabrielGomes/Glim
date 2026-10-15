@@ -11,14 +11,14 @@ interface PortfolioProps {
 }
 
 export function Portfolio({ tone }: PortfolioProps) {
-  const { title, items } = landing.portfolio;
+  const { eyebrow, title, items } = landing.portfolio;
   const styles = toneStyles[tone];
 
   return (
     <Section tone={tone}>
       <div className="mx-auto max-w-5xl space-y-8">
         <Reveal>
-          <SectionTitle title={title} />
+          <SectionTitle eyebrow={eyebrow} title={title} titleEmphasis={landing.portfolio.titleEmphasis} tone={tone} />
         </Reveal>
         {items.length === 0 ? (
           <TodoNotice>{landing.todos.portfolio}</TodoNotice>
@@ -26,7 +26,7 @@ export function Portfolio({ tone }: PortfolioProps) {
           <ul className="grid gap-6 md:grid-cols-2">
             {items.map((item) => (
               <li key={item.name}>
-                <Reveal className={cn("overflow-hidden rounded-2xl border", styles.line, styles.card)}>
+                <Reveal className={cn("overflow-hidden rounded-3xl", styles.card)}>
                   <Image
                     src={item.image.src}
                     alt={item.image.alt}

@@ -14,12 +14,25 @@ interface VslStageProps {
   /** Segundos assistidos para liberar `children` (o botão sob o vídeo). 0 = sempre visível. */
   revealSeconds: number;
   children: React.ReactNode;
+  /** Moldura em volta do player (borda, sombra). */
+  wrapperClassName?: string;
+  /** Classes extras do quadro 16:9 (ex.: arredondamento). */
+  frameClassName?: string;
 }
 
 // Sem nenhuma leitura de tempo depois do play, o botão aparece mesmo assim.
 const NO_PROGRESS_FALLBACK_MS = 10000;
 
-export function VslStage({ vsl, posterSrc, playLabel, title, revealSeconds, children }: VslStageProps) {
+export function VslStage({
+  vsl,
+  posterSrc,
+  playLabel,
+  title,
+  revealSeconds,
+  children,
+  wrapperClassName,
+  frameClassName,
+}: VslStageProps) {
   const [started, setStarted] = useState(false);
   const [reported, setReported] = useState(false);
   const [watched, setWatched] = useState(0);
@@ -45,14 +58,17 @@ export function VslStage({ vsl, posterSrc, playLabel, title, revealSeconds, chil
 
   return (
     <>
-      <VslPlayer
-        vsl={vsl}
-        posterSrc={posterSrc}
-        playLabel={playLabel}
-        title={title}
-        onPlay={handlePlay}
-        onProgress={gated ? handleProgress : undefined}
-      />
+      <div className={wrapperClassName}>
+        <VslPlayer
+          vsl={vsl}
+          posterSrc={posterSrc}
+          playLabel={playLabel}
+          title={title}
+          onPlay={handlePlay}
+          onProgress={gated ? handleProgress : undefined}
+          className={frameClassName}
+        />
+      </div>
       {/* invisible mantém o espaço: o botão não empurra o layout quando aparece. */}
       <div
         aria-hidden={!showCta}

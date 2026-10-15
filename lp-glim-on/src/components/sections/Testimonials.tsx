@@ -11,14 +11,14 @@ interface TestimonialsProps {
 }
 
 export function Testimonials({ tone }: TestimonialsProps) {
-  const { title, caption, items } = landing.testimonials;
+  const { eyebrow, title, caption, items } = landing.testimonials;
   const styles = toneStyles[tone];
 
   return (
     <Section tone={tone}>
       <div className="mx-auto max-w-5xl space-y-8">
         <Reveal>
-          <SectionTitle title={title} />
+          <SectionTitle eyebrow={eyebrow} title={title} tone={tone} />
         </Reveal>
         {items.length === 0 ? (
           <TodoNotice>{landing.todos.testimonials}</TodoNotice>
@@ -27,7 +27,7 @@ export function Testimonials({ tone }: TestimonialsProps) {
             {items.map((item) => (
               <li key={item.image.src}>
                 <Reveal>
-                  <figure className={cn("overflow-hidden rounded-2xl border", styles.line, styles.card)}>
+                  <figure className={cn("overflow-hidden rounded-3xl", styles.card)}>
                     <Image
                       src={item.image.src}
                       alt={item.image.alt}
