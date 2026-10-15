@@ -42,10 +42,10 @@ export const site: SiteConfig = {
   checkoutValue: 997,
   bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL || "",
   whatsappUrl: process.env.NEXT_PUBLIC_WHATSAPP_URL || "",
-  whatsappDisplay: null,
+  whatsappDisplay: "(54) 99218-1886",
   company: {
-    document: null,
-    email: null,
+    document: "65.587.567/0001-51",
+    email: "glim.contato@gmail.com",
   },
   spotsAvailable: null,
   vslProvider: parseProvider(process.env.NEXT_PUBLIC_VSL_PROVIDER),
