@@ -50,7 +50,7 @@ export const landing = {
   },
 
   video: {
-    note: "Assista com o som ligado. O vídeo tem cerca de 13 minutos.",
+    note: "Assista com o som ligado. O vídeo tem cerca de 10 minutos.",
     placeholder: "VSL",
     playLabel: "Assistir ao vídeo",
     iframeTitle: `Vídeo de apresentação do ${PRODUCT_NAME}`,
