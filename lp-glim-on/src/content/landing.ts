@@ -79,9 +79,9 @@ export const landing = {
     eyebrow: "4 passos",
     title: "Como funciona",
     titleEmphasis: "funciona",
-    stepTags: ["15 min", "até 7 dias*", "1 ajuste ao vivo", "no seu endereço"],
+    stepTags: ["20 min", "até 7 dias*", "1 ajuste ao vivo", "no seu endereço"],
     steps: [
-      { lead: "Você garante sua vaga", rest: " e agenda uma conversa rápida comigo, de uns 15 minutos." },
+      { lead: "Você garante sua vaga", rest: " e agenda uma conversa rápida comigo, de uns 20 minutos." },
       { lead: "Eu construo o seu site", rest: " com as suas informações, fotos e contatos." },
       { lead: "Na entrega", rest: ", mostro o site pronto, fazemos 1 ajuste ao vivo e você aprova." },
       { lead: "O site vai ao ar", rest: ", no seu endereço, funcionando." },
