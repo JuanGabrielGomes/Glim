@@ -65,22 +65,9 @@ export function supportsProgress(provider: VslProvider): boolean {
   return provider !== "panda";
 }
 
-/** URL do iframe (youtube, vimeo, panda). `origin` é o do site, exigido pela API do YouTube. */
-export function buildEmbedUrl(vsl: ResolvedVsl, origin: string): string {
+/** URL do iframe (vimeo, panda). O YouTube usa a API própria (src/lib/youtube.ts). */
+export function buildEmbedUrl(vsl: ResolvedVsl): string {
   switch (vsl.provider) {
-    case "youtube": {
-      // rel=0 limita as sugestões do fim a vídeos do mesmo canal (o YouTube não permite zerar).
-      const params = new URLSearchParams({
-        autoplay: "1",
-        rel: "0",
-        modestbranding: "1",
-        playsinline: "1",
-        iv_load_policy: "3",
-        enablejsapi: "1",
-        origin,
-      });
-      return `https://www.youtube-nocookie.com/embed/${vsl.source}?${params.toString()}`;
-    }
     case "vimeo": {
       const params = new URLSearchParams({
         autoplay: "1",
@@ -115,30 +102,18 @@ function toPayload(data: unknown): unknown {
   }
 }
 
-/** Mensagem que "assina" os eventos de tempo do player dentro do iframe. */
-export function listenMessage(provider: "youtube" | "vimeo"): { message: string; targetOrigin: string } {
-  return provider === "youtube"
-    ? {
-        message: JSON.stringify({ event: "listening", id: 1, channel: "widget" }),
-        targetOrigin: "https://www.youtube-nocookie.com",
-      }
-    : {
-        message: JSON.stringify({ method: "addEventListener", value: "timeupdate" }),
-        targetOrigin: "https://player.vimeo.com",
-      };
+/** Mensagem que "assina" os eventos de tempo do player do Vimeo dentro do iframe. */
+export function listenMessage(): { message: string; targetOrigin: string } {
+  return {
+    message: JSON.stringify({ method: "addEventListener", value: "timeupdate" }),
+    targetOrigin: "https://player.vimeo.com",
+  };
 }
 
-/** Lê os segundos assistidos de uma mensagem do player; null se a mensagem não trouxer o tempo. */
-export function readProgressSeconds(provider: "youtube" | "vimeo", data: unknown): number | null {
+/** Lê os segundos assistidos de uma mensagem do Vimeo; null se a mensagem não trouxer o tempo. */
+export function readProgressSeconds(data: unknown): number | null {
   const payload = toPayload(data);
   if (!isRecord(payload)) return null;
-
-  if (provider === "youtube") {
-    const info = payload.info;
-    const isDelivery = payload.event === "infoDelivery" || payload.event === "initialDelivery";
-    return isDelivery && isRecord(info) && typeof info.currentTime === "number" ? info.currentTime : null;
-  }
-
   const body = payload.data;
   return payload.event === "timeupdate" && isRecord(body) && typeof body.seconds === "number"
     ? body.seconds

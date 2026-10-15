@@ -1,5 +1,6 @@
 import { CheckoutButton } from "@/components/ui/CheckoutButton";
 import { Diamond } from "@/components/ui/Diamond";
+import { PriceDisplay } from "@/components/ui/PriceDisplay";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section, toneStyles, type Tone } from "@/components/ui/Section";
 import { SectionTitle } from "@/components/ui/SectionTitle";
@@ -13,7 +14,7 @@ interface OfferProps {
 }
 
 export function Offer({ tone }: OfferProps) {
-  const { eyebrow, title, titleEmphasis, items, comparison, price, condition, spotsLabel } = landing.offer;
+  const { eyebrow, title, titleEmphasis, items, comparison, spotsLabel } = landing.offer;
   const styles = toneStyles[tone];
 
   return (
@@ -35,10 +36,7 @@ export function Offer({ tone }: OfferProps) {
           <div className="gold-ring rounded-[2rem] bg-glim-ink p-7 text-center text-glim-cream shadow-glow-lg md:p-10">
             <p className="mx-auto max-w-xs text-sm leading-relaxed text-glim-cream/70">{comparison}</p>
             <div className="my-7 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-            <p className="font-mono text-[3.4rem] font-bold leading-none tracking-[-0.04em] text-glim-gold [text-shadow:0_0_36px_rgba(242,183,123,0.5)] md:text-[4.5rem]">
-              {price}
-            </p>
-            <p className="mt-4 font-mono text-[13px] text-glim-cream/80 first-letter:uppercase">{condition}</p>
+            <PriceDisplay />
             {site.spotsAvailable !== null ? (
               <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-glim-gold/30 px-3 py-1 font-mono text-xs text-glim-gold">
                 <Diamond className="h-2 w-2" />

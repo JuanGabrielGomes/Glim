@@ -29,17 +29,15 @@ interface SiteConfig {
   /** URL ou ID do vídeo (NEXT_PUBLIC_VSL_URL). */
   vslUrl: string;
   /**
-   * Segundos assistidos para o botão logo abaixo do vídeo aparecer. 0 = sempre visível.
-   * Para ligar, troque por um valor (ex.: 480 = 8 min). Funciona com mp4, youtube e vimeo;
-   * com panda (que não informa o tempo) o botão aparece normalmente. Os outros botões
-   * da página ficam sempre visíveis.
+   * Segundos de VSL assistidos para liberar o resto da página e a oferta (3:36 = 216).
+   * 0 = página sempre aberta. Com panda (que não informa o tempo) a página fica sempre aberta.
    */
-  ctaRevealSeconds: number;
+  unlockSeconds: number;
 }
 
 export const site: SiteConfig = {
   checkoutUrl: process.env.NEXT_PUBLIC_CHECKOUT_URL || "#",
-  checkoutValue: 997,
+  checkoutValue: 939,
   bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL || "",
   whatsappUrl: process.env.NEXT_PUBLIC_WHATSAPP_URL || "",
   whatsappDisplay: "(54) 99218-1886",
@@ -50,5 +48,5 @@ export const site: SiteConfig = {
   spotsAvailable: null,
   vslProvider: parseProvider(process.env.NEXT_PUBLIC_VSL_PROVIDER),
   vslUrl: process.env.NEXT_PUBLIC_VSL_URL || "",
-  ctaRevealSeconds: 0,
+  unlockSeconds: 216,
 };

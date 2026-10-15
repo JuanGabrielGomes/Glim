@@ -17,7 +17,10 @@ import { Testimonials } from "@/components/sections/Testimonials";
 import { VideoSection } from "@/components/sections/VideoSection";
 import type { Tone } from "@/components/ui/Section";
 import { StickyCta } from "@/components/ui/StickyCta";
+import { Locked, UnlockProvider } from "@/components/video/Unlock";
 import { landing } from "@/content/landing";
+import { site } from "@/content/site";
+import { resolveVsl, supportsProgress } from "@/lib/vsl";
 import { SHOW_TODOS } from "@/lib/dev";
 
 // Asterisco da nota de prazo não vai para título/descrição de busca e compartilhamento.
@@ -71,20 +74,28 @@ const flow: FlowSection[] = [
 
 export default function HomePage() {
   const visible = flow.filter((section) => section.show);
+  // Sem VSL, sem tempo de bloqueio ou com provedor que não informa o tempo: página aberta.
+  const vsl = resolveVsl(site.vslProvider, site.vslUrl);
+  const initiallyUnlocked = !vsl || site.unlockSeconds <= 0 || !supportsProgress(vsl.provider);
 
   return (
-    <main>
-      <TopStage>
-        <Hero />
-        <VideoSection />
-      </TopStage>
-      <Highlights />
-      {visible.map((section, index) => (
-        <Fragment key={section.key}>{section.render(index % 2 === 0 ? "light" : "dark")}</Fragment>
-      ))}
-      <FinalCta />
-      <Footer withStickyCta />
-      <StickyCta label={landing.cta.label} afterId="video" hideIds={["oferta", "fechamento"]} />
-    </main>
+    <UnlockProvider initiallyUnlocked={initiallyUnlocked}>
+      <main>
+        <TopStage>
+          <Hero />
+          <VideoSection />
+        </TopStage>
+        {/* Tudo abaixo do vídeo só aparece depois de site.unlockSeconds assistidos. */}
+        <Locked>
+          <Highlights />
+          {visible.map((section, index) => (
+            <Fragment key={section.key}>{section.render(index % 2 === 0 ? "light" : "dark")}</Fragment>
+          ))}
+          <FinalCta />
+          <StickyCta label={landing.cta.label} afterId="video" hideIds={["oferta", "fechamento"]} />
+        </Locked>
+        <Footer withStickyCta />
+      </main>
+    </UnlockProvider>
   );
 }

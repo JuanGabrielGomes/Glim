@@ -1,81 +1,78 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useUnlock } from "@/components/video/Unlock";
 import { VslPlayer } from "@/components/video/VslPlayer";
 import { trackViewContent } from "@/lib/analytics";
-import { cn } from "@/lib/utils";
-import { supportsProgress, type ResolvedVsl } from "@/lib/vsl";
+import type { ResolvedVsl } from "@/lib/vsl";
 
 interface VslStageProps {
   vsl: ResolvedVsl;
   posterSrc: string;
   playLabel: string;
+  pauseLabel: string;
+  resumeLabel: string;
   title: string;
-  /** Segundos assistidos para liberar `children` (o botão sob o vídeo). 0 = sempre visível. */
-  revealSeconds: number;
-  children: React.ReactNode;
+  /** Segundos assistidos para liberar o resto da página (site.unlockSeconds). */
+  unlockSeconds: number;
   /** Moldura em volta do player (borda, sombra). */
   wrapperClassName?: string;
   /** Classes extras do quadro 16:9 (ex.: arredondamento). */
   frameClassName?: string;
 }
 
-// Sem nenhuma leitura de tempo depois do play, o botão aparece mesmo assim.
+// Se o player não informar nenhum tempo depois do play, libera mesmo assim (não trava a venda).
 const NO_PROGRESS_FALLBACK_MS = 10000;
 
 export function VslStage({
   vsl,
   posterSrc,
   playLabel,
+  pauseLabel,
+  resumeLabel,
   title,
-  revealSeconds,
-  children,
+  unlockSeconds,
   wrapperClassName,
   frameClassName,
 }: VslStageProps) {
+  const { unlocked, unlock } = useUnlock();
   const [started, setStarted] = useState(false);
-  const [reported, setReported] = useState(false);
-  const [watched, setWatched] = useState(0);
-  const [fallback, setFallback] = useState(false);
-
-  const gated = revealSeconds > 0 && supportsProgress(vsl.provider);
-  const showCta = !gated || fallback || watched >= revealSeconds;
+  const reportedRef = useRef(false);
 
   const handlePlay = useCallback(() => {
     setStarted(true);
     trackViewContent();
   }, []);
-  const handleProgress = useCallback((seconds: number) => {
-    setReported(true);
-    setWatched((prev) => Math.max(prev, seconds));
-  }, []);
+
+  const handleProgress = useCallback(
+    (seconds: number) => {
+      reportedRef.current = true;
+      if (seconds >= unlockSeconds) unlock();
+    },
+    [unlock, unlockSeconds],
+  );
 
   useEffect(() => {
-    if (!gated || !started || reported) return;
-    const timer = window.setTimeout(() => setFallback(true), NO_PROGRESS_FALLBACK_MS);
+    if (unlocked || !started) return;
+    const timer = window.setTimeout(() => {
+      if (!reportedRef.current) unlock();
+    }, NO_PROGRESS_FALLBACK_MS);
     return () => window.clearTimeout(timer);
-  }, [gated, started, reported]);
+  }, [unlocked, started, unlock]);
 
   return (
-    <>
-      <div className={wrapperClassName}>
-        <VslPlayer
-          vsl={vsl}
-          posterSrc={posterSrc}
-          playLabel={playLabel}
-          title={title}
-          onPlay={handlePlay}
-          onProgress={gated ? handleProgress : undefined}
-          className={frameClassName}
-        />
-      </div>
-      {/* invisible mantém o espaço: o botão não empurra o layout quando aparece. */}
-      <div
-        aria-hidden={!showCta}
-        className={cn("transition-opacity duration-300", !showCta && "invisible opacity-0")}
-      >
-        {children}
-      </div>
-    </>
+    <div className={wrapperClassName}>
+      <VslPlayer
+        vsl={vsl}
+        posterSrc={posterSrc}
+        playLabel={playLabel}
+        pauseLabel={pauseLabel}
+        resumeLabel={resumeLabel}
+        title={title}
+        onPlay={handlePlay}
+        onProgress={unlocked ? undefined : handleProgress}
+        className={frameClassName}
+      />
+    </div>
   );
 }

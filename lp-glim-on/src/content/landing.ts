@@ -53,6 +53,10 @@ export const landing = {
     note: "Assista com o som ligado. O vídeo tem cerca de 10 minutos.",
     placeholder: "VSL",
     playLabel: "Assistir ao vídeo",
+    pauseLabel: "Pausar o vídeo",
+    resumeLabel: "Continuar assistindo",
+    // Enquanto a página está bloqueada (antes de 3:36 do vídeo).
+    lockedHint: "Continue assistindo. A oferta aparece aqui durante o vídeo.",
     iframeTitle: `Vídeo de apresentação do ${PRODUCT_NAME}`,
     posterSrc: "/vsl-poster.jpg",
   },
@@ -130,9 +134,18 @@ export const landing = {
       "1 rodada de ajuste ao vivo na entrega",
     ],
     comparison: "Com uma agência, isso passaria facilmente de R$ 2.500 e levaria um ou dois meses.",
-    price: "R$ 997",
-    condition: "parcelado em até 12x no cartão, ou à vista no Pix",
+    // Preço e parcela (definidos pelo Juan). A parcela é com juros, pagos pelo comprador.
+    installments: "12x",
+    installmentValue: "R$ 97",
+    installmentNote: "no cartão, com juros",
+    cash: "ou R$ 939 à vista no Pix",
     spotsLabel: (spots: number): string => `Vagas disponíveis: ${spots}`,
+  },
+
+  // Cartão que aparece embaixo do vídeo quando a página é liberada (3:36).
+  unlockOffer: {
+    badge: "Condição liberada",
+    lead: "Pra quem assistiu até aqui:",
   },
 
   guarantee: {
@@ -158,7 +171,7 @@ export const landing = {
       {
         question: "É caro?",
         answer:
-          "Agências cobram de R$ 2.500 a R$ 15.000 e levam semanas; freelancers, de R$ 500 a R$ 3.000, sem garantia de prazo. R$ 997 com entrega em até 7 dias* está dentro ou abaixo do que o mercado cobra, e ainda dá pra parcelar.",
+          "Agências cobram de R$ 2.500 a R$ 15.000 e levam semanas; freelancers, de R$ 500 a R$ 3.000, sem garantia de prazo. R$ 939 com entrega em até 7 dias* está dentro ou abaixo do que o mercado cobra, e ainda dá pra parcelar.",
       },
       {
         question: "Já tenho Instagram. Preciso de site?",

@@ -1,6 +1,9 @@
 import { CheckoutButton } from "@/components/ui/CheckoutButton";
 import { Container } from "@/components/ui/Container";
+import { Diamond } from "@/components/ui/Diamond";
+import { PriceDisplay } from "@/components/ui/PriceDisplay";
 import { TodoNotice } from "@/components/ui/TodoNotice";
+import { Locked } from "@/components/video/Unlock";
 import { VslStage } from "@/components/video/VslStage";
 import { landing } from "@/content/landing";
 import { site } from "@/content/site";
@@ -10,20 +13,38 @@ const RING = "gold-ring rounded-[1.25rem] p-1.5 shadow-glow-lg md:rounded-[1.75r
 const FRAME = "rounded-[0.95rem] md:rounded-[1.3rem]";
 
 export function VideoSection() {
-  const { note, placeholder, playLabel, iframeTitle, posterSrc } = landing.video;
+  const { note, placeholder, playLabel, pauseLabel, resumeLabel, iframeTitle, posterSrc, lockedHint } = landing.video;
   const { label, support } = landing.cta;
   const vsl = resolveVsl(site.vslProvider, site.vslUrl);
   // No YouTube, a capa é a miniatura do próprio vídeo; nos demais, o arquivo local.
   const poster = vsl?.provider === "youtube" ? `https://i.ytimg.com/vi/${vsl.source}/maxresdefault.jpg` : posterSrc;
 
-  const cta = (
-    <div className="space-y-3 pt-5 md:pt-8">
-      <CheckoutButton glow className="w-full px-9 py-4 text-base sm:w-auto md:text-lg">
-        {label}
-      </CheckoutButton>
-      <p className="font-mono text-[11px] leading-relaxed text-glim-cream/70 md:text-xs">{support}</p>
-      <p className="text-[11px] leading-relaxed text-glim-cream/70 md:text-xs">{landing.deliveryNote}</p>
+  // Cartão da oferta que aparece embaixo do vídeo quando a página é liberada.
+  const unlockCard = (
+    <div className="mx-auto mt-6 max-w-xl md:mt-8">
+      <div className="gold-ring animate-[glim-pop_0.6s_ease-out] rounded-[1.75rem] bg-glim-cinema/80 px-5 py-7 backdrop-blur-sm md:px-8 md:py-9">
+        <p className="mx-auto inline-flex items-center gap-2 rounded-full border border-glim-gold/40 bg-glim-gold/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em] text-glim-gold">
+          <Diamond className="h-2 w-2" />
+          {landing.unlockOffer.badge}
+        </p>
+        <p className="mt-4 font-display text-lg tracking-[-0.02em] text-glim-cream/85 md:text-xl">
+          {landing.unlockOffer.lead}
+        </p>
+        <PriceDisplay className="mt-4" />
+        <CheckoutButton glow className="mt-7 w-full px-9 py-4 text-base sm:w-auto md:text-lg">
+          {label}
+        </CheckoutButton>
+        <p className="mt-4 font-mono text-[11px] leading-relaxed text-glim-cream/70 md:text-xs">{support}</p>
+        <p className="mt-2 text-[11px] leading-relaxed text-glim-cream/70 md:text-xs">{landing.deliveryNote}</p>
+      </div>
     </div>
+  );
+
+  const hint = (
+    <p className="mx-auto mt-5 flex max-w-sm items-center justify-center gap-2 font-mono text-[11px] text-glim-cream/70 md:text-xs">
+      <Diamond className="h-2 w-2 animate-pulse" />
+      {lockedHint}
+    </p>
   );
 
   return (
@@ -36,13 +57,13 @@ export function VideoSection() {
               vsl={vsl}
               posterSrc={poster}
               playLabel={playLabel}
+              pauseLabel={pauseLabel}
+              resumeLabel={resumeLabel}
               title={iframeTitle}
-              revealSeconds={site.ctaRevealSeconds}
+              unlockSeconds={site.unlockSeconds}
               wrapperClassName={RING}
               frameClassName={FRAME}
-            >
-              {cta}
-            </VslStage>
+            />
           ) : (
             <>
               <div className={RING}>
@@ -53,9 +74,9 @@ export function VideoSection() {
               <div className="pt-3 text-left">
                 <TodoNotice>{landing.todos.vsl}</TodoNotice>
               </div>
-              {cta}
             </>
           )}
+          <Locked fallback={hint}>{unlockCard}</Locked>
         </div>
       </Container>
     </section>
