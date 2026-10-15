@@ -101,8 +101,12 @@ export const landing = {
     eyebrow: "Quem faz",
     title: "Quem está por trás",
     text: `Eu sou o Juan Gabriel, fundador da glim. Estudo tecnologia desde 2022 e hoje trabalho com projetos e sites para empresas — de lojas virtuais a sites institucionais completos. O ${PRODUCT_NAME} leva esse mesmo padrão de qualidade pra quem precisa de uma solução rápida e objetiva.`,
-    // TODO: foto real do Juan.
-    photo: null as ImageAsset | null,
+    photo: {
+      src: "/juan-gabriel.webp",
+      alt: "Juan Gabriel, fundador da glim.",
+      width: 900,
+      height: 825,
+    } as ImageAsset | null,
   },
 
   testimonials: {
