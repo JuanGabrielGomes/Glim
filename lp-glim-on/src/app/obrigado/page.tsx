@@ -7,7 +7,7 @@ import { PRODUCT_NAME, site } from "@/content/site";
 import { thanks } from "@/content/thanks";
 
 export const metadata: Metadata = {
-  title: `${thanks.metaTitle} — ${PRODUCT_NAME}`,
+  title: `${thanks.metaTitle} | ${PRODUCT_NAME}`,
   robots: { index: false, follow: false },
 };
 

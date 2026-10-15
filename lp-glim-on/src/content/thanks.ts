@@ -2,7 +2,7 @@ export const thanks = {
   metaTitle: "Pagamento confirmado",
   titleLead: "Pagamento confirmado.",
   titleRest: "Agora vamos marcar nossa conversa.",
-  text: "Escolha o melhor horário para a nossa Reunião 1 — são cerca de 15 minutos, por Google Meet. Se puder, já separe suas fotos, a logo (se tiver) e os contatos do seu negócio.",
+  text: "Escolha o melhor horário para a nossa Reunião 1: são cerca de 15 minutos, por Google Meet. Se puder, já separe suas fotos, a logo (se tiver) e os contatos do seu negócio.",
   button: "Escolher horário",
   supportEmail: "O link também foi enviado para o seu e-mail.",
   supportWhatsapp: "Alguma dúvida? Me chama no WhatsApp:",

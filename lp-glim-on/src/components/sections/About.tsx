@@ -17,22 +17,15 @@ export function About({ tone }: AboutProps) {
     <Section tone={tone} glow="left">
       <Reveal className={cn("grid gap-10 md:items-center", photo && "md:grid-cols-[minmax(0,380px)_1fr] md:gap-14")}>
         {photo ? (
-          // Foto recortada (fundo transparente) sobre um cartão escuro com brilho dourado.
-          <div className="gold-ring relative mx-auto w-full max-w-[22rem] overflow-hidden rounded-[2rem] bg-glim-cinema md:max-w-none">
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,rgba(242,183,123,0.42),rgba(242,183,123,0.08)_45%,transparent_70%)]"
-            />
-            <div aria-hidden="true" className="grid-dark absolute inset-0 opacity-60 [mask-image:linear-gradient(to_bottom,black,transparent_80%)]" />
+          <div className="gold-ring mx-auto w-full max-w-[22rem] rounded-[2rem] p-1.5 shadow-glow-lg md:max-w-none">
             <Image
               src={photo.src}
               alt={photo.alt}
               width={photo.width}
               height={photo.height}
               sizes="(min-width: 768px) 380px, 88vw"
-              className="relative mt-6 h-auto w-full"
+              className="h-auto w-full rounded-[1.65rem]"
             />
-            <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-glim-cinema to-transparent" />
           </div>
         ) : null}
         <div className="max-w-3xl space-y-6">

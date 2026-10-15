@@ -23,7 +23,7 @@ export const privacy = {
   lastUpdated: null as string | null,
   backLabel: "Voltar para a página inicial",
   controllerLabels: { document: "CNPJ/CPF", email: "E-mail" },
-  intro: `Esta política explica quais dados são coletados quando você visita a página do ${PRODUCT_NAME}, para que servem, por quanto tempo ficam guardados e como você pode exercer seus direitos, de acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018 — LGPD).`,
+  intro: `Esta política explica quais dados são coletados quando você visita a página do ${PRODUCT_NAME}, para que servem, por quanto tempo ficam guardados e como você pode exercer seus direitos, de acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018, a LGPD).`,
   sections: [
     {
       title: "Quem é o responsável",
@@ -107,11 +107,11 @@ export const privacy = {
         {
           type: "list",
           items: [
-            "Meta Platforms — pixel e anúncios. Os dados podem ser tratados fora do Brasil, nos termos do art. 33 da LGPD.",
-            "Kiwify — o checkout acontece na plataforma da Kiwify, que trata seus dados de compra e pagamento segundo a política de privacidade dela.",
-            "Google — depois da compra, o agendamento da conversa é feito no Google Agenda e a reunião acontece no Google Meet, segundo a política de privacidade do Google.",
-            "Provedor do vídeo — o player só é carregado quando você clica para assistir. A partir daí, o provedor do vídeo pode coletar dados de acordo com a política dele.",
-            "Vercel — empresa que hospeda esta página e pode registrar dados técnicos de acesso (como o endereço IP) para manter o site seguro e funcionando.",
+            "Meta Platforms: pixel e anúncios. Os dados podem ser tratados fora do Brasil, nos termos do art. 33 da LGPD.",
+            "Kiwify: o checkout acontece na plataforma da Kiwify, que trata seus dados de compra e pagamento segundo a política de privacidade dela.",
+            "Google: depois da compra, o agendamento da conversa é feito no Google Agenda e a reunião acontece no Google Meet, segundo a política de privacidade do Google.",
+            "Provedor do vídeo: o player só é carregado quando você clica para assistir. A partir daí, o provedor do vídeo pode coletar dados de acordo com a política dele.",
+            "Vercel: empresa que hospeda esta página e pode registrar dados técnicos de acesso (como o endereço IP) para manter o site seguro e funcionando.",
           ],
         },
       ],

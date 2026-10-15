@@ -12,7 +12,7 @@ import { privacy } from "@/content/privacy";
 import { PRODUCT_NAME, site } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: `${privacy.metaTitle} — ${PRODUCT_NAME}`,
+  title: `${privacy.metaTitle} | ${PRODUCT_NAME}`,
   description: privacy.metaDescription,
 };
 

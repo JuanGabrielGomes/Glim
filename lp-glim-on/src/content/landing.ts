@@ -42,11 +42,11 @@ export const landing = {
   deliveryNote: "*Prazo de 7 dias contado a partir da reunião de alinhamento inicial.",
 
   hero: {
-    kicker: `${PRODUCT_NAME} — site profissional em até 7 dias*`,
+    kicker: `${PRODUCT_NAME} · site profissional em até 7 dias*`,
     title: "Se alguém pesquisar o seu negócio no Google agora, o que aparece?",
     titleEmphasis: "no Google",
     subtitle:
-      "Um site profissional no ar em até 7 dias* — construído e entregue por mim, do início ao fim. Você não precisa entender nada de tecnologia.",
+      "Um site profissional no ar em até 7 dias*, construído e entregue por mim, do início ao fim. Você não precisa entender nada de tecnologia.",
   },
 
   video: {
@@ -69,7 +69,7 @@ export const landing = {
     eyebrow: "O problema",
     titleEmphasis: "numa tela",
     title: "A primeira impressão do seu negócio acontece numa tela",
-    text: "Antes de ligar, a pessoa pesquisa. Se o que ela encontra é um perfil parado no Instagram — ou nada —, ela fecha a aba e procura outro. E você nunca fica sabendo quantos foram.",
+    text: "Antes de ligar, a pessoa pesquisa. Se o que ela encontra é um perfil parado no Instagram (ou nada), ela fecha a aba e procura outro. E você nunca fica sabendo quantos foram.",
     statLead: "4 em cada 10",
     statRest: " consumidores desconfiam de negócios que só existem nas redes sociais, sem site oficial.",
     source: "Pesquisa Locaweb/Conversion, 2025.",
@@ -81,7 +81,7 @@ export const landing = {
     titleEmphasis: "funciona",
     stepTags: ["15 min", "até 7 dias*", "1 ajuste ao vivo", "no seu endereço"],
     steps: [
-      { lead: "Você garante sua vaga", rest: " e agenda uma conversa rápida comigo — uns 15 minutos." },
+      { lead: "Você garante sua vaga", rest: " e agenda uma conversa rápida comigo, de uns 15 minutos." },
       { lead: "Eu construo o seu site", rest: " com as suas informações, fotos e contatos." },
       { lead: "Na entrega", rest: ", mostro o site pronto, fazemos 1 ajuste ao vivo e você aprova." },
       { lead: "O site vai ao ar", rest: ", no seu endereço, funcionando." },
@@ -100,12 +100,12 @@ export const landing = {
   about: {
     eyebrow: "Quem faz",
     title: "Quem está por trás",
-    text: `Eu sou o Juan Gabriel, fundador da glim. Estudo tecnologia desde 2022 e hoje trabalho com projetos e sites para empresas — de lojas virtuais a sites institucionais completos. O ${PRODUCT_NAME} leva esse mesmo padrão de qualidade pra quem precisa de uma solução rápida e objetiva.`,
+    text: `Eu sou o Juan Gabriel, fundador da glim. Estudo tecnologia desde 2022 e hoje trabalho com projetos e sites para empresas, de lojas virtuais a sites institucionais completos. O ${PRODUCT_NAME} leva esse mesmo padrão de qualidade pra quem precisa de uma solução rápida e objetiva.`,
     photo: {
-      src: "/juan-gabriel.webp",
+      src: "/juan-gabriel-retrato.webp",
       alt: "Juan Gabriel, fundador da glim.",
-      width: 900,
-      height: 825,
+      width: 640,
+      height: 640,
     } as ImageAsset | null,
   },
 
@@ -140,13 +140,13 @@ export const landing = {
     title: "O risco é meu, não seu",
     titleEmphasis: "é meu",
     seal: { value: "7", unit: "dias", caption: "Art. 49 · CDC" },
-    text: "Por lei (artigo 49 do Código de Defesa do Consumidor), você tem 7 dias depois da compra para desistir e receber o reembolso total — sem precisar justificar. E na entrega, você só aprova o site depois do ajuste ao vivo, quando ele estiver do seu jeito.",
+    text: "Por lei (artigo 49 do Código de Defesa do Consumidor), você tem 7 dias depois da compra para desistir e receber o reembolso total, sem precisar justificar. E na entrega, você só aprova o site depois do ajuste ao vivo, quando ele estiver do seu jeito.",
   },
 
   notIncluded: {
     eyebrow: "Escopo",
     title: "Pra deixar claro desde já",
-    intro: `O ${PRODUCT_NAME} é um site institucional com escopo fechado — é isso que garante o prazo e o preço. Não fazem parte do pacote:`,
+    intro: `O ${PRODUCT_NAME} é um site institucional com escopo fechado, e é isso que garante o prazo e o preço. Não fazem parte do pacote:`,
     items: ["loja virtual", "blog", "sistema de agendamento", "criação de logotipo/identidade visual", "gestão de anúncios"],
     outro: "Se você precisar de algo assim, me chama que a gente conversa sobre um projeto sob medida.",
   },
@@ -158,7 +158,7 @@ export const landing = {
       {
         question: "É caro?",
         answer:
-          "Agências cobram de R$ 2.500 a R$ 15.000 e levam semanas; freelancers, de R$ 500 a R$ 3.000, sem garantia de prazo. R$ 997 com entrega em até 7 dias* está dentro ou abaixo do que o mercado cobra — e ainda dá pra parcelar.",
+          "Agências cobram de R$ 2.500 a R$ 15.000 e levam semanas; freelancers, de R$ 500 a R$ 3.000, sem garantia de prazo. R$ 997 com entrega em até 7 dias* está dentro ou abaixo do que o mercado cobra, e ainda dá pra parcelar.",
       },
       {
         question: "Já tenho Instagram. Preciso de site?",
