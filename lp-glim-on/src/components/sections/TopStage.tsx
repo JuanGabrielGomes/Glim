@@ -1,7 +1,7 @@
 /**
  * Fundo contínuo do topo (hero + vídeo): grade, brilho dourado atrás do player e granulado.
  * No celular ocupa a tela inteira (100svh), e a faixa de números começa logo depois da dobra,
- * sem ser cortada. A altura que sobra vira respiro: 2/3 acima do título, 1/3 abaixo do botão.
+ * sem ser cortada. O título fica perto do topo; a altura que sobra vai para baixo do botão.
  */
 interface TopStageProps {
   children: React.ReactNode;
@@ -17,7 +17,6 @@ export function TopStage({ children }: TopStageProps) {
         <div className="grain absolute inset-0 opacity-40" />
       </div>
       <div className="relative flex min-h-[100svh] flex-col md:block md:min-h-0">
-        <div aria-hidden="true" className="flex-[2] md:hidden" />
         {children}
         <div aria-hidden="true" className="flex-1 md:hidden" />
       </div>
