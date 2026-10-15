@@ -30,7 +30,12 @@ export function VideoSection() {
         <p className="mt-4 font-display text-lg tracking-[-0.02em] text-glim-cream/85 md:text-xl">
           {landing.unlockOffer.lead}
         </p>
-        <PriceDisplay className="mt-4" />
+        <p className="mt-4 font-mono text-xs text-glim-cream/60">
+          {landing.unlockOffer.previousBefore}{" "}
+          <s className="decoration-glim-gold/70">{landing.unlockOffer.previousPrice}</s>
+          {landing.unlockOffer.previousAfter}
+        </p>
+        <PriceDisplay className="mt-3" />
         <CheckoutButton glow className="mt-7 w-full px-9 py-4 text-base sm:w-auto md:text-lg">
           {label}
         </CheckoutButton>

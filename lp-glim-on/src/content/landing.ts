@@ -143,9 +143,13 @@ export const landing = {
   },
 
   // Cartão que aparece embaixo do vídeo quando a página é liberada (3:36).
+  // O vídeo anuncia R$ 997; o desconto é sobre esse preço (real, anunciado na VSL).
   unlockOffer: {
-    badge: "Condição liberada",
-    lead: "Pra quem assistiu até aqui:",
+    badge: "Desconto liberado",
+    lead: "Você recebeu mais desconto pra quem assistiu até aqui.",
+    previousBefore: "De",
+    previousPrice: "R$ 997",
+    previousAfter: ", como no vídeo, por:",
   },
 
   guarantee: {

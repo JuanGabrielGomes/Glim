@@ -6,7 +6,7 @@ entregue em até 7 dias pela glim. (Juan Gabriel), por R$ 939 à vista ou 12x de
 no cartão (com juros). O tráfego vem de anúncios na Meta (vídeos curtos por nicho) e cai aqui.
 O objetivo único da página é levar o visitante a assistir à VSL e clicar no checkout.
 Abaixo do vídeo, a página e a oferta só aparecem depois de 3:36 de VSL assistidos
-(`site.unlockSeconds`), e aí surge o cartão "Condição liberada" com o preço.
+(`site.unlockSeconds`), e aí surge o cartão "Desconto liberado" com o preço.
 
 Fluxo: anúncio → esta página (VSL) → checkout Kiwify (externo) → /obrigado
 (agendamento da Reunião 1 no Google Agenda) → Reunião 1 → site entregue em até 7 dias.
@@ -54,9 +54,10 @@ promessas de mágica, urgência falsa.
    visível em desenvolvimento, nunca texto inventado.
 2. Sem cronômetro regressivo, sem "restam X vagas" fictício, sem pop-up de
    "fulano acabou de comprar". A única escassez permitida é o número real de vagas
-   que o Juan preencher em content.ts. Não anunciar "desconto" sobre um preço que
-   nunca foi cobrado: o cartão liberado após o vídeo fala em "condição liberada pra
-   quem assistiu até aqui", não em "você ganhou desconto".
+   que o Juan preencher em content.ts. Só anunciar "desconto" sobre um preço que foi
+   de fato anunciado: a VSL apresenta R$ 997, e o cartão liberado após 3:36 mostra o
+   desconto sobre esse valor (R$ 939 / 12x de R$ 97). Se a VSL mudar de preço,
+   atualizar o cartão (landing.unlockOffer).
 3. Não dizer em lugar nenhum que o site parte de um modelo/template pronto.
 4. Garantia: falar da garantia legal de 7 dias (direito de arrependimento, Art. 49
    do Código de Defesa do Consumidor) + 1 rodada de ajuste ao vivo na entrega.
