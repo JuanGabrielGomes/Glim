@@ -27,7 +27,7 @@ export function VideoSection() {
   );
 
   return (
-    <section id="video" className="relative pb-12 text-glim-cream md:pb-20">
+    <section id="video" className="relative pb-8 text-glim-cream md:pb-20">
       <Container className="relative">
         <div className="mx-auto max-w-4xl text-center">
           <p className="pb-3 font-mono text-[11px] text-glim-cream/70 md:pb-5 md:text-xs">{note}</p>

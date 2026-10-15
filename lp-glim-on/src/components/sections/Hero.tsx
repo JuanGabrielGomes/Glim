@@ -8,7 +8,7 @@ export function Hero() {
 
   return (
     <section className="relative text-glim-cream">
-      <Container className="relative pb-4 pt-5 md:pb-10 md:pt-16">
+      <Container className="relative pb-4 pt-10 md:pb-10 md:pt-16">
         <header className="mx-auto max-w-4xl space-y-3 text-center md:space-y-6">
           <p className="inline-flex items-center gap-2 rounded-full border border-glim-gold/30 bg-glim-gold/10 px-3 py-1 font-mono text-[10px] tracking-[-0.01em] sm:text-[11px] text-glim-gold md:px-4 md:text-xs">
             <Diamond className="h-2 w-2" />
