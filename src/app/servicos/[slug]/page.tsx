@@ -54,6 +54,10 @@ export default async function ServicePageRoute({ params }: ServicePageProps) {
   const pageUrl = `${SITE_URL}/servicos/${service.slug}`;
   const whatsappHref = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent(service.whatsappText)}`;
   const otherServices = SERVICE_PAGES.filter((item) => item.slug !== service.slug);
+  const process = service.process ?? SERVICE_PROCESS;
+  const primaryHref = service.externalUrl ?? whatsappHref;
+  const primaryLabel = service.externalUrl ? 'Quero meu site no ar' : 'Falar no WhatsApp';
+  const externalLinkProps = service.externalUrl ? {} : { target: '_blank', rel: 'noreferrer' };
 
   const structuredData = {
     '@context': 'https://schema.org',
@@ -67,6 +71,17 @@ export default async function ServicePageRoute({ params }: ServicePageProps) {
         serviceType: service.name,
         provider: { '@id': `${SITE_URL}/#organization` },
         areaServed: { '@type': 'Country', name: 'Brasil' },
+        ...(service.priceValue
+          ? {
+              offers: {
+                '@type': 'Offer',
+                price: String(service.priceValue),
+                priceCurrency: 'BRL',
+                url: service.externalUrl ?? pageUrl,
+                availability: 'https://schema.org/InStock',
+              },
+            }
+          : {}),
       },
       {
         '@type': 'FAQPage',
@@ -136,22 +151,44 @@ export default async function ServicePageRoute({ params }: ServicePageProps) {
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
             <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noreferrer"
+              href={primaryHref}
+              {...externalLinkProps}
               data-cursor-hover
               className="bg-glim-diamond text-glim-dark inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold shadow-[0_18px_44px_-22px_rgba(242,183,123,0.85)] transition-transform hover:-translate-y-0.5 sm:text-base"
             >
-              Falar no WhatsApp
+              {primaryLabel}
             </a>
-            <Link
-              href="/#contato"
-              data-cursor-hover
-              className="inline-flex items-center justify-center rounded-full border border-white/15 px-7 py-3.5 text-sm font-medium text-[#ebe6e1] transition-colors hover:bg-white/[0.06] sm:text-base"
-            >
-              Enviar briefing
-            </Link>
+            {service.externalUrl ? (
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                data-cursor-hover
+                className="inline-flex items-center justify-center rounded-full border border-white/15 px-7 py-3.5 text-sm font-medium text-[#ebe6e1] transition-colors hover:bg-white/[0.06] sm:text-base"
+              >
+                Tirar dúvidas no WhatsApp
+              </a>
+            ) : (
+              <Link
+                href="/#contato"
+                data-cursor-hover
+                className="inline-flex items-center justify-center rounded-full border border-white/15 px-7 py-3.5 text-sm font-medium text-[#ebe6e1] transition-colors hover:bg-white/[0.06] sm:text-base"
+              >
+                Enviar briefing
+              </Link>
+            )}
           </div>
+
+          {service.price ? (
+            <div className="border-glim-diamond/25 mt-10 inline-block max-w-xl rounded-[1.6rem] border bg-white/[0.04] px-6 py-5">
+              <p className={eyebrowClass}>Investimento</p>
+              <p className="font-google mt-2 text-4xl tracking-[-0.05em]">
+                {service.price.value}{' '}
+                <span className="text-base tracking-normal text-[#bdb6b0]">{service.price.condition}</span>
+              </p>
+              <p className="mt-2 text-sm leading-6 text-[#9c948a]">{service.price.note}</p>
+            </div>
+          ) : null}
         </section>
 
         <section aria-labelledby="para-quem" className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
@@ -196,7 +233,7 @@ export default async function ServicePageRoute({ params }: ServicePageProps) {
             Do primeiro contato à entrega, sem surpresa.
           </h2>
           <ol className="mt-10 grid gap-6 border-t border-white/10 pt-8 sm:grid-cols-2 lg:grid-cols-4">
-            {SERVICE_PROCESS.map((step, index) => (
+            {process.map((step, index) => (
               <li key={step.title}>
                 <span className="text-glim-diamond font-mono text-xs tracking-[0.2em]">0{index + 1}</span>
                 <h3 className="font-google mt-3 text-xl tracking-[-0.04em]">{step.title}</h3>
@@ -206,7 +243,20 @@ export default async function ServicePageRoute({ params }: ServicePageProps) {
           </ol>
         </section>
 
-        <section aria-labelledby="faq" className="mx-auto max-w-4xl px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
+        {service.notIncluded ? (
+          <section
+            aria-labelledby="fora-do-escopo"
+            className="mx-auto max-w-4xl px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28"
+          >
+            <p className={eyebrowClass}>Pra deixar claro desde já</p>
+            <h2 id="fora-do-escopo" className={h2Class}>
+              O que fica fora do pacote.
+            </h2>
+            <p className="mt-6 max-w-3xl text-base leading-8 text-[#bdb6b0]">{service.notIncluded}</p>
+          </section>
+        ) : null}
+
+        <section aria-labelledby="faq"className="mx-auto max-w-4xl px-4 pb-20 sm:px-6 lg:px-8 lg:pb-28">
           <p className={eyebrowClass}>Perguntas frequentes</p>
           <h2 id="faq" className={h2Class}>
             O que costumam perguntar.
@@ -244,27 +294,38 @@ export default async function ServicePageRoute({ params }: ServicePageProps) {
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
-              href={whatsappHref}
-              target="_blank"
-              rel="noreferrer"
+              href={primaryHref}
+              {...externalLinkProps}
               data-cursor-hover
               className="bg-glim-diamond text-glim-dark inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold sm:text-base"
             >
-              Iniciar Projeto com a glim.
+              {service.externalUrl ? primaryLabel : 'Iniciar Projeto com a glim.'}
             </a>
-            <Link
-              href="/#contato"
-              data-cursor-hover
-              className="text-sm font-medium text-[#d9d3cc] underline decoration-[#f2c48f]/40 underline-offset-4 transition-colors hover:text-white"
-            >
-              ou preencher o briefing
-            </Link>
+            {service.externalUrl ? (
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                data-cursor-hover
+                className="text-sm font-medium text-[#d9d3cc] underline decoration-[#f2c48f]/40 underline-offset-4 transition-colors hover:text-white"
+              >
+                ou tirar dúvidas no WhatsApp
+              </a>
+            ) : (
+              <Link
+                href="/#contato"
+                data-cursor-hover
+                className="text-sm font-medium text-[#d9d3cc] underline decoration-[#f2c48f]/40 underline-offset-4 transition-colors hover:text-white"
+              >
+                ou preencher o briefing
+              </Link>
+            )}
           </div>
         </section>
 
         <nav aria-label="Outros serviços" className="mx-auto max-w-6xl px-4 pb-24 sm:px-6 lg:px-8">
           <p className={eyebrowClass}>Outros serviços</p>
-          <ul className="mt-5 grid gap-3 sm:grid-cols-3">
+          <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {otherServices.map((item) => (
               <li key={item.slug}>
                 <Link

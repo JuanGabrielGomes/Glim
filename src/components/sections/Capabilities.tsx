@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, m } from 'framer-motion';
+import { GlimOnHighlight } from '@/components/sections/GlimOnHighlight';
 import { FitPill } from '@/components/ui/Primitives';
 import { CAPABILITIES } from '@/lib/content';
 import { FADE_UP, STAGGER, VIEWPORT } from '@/lib/motion';
@@ -116,6 +117,8 @@ export function Capabilities() {
             </AnimatePresence>
           </div>
         </m.div>
+
+        <GlimOnHighlight />
       </div>
     </section>
   );

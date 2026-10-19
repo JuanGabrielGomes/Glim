@@ -10,6 +10,11 @@ export type ServicePage = {
   deliverables: readonly { title: string; text: string }[];
   faq: readonly { question: string; answer: string }[];
   whatsappText: string;
+  externalUrl?: string;
+  price?: { value: string; condition: string; note: string };
+  priceValue?: number;
+  process?: readonly { title: string; text: string }[];
+  notIncluded?: string;
 };
 
 export const SERVICE_PROCESS = [
@@ -141,6 +146,11 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
           'Sim. Já entregamos sites com português e inglês, e o idioma extra entra no escopo desde o início.',
       },
       {
+        question: 'Existe uma opção mais enxuta e de entrada?',
+        answer:
+          'Sim. O glim. On é um site institucional de uma página, com escopo fechado, no ar em até 7 dias por R$ 997 em até 12x no cartão. Se você precisa de mais páginas ou de recursos próprios, o site institucional completo é o caminho.',
+      },
+      {
         question: 'E se eu já tenho um site?',
         answer:
           'Avaliamos o que existe. Dependendo do caso, vale reconstruir do zero ou reaproveitar o conteúdo. Dizemos com franqueza qual é o melhor caminho.',
@@ -263,6 +273,108 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
       },
     ],
     whatsappText: 'Olá, vim pelo site da glim. Quero conversar sobre um sistema sob medida.',
+  },
+  {
+    slug: 'glim-on',
+    name: 'glim. On',
+    metaTitle: 'glim. On: Site Profissional em até 7 Dias',
+    metaDescription:
+      'Site institucional profissional de uma página, no ar em até 7 dias a partir da reunião inicial. R$ 997 em até 12x no cartão. Feito pela glim., sem você precisar entender de tecnologia.',
+    eyebrow: 'Produto de entrada',
+    h1: 'Seu negócio no Google em até 7 dias, sem complicação.',
+    intro:
+      'O glim. On é um site institucional de uma página, com escopo fechado, pra quem precisa estar na internet com cara de empresa séria sem esperar semanas e sem entender de tecnologia. Você dedica cerca de meia hora, e o resto fica com a glim.',
+    audience: [
+      'Quem hoje só tem Instagram ou WhatsApp',
+      'Autônomos e prestadores de serviço',
+      'Pequenos negócios locais',
+      'Quem precisa de um site rápido e acessível',
+    ],
+    deliverables: [
+      {
+        title: 'Site institucional de uma página',
+        text: 'Pensado pro seu segmento, com a apresentação do negócio e dos serviços na ordem certa.',
+      },
+      {
+        title: 'No ar, com segurança',
+        text: 'Publicado no seu endereço, com certificado de segurança, o cadeado que mostra que o site é confiável.',
+      },
+      {
+        title: 'Contato direto',
+        text: 'Formulário de contato e botão de WhatsApp integrados, pra cada visita ter um caminho até você.',
+      },
+      {
+        title: 'Pronto pra buscas locais',
+        text: 'Otimização básica pra o seu negócio aparecer quando alguém pesquisar no Google.',
+      },
+      {
+        title: 'Funciona em qualquer tela',
+        text: 'Visual ajustado pra celular, tablet e computador.',
+      },
+      {
+        title: 'Ajuste ao vivo na entrega',
+        text: 'Mostramos o site pronto, fazemos 1 rodada de ajuste na hora e você aprova.',
+      },
+    ],
+    process: [
+      {
+        title: 'Garanta sua vaga',
+        text: 'Você agenda uma conversa rápida com a gente, de uns 15 minutos.',
+      },
+      {
+        title: 'Construímos o site',
+        text: 'Com as suas informações, fotos e contatos. Você não precisa escrever nada técnico.',
+      },
+      {
+        title: 'Entrega e ajuste',
+        text: 'Mostramos o site pronto, fazemos 1 ajuste ao vivo e você aprova.',
+      },
+      {
+        title: 'No ar',
+        text: 'O site vai ao ar no seu endereço, funcionando.',
+      },
+    ],
+    price: {
+      value: 'R$ 997',
+      condition: 'em até 12x no cartão, ou à vista no Pix',
+      note: 'Prazo de até 7 dias contado a partir da reunião de alinhamento inicial.',
+    },
+    priceValue: 997,
+    notIncluded:
+      'O glim. On é um site de uma página com escopo fechado, e é isso que garante o prazo e o preço. Não fazem parte do pacote: loja virtual, blog, sistema de agendamento, criação de logotipo ou identidade visual e gestão de anúncios. Se você precisar de algo assim, conversamos sobre um projeto sob medida.',
+    faq: [
+      {
+        question: 'Quando começa a contar o prazo de 7 dias?',
+        answer:
+          'A partir da reunião de alinhamento inicial. Logo depois da compra você escolhe o horário dessa primeira conversa, e a partir dela o site fica pronto em até 7 dias.',
+      },
+      {
+        question: 'Já tenho Instagram. Preciso de site?',
+        answer:
+          'O Instagram é a vitrine pra quem já te segue. O site é o seu endereço oficial: aparece no Google, organiza seus serviços e passa a confiança que muita gente procura antes de contratar.',
+      },
+      {
+        question: 'Não entendo nada de domínio e hospedagem.',
+        answer: 'Não precisa. A glim. cuida de toda a parte técnica, da publicação ao certificado de segurança.',
+      },
+      {
+        question: 'Quanto tempo vou precisar dedicar?',
+        answer:
+          'São duas conversas curtas, somando cerca de meia hora. Você não escreve, não configura e não acompanha nada técnico.',
+      },
+      {
+        question: 'E se eu quiser mais de uma página ou mais recursos?',
+        answer:
+          'Aí o caminho é o site institucional completo ou um projeto sob medida. O glim. On foi desenhado pra ser a porta de entrada, simples e com prazo fechado.',
+      },
+      {
+        question: 'E se eu não gostar do resultado?',
+        answer:
+          'Você tem 7 dias de garantia por lei (artigo 49 do Código de Defesa do Consumidor) pra pedir o reembolso total. E o site só é considerado entregue depois que você aprova.',
+      },
+    ],
+    externalUrl: 'https://on.glimweb.com',
+    whatsappText: 'Olá, vim pelo site da glim. Quero saber mais sobre o glim. On.',
   },
 ];
 
