@@ -12,6 +12,19 @@ export function CaseStudies() {
     <div id="work">
       {CASE_STUDIES.map((caseStudy, index) => {
         const isReversed = index % 2 === 1;
+        const isLive = caseStudy.isLive !== false;
+        const mockup = (
+          <BrowserMockup
+            label={caseStudy.client}
+            url={caseStudy.href.replace('https://', '')}
+            accent={caseStudy.mockupAccent}
+            background={caseStudy.mockupBackground}
+            imageSrc={caseStudy.imageSrc}
+            imagePosition={caseStudy.imagePosition}
+            reduceMotion={reduceMotion}
+            variant="cinema"
+          />
+        );
         return (
           <section
             key={caseStudy.client}
@@ -25,30 +38,33 @@ export function CaseStudies() {
                 isReversed ? 'lg:[&>*:first-child]:order-2' : ''
               }`}
             >
-              <m.a
-                href={caseStudy.href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`Abrir o site da ${caseStudy.client} em uma nova aba`}
-                data-cursor-hover
-                className="group block"
-                initial="hidden"
-                whileInView="visible"
-                viewport={VIEWPORT}
-                variants={FADE_UP}
-                whileHover={reduceMotion ? undefined : { y: -4 }}
-              >
-                <BrowserMockup
-                  label={caseStudy.client}
-                  url={caseStudy.href.replace('https://', '')}
-                  accent={caseStudy.mockupAccent}
-                  background={caseStudy.mockupBackground}
-                  imageSrc={caseStudy.imageSrc}
-                  imagePosition={caseStudy.imagePosition}
-                  reduceMotion={reduceMotion}
-                  variant="cinema"
-                />
-              </m.a>
+              {isLive ? (
+                <m.a
+                  href={caseStudy.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Abrir o site da ${caseStudy.client} em uma nova aba`}
+                  data-cursor-hover
+                  className="group block"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={VIEWPORT}
+                  variants={FADE_UP}
+                  whileHover={reduceMotion ? undefined : { y: -4 }}
+                >
+                  {mockup}
+                </m.a>
+              ) : (
+                <m.div
+                  className="group block"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={VIEWPORT}
+                  variants={FADE_UP}
+                >
+                  {mockup}
+                </m.div>
+              )}
 
               <m.div
                 className="text-center lg:text-left"
@@ -94,21 +110,23 @@ export function CaseStudies() {
                 </ul>
 
                 <div className="mt-9 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
-                  <m.a
-                    href={caseStudy.href}
-                    data-cursor-hover
-                    className="inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold transition"
-                    style={{
-                      backgroundColor: caseStudy.mockupAccent,
-                      color: caseStudy.mockupAccentText ?? '#14100e',
-                    }}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Ver site ao vivo
-                  </m.a>
+                  {isLive ? (
+                    <m.a
+                      href={caseStudy.href}
+                      data-cursor-hover
+                      className="inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold transition"
+                      style={{
+                        backgroundColor: caseStudy.mockupAccent,
+                        color: caseStudy.mockupAccentText ?? '#14100e',
+                      }}
+                      whileHover={{ y: -2 }}
+                      whileTap={{ scale: 0.98 }}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Ver site ao vivo
+                    </m.a>
+                  ) : null}
                   <m.a
                     href="#contato"
                     data-cursor-hover

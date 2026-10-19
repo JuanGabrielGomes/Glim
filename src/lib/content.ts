@@ -16,6 +16,8 @@ export type CaseStudy = {
   summary: string;
   outcome: string;
   href: string;
+  /** false esconde os links para o site (ex.: site temporariamente fora do ar). Padrão: true. */
+  isLive?: boolean;
   highlights: readonly string[];
   deliverables: readonly string[];
   imageSrc?: string;
@@ -176,6 +178,7 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
     outcome:
       'O catálogo comunica luxo sem perder clareza de compra, do primeiro clique ao carrinho.',
     href: 'https://mocellinjoias.com.br',
+    isLive: false,
     highlights: ['Catálogo por categoria', 'Atmosfera escura premium', 'Checkout otimizado', 'WhatsApp integrado'],
     deliverables: [
       'Arquitetura de e-commerce',
