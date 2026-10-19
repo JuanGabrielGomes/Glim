@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { AnimatePresence, m } from 'framer-motion';
 import { FitPill } from '@/components/ui/Primitives';
 import { CAPABILITIES } from '@/lib/content';
@@ -103,6 +104,14 @@ export function Capabilities() {
                     <FitPill key={detail}>{detail}</FitPill>
                   ))}
                 </ul>
+                <Link
+                  href={`/servicos/${active.slug}`}
+                  data-cursor-hover
+                  className="text-glim-diamond mt-8 inline-flex items-center gap-2 text-sm font-semibold underline decoration-current/40 underline-offset-4 transition-colors hover:text-white"
+                >
+                  Ver detalhes de {active.title}
+                  <span aria-hidden="true">→</span>
+                </Link>
               </m.div>
             </AnimatePresence>
           </div>

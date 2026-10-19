@@ -1,6 +1,7 @@
 export type NavItem = { href: '#abordagem' | '#servicos' | '#work' | '#sobre' | '#contato'; label: string };
 export type Pillar = { title: string; description: string; mobileDescription: string };
 export type Capability = {
+  slug: string;
   title: string;
   description: string;
   mobileDescription: string;
@@ -64,6 +65,7 @@ export const PILLARS: readonly Pillar[] = [
 
 export const CAPABILITIES: readonly Capability[] = [
   {
+    slug: 'landing-pages',
     title: 'Landing Pages',
     mobileDescription: 'Páginas objetivas para lançamento, campanha ou validação.',
     description:
@@ -73,6 +75,7 @@ export const CAPABILITIES: readonly Capability[] = [
     mobileIdealFor: 'Validação, campanhas e leads',
   },
   {
+    slug: 'sites-institucionais',
     title: 'Sites Institucionais',
     mobileDescription: 'Sites que apresentam empresa e serviços com mais autoridade.',
     description:
@@ -82,6 +85,7 @@ export const CAPABILITIES: readonly Capability[] = [
     mobileIdealFor: 'Crescimento, reposicionamento e marca',
   },
   {
+    slug: 'ecommerce',
     title: 'E-commerce',
     mobileDescription: 'Lojas claras, rápidas e com compra sem fricção.',
     description:
@@ -95,6 +99,7 @@ export const CAPABILITIES: readonly Capability[] = [
     mobileIdealFor: 'Venda, eficiência e percepção de valor',
   },
   {
+    slug: 'sistemas-sob-medida',
     title: 'Plataformas Sob Medida',
     mobileDescription: 'Sistemas e produtos digitais construídos pra necessidade real do seu negócio.',
     description:

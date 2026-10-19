@@ -80,6 +80,10 @@ public/
 6. **Quem constrói** (`#sobre`) — seção pessoal do fundador, foto em fundo completo.
 7. **O Diamante / Contato** (`#contato`) — logo em WebGL grande, formulário de contato.
 
+### Páginas de serviço (SEO)
+
+Cada serviço tem página própria em `/servicos/[slug]` (`landing-pages`, `sites-institucionais`, `ecommerce`, `sistemas-sob-medida`), geradas estaticamente por `generateStaticParams`. O conteúdo (texto, entregas, FAQ) vive em [`src/lib/services.ts`](src/lib/services.ts); adicionar um objeto nessa lista cria a página, entra no sitemap e no rodapé automaticamente. Cada página emite JSON-LD (`Service`, `FAQPage`, `BreadcrumbList`). `sitemap.ts`, `robots.ts`, `opengraph-image.tsx` e `src/lib/seo.ts` concentram o resto do SEO.
+
 Todo o copy dessas seções vive em [`src/lib/content.ts`](src/lib/content.ts) — é o primeiro lugar pra editar textos, cases, serviços ou dados da stack.
 
 ## Tema

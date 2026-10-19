@@ -1,8 +1,10 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import glimMarkCream from '../../../public/brand/glim-mark-cream.png';
 import { SocialLinkButton } from '@/components/ui/SocialLinkButton';
 import { WhatsAppIcon, InstagramIcon } from '@/components/ui/icons';
 import { CONTACT_WHATSAPP_HREF, INSTAGRAM_URL, NAV_ITEMS } from '@/lib/content';
+import { SERVICE_PAGES } from '@/lib/services';
 
 export function Footer() {
   return (
@@ -17,9 +19,23 @@ export function Footer() {
         <div className="flex flex-col items-center gap-3 sm:items-end">
           <nav className="flex flex-wrap items-center justify-center gap-3 text-xs sm:justify-end" aria-label="Rodapé">
             {NAV_ITEMS.map((item) => (
-              <a key={item.href} href={item.href} className="transition-colors hover:text-white">
+              <a key={item.href} href={`/${item.href}`} className="transition-colors hover:text-white">
                 {item.label}
               </a>
+            ))}
+          </nav>
+          <nav
+            className="flex flex-wrap items-center justify-center gap-3 text-xs text-white/40 sm:justify-end"
+            aria-label="Serviços"
+          >
+            {SERVICE_PAGES.map((service) => (
+              <Link
+                key={service.slug}
+                href={`/servicos/${service.slug}`}
+                className="transition-colors hover:text-white"
+              >
+                {service.name}
+              </Link>
             ))}
           </nav>
           <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-end">
