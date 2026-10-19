@@ -216,6 +216,10 @@ export const landing = {
     // CNPJ/CPF e e-mail de contato vêm de site.company (usados também na política de privacidade).
     privacyLabel: "Política de privacidade",
     privacyHref: "/privacidade",
+    // Ligação com o site principal da glim. (SEO e identidade).
+    agencyText: "O glim. On é um produto da glim., boutique de engenharia de software e design digital.",
+    agencyLabel: "Conheça a glim.",
+    agencyHref: "https://www.glimweb.com",
   },
 
   // Avisos exibidos só em desenvolvimento quando falta dado.

@@ -13,7 +13,8 @@ interface FooterProps {
 }
 
 export function Footer({ withStickyCta = false }: FooterProps) {
-  const { brand, documentLabel, contactLabel, privacyLabel, privacyHref } = landing.footer;
+  const { brand, documentLabel, contactLabel, privacyLabel, privacyHref, agencyText, agencyLabel, agencyHref } =
+    landing.footer;
   const { document, email } = site.company;
 
   return (
@@ -25,7 +26,15 @@ export function Footer({ withStickyCta = false }: FooterProps) {
     >
       <Container className="flex flex-col items-center gap-5 text-center text-sm text-glim-cream/70">
         {/* Logo oficial da glim. (o mesmo do site institucional). */}
-        <Image src={glimMark} alt={brand} className="h-7 w-auto md:h-8" />
+        <a href={agencyHref} aria-label={`${brand}, site principal`} className="inline-flex">
+          <Image src={glimMark} alt={brand} className="h-7 w-auto md:h-8" />
+        </a>
+        <p className="max-w-md">
+          {agencyText}{" "}
+          <a href={agencyHref} className="underline underline-offset-4 hover:text-glim-gold">
+            {agencyLabel}
+          </a>
+        </p>
         {document || email ? (
           <p className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 font-mono text-xs">
             {document ? (

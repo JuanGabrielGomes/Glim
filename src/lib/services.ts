@@ -148,7 +148,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
       {
         question: 'Existe uma opção mais enxuta e de entrada?',
         answer:
-          'Sim. O glim. On é um site institucional de uma página, com escopo fechado, no ar em até 7 dias por R$ 997 em até 12x no cartão. Se você precisa de mais páginas ou de recursos próprios, o site institucional completo é o caminho.',
+          'Sim. O glim. On é um site institucional de uma página, com escopo fechado, no ar em até 7 dias, por R$ 939 à vista no Pix ou 12x de R$ 97 no cartão, com juros. Se você precisa de mais páginas ou de recursos próprios, o site institucional completo é o caminho.',
       },
       {
         question: 'E se eu já tenho um site?',
@@ -279,7 +279,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
     name: 'glim. On',
     metaTitle: 'glim. On: Site Profissional em até 7 Dias',
     metaDescription:
-      'Site institucional profissional de uma página, no ar em até 7 dias a partir da reunião inicial. R$ 997 em até 12x no cartão. Feito pela glim., sem você precisar entender de tecnologia.',
+      'Site institucional profissional de uma página, no ar em até 7 dias a partir da reunião inicial. R$ 939 à vista no Pix ou 12x de R$ 97 no cartão, com juros. Feito pela glim., sem você precisar entender de tecnologia.',
     eyebrow: 'Produto de entrada',
     h1: 'Seu negócio no Google em até 7 dias, sem complicação.',
     intro:
@@ -319,7 +319,7 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
     process: [
       {
         title: 'Garanta sua vaga',
-        text: 'Você agenda uma conversa rápida com a gente, de uns 15 minutos.',
+        text: 'Você agenda uma conversa rápida com a gente, de uns 20 minutos.',
       },
       {
         title: 'Construímos o site',
@@ -335,11 +335,11 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
       },
     ],
     price: {
-      value: 'R$ 997',
-      condition: 'em até 12x no cartão, ou à vista no Pix',
+      value: 'R$ 939',
+      condition: 'à vista no Pix, ou 12x de R$ 97 no cartão, com juros',
       note: 'Prazo de até 7 dias contado a partir da reunião de alinhamento inicial.',
     },
-    priceValue: 997,
+    priceValue: 939,
     notIncluded:
       'O glim. On é um site de uma página com escopo fechado, e é isso que garante o prazo e o preço. Não fazem parte do pacote: loja virtual, blog, sistema de agendamento, criação de logotipo ou identidade visual e gestão de anúncios. Se você precisar de algo assim, conversamos sobre um projeto sob medida.',
     faq: [

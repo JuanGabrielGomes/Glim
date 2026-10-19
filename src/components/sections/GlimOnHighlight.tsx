@@ -13,7 +13,7 @@ export function GlimOnHighlight() {
           </h3>
           <p className="mt-4 text-base leading-7 text-[#d9d3cc] sm:text-lg">
             Um site institucional de uma página, com escopo fechado, pra quem precisa aparecer no Google sem
-            esperar semanas. R$ 997 em até 12x no cartão.
+            esperar semanas. R$ 939 à vista no Pix ou 12x de R$ 97 no cartão, com juros.
           </p>
         </div>
         <div className="flex flex-col items-start gap-3 lg:items-end">
