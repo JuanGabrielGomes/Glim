@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { site } from "@/content/site";
-import { trackInitiateCheckout } from "@/lib/analytics";
+import { trackCheckoutClick } from "@/lib/analytics";
 import { withAttribution } from "@/lib/attribution";
 
 interface CheckoutButtonProps {
@@ -12,7 +12,7 @@ interface CheckoutButtonProps {
   className?: string;
 }
 
-/** Botão de compra: abre o checkout na mesma aba, com a origem da visita, e dispara InitiateCheckout. */
+/** Botão de compra: abre o checkout na mesma aba, com a origem da visita, e dispara o evento personalizado CliqueCheckout (o InitiateCheckout vem da Kiwify). */
 export function CheckoutButton({ children, glow, className }: CheckoutButtonProps) {
   const [href, setHref] = useState(site.checkoutUrl);
 
@@ -21,7 +21,7 @@ export function CheckoutButton({ children, glow, className }: CheckoutButtonProp
   }, []);
 
   return (
-    <Button href={href} glow={glow} className={className} onClick={trackInitiateCheckout}>
+    <Button href={href} glow={glow} className={className} onClick={trackCheckoutClick}>
       {children}
     </Button>
   );
