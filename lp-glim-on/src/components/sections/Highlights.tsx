@@ -1,4 +1,5 @@
 import { Container } from "@/components/ui/Container";
+import { withFootnote } from "@/components/ui/Footnote";
 import { Reveal } from "@/components/ui/Reveal";
 import { landing } from "@/content/landing";
 import { cn } from "@/lib/utils";
@@ -27,7 +28,7 @@ export function Highlights() {
                 )}
               >
                 <p className="whitespace-nowrap font-mono text-[1.3rem] font-bold leading-none tracking-[-0.04em] text-glim-gold sm:text-[1.6rem] md:text-[2rem]">
-                  {item.value}
+                  {withFootnote(item.value)}
                 </p>
                 <p className="text-[0.82rem] leading-snug text-glim-cream/70 md:text-sm">{item.label}</p>
               </li>

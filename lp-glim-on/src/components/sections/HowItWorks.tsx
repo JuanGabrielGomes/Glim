@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/ui/Reveal";
+import { withFootnote } from "@/components/ui/Footnote";
 import { Section, toneStyles, type Tone } from "@/components/ui/Section";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { landing } from "@/content/landing";
@@ -57,7 +58,7 @@ export function HowItWorks({ tone }: HowItWorksProps) {
                           : "border-glim-gold-deep/30 text-glim-gold-deep",
                       )}
                     >
-                      {stepTags[index]}
+                      {withFootnote(stepTags[index])}
                     </span>
                   ) : null}
                 </div>
