@@ -19,6 +19,9 @@ export interface YTPlayer {
   getDuration(): number;
   getPlayerState(): number;
   getIframe(): HTMLIFrameElement;
+  mute(): void;
+  unMute(): void;
+  seekTo(seconds: number, allowSeekAhead: boolean): void;
   destroy(): void;
 }
 

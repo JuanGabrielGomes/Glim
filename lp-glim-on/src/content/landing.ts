@@ -42,17 +42,19 @@ export const landing = {
   deliveryNote: "*Prazo de 7 dias contado a partir da reunião de alinhamento inicial.",
 
   hero: {
-    kicker: `${PRODUCT_NAME} · site profissional em até 7 dias*`,
-    title: "Se alguém pesquisar o seu negócio no Google agora, o que aparece?",
-    titleEmphasis: "no Google",
+    kicker: `${PRODUCT_NAME} · feito por mim, do início ao fim`,
+    title: "Seu site profissional no ar em até 7 dias*, gastando só 30 minutos do seu tempo",
+    titleEmphasis: "30 minutos",
     subtitle:
-      "Um site profissional no ar em até 7 dias*, construído e entregue por mim, do início ao fim. Você não precisa entender nada de tecnologia.",
+      "São duas conversas rápidas comigo. O resto é por minha conta. Dê o play e veja como funciona.",
   },
 
   video: {
     note: "Assista com o som ligado. O vídeo tem cerca de 10 minutos.",
     placeholder: "VSL",
     playLabel: "Assistir ao vídeo",
+    // Prévia muda (o vídeo já começa sem som): o toque ativa o som e volta do início.
+    unmuteLabel: "Toque para ouvir",
     pauseLabel: "Pausar o vídeo",
     resumeLabel: "Continuar assistindo",
     // Enquanto a página está bloqueada (antes de 3:36 do vídeo).

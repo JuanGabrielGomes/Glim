@@ -16,7 +16,11 @@ interface VslPlayerProps {
   /** Disparado uma vez, no primeiro play (ponto de ligação do evento ViewContent). */
   onPlay?: () => void;
   /** Segundos assistidos, quando o provedor informa (mp4, youtube, vimeo). */
-  onProgress?: (seconds: number) => void;
+  onProgress?: (seconds: number, duration: number) => void;
+  /** YouTube: começa a tocar sozinho, sem som, até a pessoa tocar para ouvir. */
+  autoplayMuted?: boolean;
+  /** Texto do botão de ativar o som na prévia muda. */
+  unmuteLabel?: string;
   className?: string;
 }
 
@@ -43,7 +47,19 @@ export function VslPlayer(props: VslPlayerProps) {
 
 type YtView = "poster" | "starting" | "playing" | "paused" | "ended";
 
-function YouTubeVsl({ vsl, posterSrc, playLabel, pauseLabel, resumeLabel, title, onPlay, onProgress, className }: VslPlayerProps) {
+function YouTubeVsl({
+  vsl,
+  posterSrc,
+  playLabel,
+  pauseLabel,
+  resumeLabel,
+  title,
+  onPlay,
+  onProgress,
+  autoplayMuted,
+  unmuteLabel,
+  className,
+}: VslPlayerProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YTPlayer | null>(null);
   const startedRef = useRef(false);
@@ -51,6 +67,9 @@ function YouTubeVsl({ vsl, posterSrc, playLabel, pauseLabel, resumeLabel, title,
   const [progress, setProgress] = useState(0);
   // Alguns celulares (iOS) bloqueiam o autoplay: aí o toque vai direto no player do YouTube.
   const [needsNativeTap, setNeedsNativeTap] = useState(false);
+  // Tocando sem som antes do primeiro toque (prévia muda).
+  const previewRef = useRef(false);
+  const [preview, setPreview] = useState(false);
 
   // Pré-carrega a API depois que a página assenta, para o play responder na hora.
   useEffect(() => {
@@ -67,11 +86,11 @@ function YouTubeVsl({ vsl, posterSrc, playLabel, pauseLabel, resumeLabel, title,
     if (view !== "playing") return;
     const tick = () => {
       const player = playerRef.current;
-      if (!player) return;
+      if (!player || previewRef.current) return;
       const current = player.getCurrentTime();
       const duration = player.getDuration();
       if (duration > 0) setProgress(Math.min(current / duration, 1));
-      onProgress?.(current);
+      onProgress?.(current, duration);
     };
     tick();
     const timer = window.setInterval(tick, 500);
@@ -83,7 +102,7 @@ function YouTubeVsl({ vsl, posterSrc, playLabel, pauseLabel, resumeLabel, title,
       if (state === YT_STATE.PLAYING) {
         setNeedsNativeTap(false);
         setView("playing");
-        if (!startedRef.current) {
+        if (!startedRef.current && !previewRef.current) {
           startedRef.current = true;
           onPlay?.();
         }
@@ -97,12 +116,8 @@ function YouTubeVsl({ vsl, posterSrc, playLabel, pauseLabel, resumeLabel, title,
     [onPlay],
   );
 
-  const start = useCallback(async () => {
-    if (playerRef.current) {
-      playerRef.current.playVideo();
-      return;
-    }
-    setView("starting");
+  const createPlayer = useCallback(async (muted: boolean) => {
+    if (!muted) setView("starting");
     try {
       const YT = await loadYouTubeApi();
       const host = hostRef.current;
@@ -120,19 +135,57 @@ function YouTubeVsl({ vsl, posterSrc, playLabel, pauseLabel, resumeLabel, title,
             const frame = event.target.getIframe();
             frame.title = title;
             frame.className = FRAME_CLASS;
+            if (muted) event.target.mute();
             event.target.playVideo();
-            // Se em 1,5 s não começou, o navegador barrou o autoplay: libera o toque no player.
             window.setTimeout(() => {
-              if (event.target.getPlayerState() !== YT_STATE.PLAYING) setNeedsNativeTap(true);
-            }, 1500);
+              if (event.target.getPlayerState() === YT_STATE.PLAYING) return;
+              // Prévia muda barrada: volta para a capa; o clique dá o play com som.
+              if (muted) setView("poster");
+              // Play com som barrado (iOS): libera o toque direto no player do YouTube.
+              else setNeedsNativeTap(true);
+            }, muted ? 2500 : 1500);
           },
           onStateChange: (event) => handleState(event.data),
         },
       });
     } catch {
-      setNeedsNativeTap(true);
+      if (!muted) setNeedsNativeTap(true);
     }
   }, [vsl.source, title, handleState]);
+
+  // Prévia muda: o vídeo começa sozinho, sem som, e só conta como "assistido" quando a pessoa
+  // toca para ativar o som (aí volta do início). Assim a retenção medida é de quem quis ver.
+  useEffect(() => {
+    if (!autoplayMuted) return;
+    previewRef.current = true;
+    setPreview(true);
+    const timer = window.setTimeout(() => {
+      if (!playerRef.current) createPlayer(true);
+    }, 600);
+    return () => window.clearTimeout(timer);
+  }, [autoplayMuted, createPlayer]);
+
+  const start = useCallback(() => {
+    const player = playerRef.current;
+    if (!player) {
+      previewRef.current = false;
+      setPreview(false);
+      createPlayer(false);
+      return;
+    }
+    if (previewRef.current) {
+      previewRef.current = false;
+      setPreview(false);
+      setProgress(0);
+      player.unMute();
+      player.seekTo(0, true);
+    }
+    player.playVideo();
+    if (!startedRef.current && player.getPlayerState() === YT_STATE.PLAYING) {
+      startedRef.current = true;
+      onPlay?.();
+    }
+  }, [createPlayer, onPlay]);
 
   const togglePause = () => {
     const player = playerRef.current;
@@ -148,8 +201,29 @@ function YouTubeVsl({ vsl, posterSrc, playLabel, pauseLabel, resumeLabel, title,
       {/* O iframe do YouTube é montado aqui no primeiro play. */}
       <div ref={hostRef} className="absolute inset-0" />
 
+      {/* Prévia muda: o vídeo roda sem som por trás; o toque ativa o som e volta do início. */}
+      {preview && view === "playing" ? (
+        <button
+          type="button"
+          onClick={start}
+          aria-label={unmuteLabel ?? playLabel}
+          className="group absolute inset-0 z-20 flex items-center justify-center bg-black/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-glim-gold"
+        >
+          <span className="flex flex-col items-center gap-3">
+            <span className="relative flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full bg-glim-gold text-glim-dark shadow-[0_0_0_10px_rgba(242,183,123,0.18),0_0_50px_rgba(242,183,123,0.55)] transition-transform duration-200 group-hover:scale-105 md:h-24 md:w-24">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" className="h-8 w-8 fill-current md:h-10 md:w-10">
+                <path d="M3 9v6h4l5 5V4L7 9H3Zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.47 4.47 0 0 0 2.5-4ZM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54Z" />
+              </svg>
+            </span>
+            <span className="rounded-full bg-black/60 px-4 py-1.5 text-sm font-medium text-glim-cream backdrop-blur-sm">
+              {unmuteLabel ?? playLabel}
+            </span>
+          </span>
+        </button>
+      ) : null}
+
       {/* Camada transparente durante a reprodução: bloqueia o hover (título, logo) e pausa no clique. */}
-      {view === "playing" ? (
+      {view === "playing" && !preview ? (
         <button
           type="button"
           onClick={togglePause}
@@ -187,7 +261,7 @@ function YouTubeVsl({ vsl, posterSrc, playLabel, pauseLabel, resumeLabel, title,
       ) : null}
 
       {/* Barra de progresso (só leitura: não dá para avançar o vídeo). */}
-      {view !== "poster" ? (
+      {view !== "poster" && !preview ? (
         <div
           role="progressbar"
           aria-label="Progresso do vídeo"
@@ -237,7 +311,7 @@ function EmbedVsl({ vsl, posterSrc, playLabel, title, onPlay, onProgress, classN
       const seconds = readProgressSeconds(event.data);
       if (seconds === null) return;
       received = true;
-      onProgress(seconds);
+      onProgress(seconds, 0);
     };
     const send = () => frame.contentWindow?.postMessage(message, targetOrigin);
 
@@ -280,7 +354,7 @@ function EmbedVsl({ vsl, posterSrc, playLabel, title, onPlay, onProgress, classN
           autoPlay
           playsInline
           className={FRAME_CLASS}
-          onTimeUpdate={(event) => onProgress?.(event.currentTarget.currentTime)}
+          onTimeUpdate={(event) => onProgress?.(event.currentTarget.currentTime, event.currentTarget.duration || 0)}
         />
       ) : (
         <iframe

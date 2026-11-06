@@ -66,6 +66,8 @@ export function VideoSection() {
               resumeLabel={resumeLabel}
               title={iframeTitle}
               unlockSeconds={site.unlockSeconds}
+              autoplayMuted
+              unmuteLabel={landing.video.unmuteLabel}
               wrapperClassName={RING}
               frameClassName={FRAME}
             />
