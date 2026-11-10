@@ -2,9 +2,8 @@
 
 import type { MotionValue } from 'framer-motion';
 import { m, useScroll, useTransform } from 'framer-motion';
-import { useEffect, useRef, useState, type RefObject } from 'react';
-import { LiquidLogo } from '@/components/logo/LiquidLogo';
-import { useMagnetic } from '@/components/cursor/useMagnetic';
+import Image from 'next/image';
+import type { RefObject } from 'react';
 import { CONTACT_WHATSAPP_HREF, HERO_ACCENT_WORDS, HERO_TITLE } from '@/lib/content';
 import { FADE_UP, STAGGER, WORD_CHILD, WORD_PARENT } from '@/lib/motion';
 
@@ -23,15 +22,8 @@ const SIGNAL_METRICS = [
 
 export function Hero({ heroRef, copyY, reduceMotion }: HeroProps) {
   const words = HERO_TITLE.split(' ');
-  const {
-    ref: primaryCtaRef,
-    style: primaryCtaStyle,
-    onPointerMove: handlePrimaryCtaPointerMove,
-    onPointerLeave: handlePrimaryCtaPointerLeave,
-  } = useMagnetic<HTMLAnchorElement>(0.22);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
   const cueOpacity = useTransform(scrollYProgress, [0, 0.35], [1, 0]);
-  const videoAllowed = !reduceMotion;
 
   return (
     <section
@@ -41,16 +33,14 @@ export function Hero({ heroRef, copyY, reduceMotion }: HeroProps) {
       className="relative flex min-h-[100dvh] flex-col overflow-hidden bg-[#0b0908]"
     >
       <div aria-hidden="true" className="absolute inset-0">
-        {videoAllowed ? (
-          <HeroVideoBackground />
-        ) : (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src="/video/hero-lamp-poster.jpg"
-            alt=""
-            className="h-full w-full object-cover opacity-90"
-          />
-        )}
+        <Image
+          src="/brand/gema-ambar.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-70"
+        />
         <div className="absolute inset-0 block bg-[radial-gradient(ellipse_at_center,rgba(11,9,8,0.5)_0%,rgba(11,9,8,0.82)_55%,rgba(11,9,8,0.95)_100%)] lg:hidden" />
         <div className="absolute inset-0 hidden bg-[radial-gradient(ellipse_at_center,transparent_18%,rgba(11,9,8,0.55)_62%,rgba(11,9,8,0.92)_100%)] lg:block" />
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0b0908] to-transparent" />
@@ -63,7 +53,7 @@ export function Hero({ heroRef, copyY, reduceMotion }: HeroProps) {
         className="relative z-10 mt-6 ml-6 self-start sm:mt-8 sm:ml-8"
         data-cursor-hover
       >
-        <LiquidLogo className="h-6 w-20 sm:h-7 sm:w-24" />
+        <Image src="/brand/glim-logo-linho.svg" alt="" width={1874} height={995} className="h-6 w-auto sm:h-7" />
       </a>
 
       <div className="relative z-10 flex flex-1 items-center px-4 py-10 sm:px-6 lg:px-10">
@@ -137,13 +127,9 @@ export function Hero({ heroRef, copyY, reduceMotion }: HeroProps) {
               className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-end"
             >
               <m.a
-                ref={primaryCtaRef}
                 href="#contato"
                 data-cursor-hover
                 className="group bg-glim-diamond text-glim-dark relative inline-flex items-center justify-center overflow-hidden rounded-full px-6 py-3 text-sm font-semibold shadow-[0_18px_44px_-22px_rgba(242,183,123,0.85)] sm:px-8 sm:py-4 sm:text-base"
-                style={primaryCtaStyle}
-                onPointerMove={handlePrimaryCtaPointerMove}
-                onPointerLeave={handlePrimaryCtaPointerLeave}
                 whileHover={{ y: -2, scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -180,49 +166,5 @@ export function Hero({ heroRef, copyY, reduceMotion }: HeroProps) {
         />
       </m.div>
     </section>
-  );
-}
-
-function HeroVideoBackground() {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [canPlayVideo, setCanPlayVideo] = useState(true);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const fallbackToPoster = () => setCanPlayVideo(false);
-    const playResult = video.play();
-    if (playResult && typeof playResult.catch === 'function') {
-      playResult.catch(fallbackToPoster);
-    }
-
-    video.addEventListener('error', fallbackToPoster);
-    return () => video.removeEventListener('error', fallbackToPoster);
-  }, []);
-
-  if (!canPlayVideo) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src="/video/hero-lamp-poster.jpg" alt="" className="h-full w-full object-cover opacity-90" />
-    );
-  }
-
-  return (
-    <video
-      ref={videoRef}
-      className="h-full w-full object-cover opacity-90"
-      autoPlay
-      muted
-      loop
-      playsInline
-      disablePictureInPicture
-      controls={false}
-      preload="auto"
-      poster="/video/hero-lamp-poster.jpg"
-    >
-      <source src="/video/hero-lamp.webm" type="video/webm" />
-      <source src="/video/hero-lamp.mp4" type="video/mp4" />
-    </video>
   );
 }

@@ -3,8 +3,6 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, m, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
-import glimMarkCream from '../../../public/brand/glim-mark-cream.png';
-import { useMagnetic } from '@/components/cursor/useMagnetic';
 import { NAV_ITEMS } from '@/lib/content';
 import { SPRING } from '@/lib/motion';
 
@@ -17,12 +15,6 @@ export function Header() {
   const { scrollY } = useScroll();
   const headerOpacity = useTransform(scrollY, [0, REVEAL_AT * 0.6, REVEAL_AT], [0, 0, 1]);
   const headerY = useTransform(scrollY, [0, REVEAL_AT], [-16, 0]);
-  const {
-    ref: ctaRef,
-    style: ctaStyle,
-    onPointerMove: handleCtaPointerMove,
-    onPointerLeave: handleCtaPointerLeave,
-  } = useMagnetic<HTMLAnchorElement>(0.28);
 
   useMotionValueEvent(scrollY, 'change', (value) => {
     setIsRevealed((current) => {
@@ -69,7 +61,7 @@ export function Header() {
           className="relative z-20 flex items-center justify-between gap-4 rounded-full px-5 py-3 sm:px-6"
         >
           <a href="#topo" aria-label="Voltar ao topo da página" data-cursor-hover className="inline-flex items-center">
-            <Image src={glimMarkCream} alt="glim." className="h-6 w-auto sm:h-7" priority />
+            <Image src="/brand/glim-logo-linho.svg" alt="glim." width={1874} height={995} className="h-6 w-auto sm:h-7" priority />
           </a>
           <div className="hidden items-center gap-6 md:flex">
             {NAV_ITEMS.map((item) => (
@@ -84,13 +76,9 @@ export function Header() {
           </div>
           <div className="flex items-center gap-2">
             <m.a
-              ref={ctaRef}
               href="#contato"
               data-cursor-hover
               className="border-glim-diamond/50 bg-glim-diamond text-glim-dark hidden items-center rounded-full border px-5 py-2.5 text-sm font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] md:inline-flex"
-              style={ctaStyle}
-              onPointerMove={handleCtaPointerMove}
-              onPointerLeave={handleCtaPointerLeave}
               whileHover={{ y: -2, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
             >

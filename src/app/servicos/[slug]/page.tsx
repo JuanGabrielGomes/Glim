@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import glimMarkCream from '../../../../public/brand/glim-mark-cream.png';
 import { Footer } from '@/components/layout/Footer';
 import { CONTACT_WHATSAPP_NUMBER } from '@/lib/content';
 import { SITE_URL } from '@/lib/seo';
@@ -116,7 +115,7 @@ export default async function ServicePageRoute({ params }: ServicePageProps) {
 
       <header className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-4 py-6 sm:px-6 lg:px-8">
         <Link href="/" aria-label="glim., página inicial" data-cursor-hover className="inline-flex items-center">
-          <Image src={glimMarkCream} alt="glim." className="h-6 w-auto sm:h-7" priority />
+          <Image src="/brand/glim-logo-linho.svg" alt="glim." width={1874} height={995} className="h-6 w-auto sm:h-7" priority />
         </Link>
         <Link
           href="/#servicos"

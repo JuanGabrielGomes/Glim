@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import glimMarkCream from '../../../public/brand/glim-mark-cream.png';
 import { SocialLinkButton } from '@/components/ui/SocialLinkButton';
 import { WhatsAppIcon, InstagramIcon } from '@/components/ui/icons';
 import { CONTACT_WHATSAPP_HREF, INSTAGRAM_URL, NAV_ITEMS } from '@/lib/content';
@@ -12,7 +11,7 @@ export function Footer() {
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-5 border-t border-white/10 pt-6 text-center text-sm text-white/55 sm:flex-row sm:items-start sm:justify-between sm:text-left">
         <div className="flex items-center gap-4">
           <a href="#topo" aria-label="Voltar ao topo da página" className="inline-flex items-center">
-            <Image src={glimMarkCream} alt="glim." className="h-4 w-auto" priority />
+            <Image src="/brand/glim-logo-linho.svg" alt="glim." width={1874} height={995} className="h-4 w-auto" />
           </a>
           <p>© {new Date().getFullYear()} glim. Engenharia de Software e Design Digital.</p>
         </div>

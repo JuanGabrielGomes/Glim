@@ -3,7 +3,7 @@
 import { useActionState, useEffect, useRef } from 'react';
 import { m } from 'framer-motion';
 import { submitContactForm, type ContactFormState } from '@/app/actions';
-import { LiquidLogo } from '@/components/logo/LiquidLogo';
+import Image from 'next/image';
 import { InputField, TextareaField } from '@/components/ui/FormFields';
 import { SocialLinkButton } from '@/components/ui/SocialLinkButton';
 import { WhatsAppIcon, InstagramIcon } from '@/components/ui/icons';
@@ -40,7 +40,7 @@ export function Contact() {
         variants={STAGGER}
       >
         <m.div variants={FADE_UP} className="mx-auto flex justify-center">
-          <LiquidLogo className="h-20 w-64 sm:h-28 sm:w-80 lg:h-36 lg:w-[26rem]" />
+          <Image src="/brand/glim-logo-linho.svg" alt="glim." width={1874} height={995} className="h-20 w-auto sm:h-28 lg:h-36" />
         </m.div>
 
         <m.p

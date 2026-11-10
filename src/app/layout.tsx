@@ -1,8 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Space_Mono } from 'next/font/google';
-import localFont from 'next/font/local';
-import { MagneticCursor } from '@/components/cursor/MagneticCursor';
-import { SmoothScroll } from '@/components/providers/SmoothScroll';
+import { Inter_Tight, Instrument_Serif, JetBrains_Mono } from 'next/font/google';
 import { INSTAGRAM_URL } from '@/lib/content';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from '@/lib/seo';
 import './globals.css';
@@ -40,24 +37,25 @@ const STRUCTURED_DATA = {
   ],
 };
 
-const googleSans = localFont({
-  src: './fonts/GoogleSans-Regular.ttf',
+const display = Inter_Tight({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-inter-tight',
+  display: 'swap',
+});
+
+const serif = Instrument_Serif({
+  subsets: ['latin'],
   weight: '400',
-  style: 'normal',
-  variable: '--font-google-sans',
+  style: ['normal', 'italic'],
+  variable: '--font-instrument-serif',
   display: 'swap',
 });
 
-const inter = Inter({
+const mono = JetBrains_Mono({
   subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-});
-
-const spaceMono = Space_Mono({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-space-mono',
+  weight: ['400', '500'],
+  variable: '--font-jetbrains-mono',
   display: 'swap',
 });
 
@@ -113,18 +111,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className="dark h-full">
-      <body
-        className={`${inter.className} ${googleSans.variable} ${inter.variable} ${spaceMono.variable} min-h-full bg-[#14100E] text-[#F5F0EA] antialiased`}
-      >
+    <html
+      lang="pt-BR"
+      className={`dark h-full ${display.variable} ${serif.variable} ${mono.variable}`}
+    >
+      <body className="min-h-full bg-[#14100E] font-sans text-[#F5F0EA] antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA) }}
         />
-        <SmoothScroll>
-          {children}
-          <MagneticCursor />
-        </SmoothScroll>
+        {children}
       </body>
     </html>
   );
