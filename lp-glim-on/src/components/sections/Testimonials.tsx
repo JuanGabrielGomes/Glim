@@ -27,7 +27,7 @@ export function Testimonials({ tone }: TestimonialsProps) {
             {items.map((item) => (
               <li key={item.image.src}>
                 <Reveal>
-                  <figure className={cn("overflow-hidden rounded-3xl", styles.card)}>
+                  <figure className={cn("overflow-hidden", styles.card)}>
                     <Image
                       src={item.image.src}
                       alt={item.image.alt}

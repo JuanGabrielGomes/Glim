@@ -27,16 +27,16 @@ export function SectionTitle({
       {eyebrow ? (
         <p
           className={cn(
-            "flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.24em]",
-            tone === "dark" ? "text-glim-gold" : "text-glim-gold-deep",
+            "meta flex items-center gap-2.5",
+            tone === "dark" ? "text-ambar-400" : "text-ambar-700",
             align === "center" && "justify-center",
           )}
         >
-          <Diamond className="h-2 w-2" />
+          <Diamond className={cn("h-2 w-2", tone === "dark" ? "fill-ambar-400" : "fill-ambar-700")} />
           {eyebrow}
         </p>
       ) : null}
-      <h2 className="text-balance font-display text-[clamp(2rem,7vw,3.6rem)] font-normal leading-[1.02] tracking-[-0.045em]">
+      <h2 className="text-balance font-display text-[clamp(2rem,7vw,3.6rem)] font-medium leading-[1.02] tracking-[-0.045em]">
         <Emphasis text={title} emphasis={titleEmphasis} tone={tone} />
       </h2>
       {subtitle ? <p className="max-w-2xl text-base opacity-80 md:text-lg">{subtitle}</p> : null}

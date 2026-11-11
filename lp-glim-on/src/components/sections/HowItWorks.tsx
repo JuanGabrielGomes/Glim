@@ -14,50 +14,34 @@ export function HowItWorks({ tone }: HowItWorksProps) {
   const styles = toneStyles[tone];
 
   return (
-    <Section tone={tone} glow="left">
+    <Section tone={tone}>
       <div className="space-y-12">
         <Reveal>
           <SectionTitle eyebrow={eyebrow} title={title} titleEmphasis={titleEmphasis} tone={tone} />
         </Reveal>
 
-        <ol className="relative grid gap-4 md:grid-cols-4 md:gap-5">
-          {/* Linha que costura os passos: vertical no celular, horizontal no desktop. */}
-          <span
-            aria-hidden="true"
-            className="absolute bottom-8 left-[2.6rem] top-8 w-px bg-gradient-to-b from-glim-gold/70 via-glim-gold/25 to-transparent md:bottom-auto md:left-8 md:right-8 md:top-[2.85rem] md:h-px md:w-auto md:bg-gradient-to-r"
-          />
+        <ol className={cn("grid gap-x-6 gap-y-2 border-t md:grid-cols-4", styles.line)}>
           {steps.map((step, index) => (
             <li key={step.lead} className="relative">
-              <Reveal
-                delay={index * 0.07}
-                className={cn("flex h-full gap-5 rounded-3xl p-5 md:flex-col md:gap-6 md:p-6", styles.card)}
-              >
+              <Reveal delay={index * 0.07} className="flex h-full gap-5 py-6 md:flex-col md:gap-5 md:py-8">
                 <span
+                  aria-hidden="true"
                   className={cn(
-                    "relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border font-mono text-sm font-bold",
-                    tone === "dark"
-                      ? "border-glim-gold/50 bg-glim-cinema text-glim-gold"
-                      : "border-glim-gold-deep/40 bg-glim-light text-glim-gold-deep",
+                    "w-12 shrink-0 font-serif text-[3.2rem] italic leading-[0.8] md:w-auto md:text-[4.4rem]",
+                    styles.accent,
                   )}
                 >
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <div className="space-y-3">
                   <p className="text-base leading-relaxed md:text-[1.05rem]">
-                    <strong className="font-display text-lg font-normal tracking-[-0.02em] md:text-xl">
+                    <strong className="font-display text-lg font-medium tracking-[-0.02em] md:text-xl">
                       {step.lead}
                     </strong>
                     {step.rest}
                   </p>
                   {stepTags[index] ? (
-                    <span
-                      className={cn(
-                        "inline-block rounded-full border px-2.5 py-1 font-mono text-[10.5px]",
-                        tone === "dark"
-                          ? "border-glim-gold/30 text-glim-gold"
-                          : "border-glim-gold-deep/30 text-glim-gold-deep",
-                      )}
-                    >
+                    <span className={cn("meta inline-block border px-2.5 py-1 text-[10px]", styles.line, styles.muted)}>
                       {withFootnote(stepTags[index])}
                     </span>
                   ) : null}
@@ -68,9 +52,7 @@ export function HowItWorks({ tone }: HowItWorksProps) {
         </ol>
 
         <Reveal>
-          <p className="max-w-2xl border-l-2 border-glim-gold/60 pl-5 font-display text-xl leading-snug tracking-[-0.02em] md:text-2xl">
-            {closing}
-          </p>
+          <p className="max-w-2xl font-display text-xl leading-snug tracking-[-0.02em] md:text-2xl">{closing}</p>
         </Reveal>
       </div>
     </Section>

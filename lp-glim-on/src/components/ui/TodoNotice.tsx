@@ -7,7 +7,7 @@ interface TodoNoticeProps {
 export function TodoNotice({ children }: TodoNoticeProps) {
   if (!SHOW_TODOS) return null;
   return (
-    <p className="rounded-xl border border-dashed border-glim-gold bg-glim-gold/10 px-4 py-3 font-mono text-xs leading-relaxed">
+    <p className="border border-dashed border-ambar-400 bg-ambar-400/10 px-4 py-3 font-mono text-xs leading-relaxed">
       TODO: {children}
     </p>
   );

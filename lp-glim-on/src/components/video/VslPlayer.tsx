@@ -28,7 +28,7 @@ const FRAME_CLASS = "absolute inset-0 h-full w-full";
 
 function PlayIcon() {
   return (
-    <span className="relative flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full bg-glim-gold text-glim-dark shadow-[0_0_0_10px_rgba(242,183,123,0.18),0_0_50px_rgba(242,183,123,0.55)] transition-transform duration-200 group-hover:scale-105 md:h-24 md:w-24">
+    <span className="relative flex h-[4.5rem] w-[4.5rem] items-center justify-center faceta [--f:16px] bg-linho-050 text-grafite-950 transition-transform duration-200 group-hover:scale-105 md:h-24 md:w-24">
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" className="ml-1 h-8 w-8 fill-current md:h-10 md:w-10">
         <path d="M8 5v14l11-7Z" />
       </svg>
@@ -197,7 +197,7 @@ function YouTubeVsl({
   const coverVisible = view === "poster" || view === "paused" || view === "ended";
 
   return (
-    <div className={cn("relative aspect-video w-full overflow-hidden rounded-2xl bg-black", className)}>
+    <div className={cn("relative aspect-video w-full overflow-hidden bg-black", className)}>
       {/* O iframe do YouTube é montado aqui no primeiro play. */}
       <div ref={hostRef} className="absolute inset-0" />
 
@@ -207,15 +207,15 @@ function YouTubeVsl({
           type="button"
           onClick={start}
           aria-label={unmuteLabel ?? playLabel}
-          className="group absolute inset-0 z-20 flex items-center justify-center bg-black/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-glim-gold"
+          className="group absolute inset-0 z-20 flex items-center justify-center bg-black/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ambar-400"
         >
           <span className="flex flex-col items-center gap-3">
-            <span className="relative flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full bg-glim-gold text-glim-dark shadow-[0_0_0_10px_rgba(242,183,123,0.18),0_0_50px_rgba(242,183,123,0.55)] transition-transform duration-200 group-hover:scale-105 md:h-24 md:w-24">
+            <span className="relative flex h-[4.5rem] w-[4.5rem] items-center justify-center faceta [--f:16px] bg-linho-050 text-grafite-950 transition-transform duration-200 group-hover:scale-105 md:h-24 md:w-24">
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" className="h-8 w-8 fill-current md:h-10 md:w-10">
                 <path d="M3 9v6h4l5 5V4L7 9H3Zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.47 4.47 0 0 0 2.5-4ZM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54Z" />
               </svg>
             </span>
-            <span className="rounded-full bg-black/60 px-4 py-1.5 text-sm font-medium text-glim-cream backdrop-blur-sm">
+            <span className="faceta [--f:10px] bg-grafite-950/90 px-4 py-2 text-sm font-medium text-linho-050">
               {unmuteLabel ?? playLabel}
             </span>
           </span>
@@ -228,7 +228,7 @@ function YouTubeVsl({
           type="button"
           onClick={togglePause}
           aria-label={pauseLabel}
-          className="absolute inset-0 z-10 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-glim-gold"
+          className="absolute inset-0 z-10 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ambar-400"
         />
       ) : null}
 
@@ -238,14 +238,14 @@ function YouTubeVsl({
           type="button"
           onClick={view === "poster" ? start : togglePause}
           aria-label={view === "poster" ? playLabel : resumeLabel}
-          className="group absolute inset-0 z-20 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-glim-gold"
+          className="group absolute inset-0 z-20 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ambar-400"
         >
           <Image src={posterSrc} alt="" fill priority sizes="(min-width: 768px) 768px, 100vw" className="object-cover" />
           <span className={cn("absolute inset-0", view === "poster" ? "bg-gradient-to-t from-black/45 via-black/10 to-transparent" : "bg-black/55")} />
           <span className="relative flex flex-col items-center gap-3">
             <PlayIcon />
             {view !== "poster" ? (
-              <span className="rounded-full bg-black/50 px-3 py-1 font-mono text-[11px] text-glim-cream/90 backdrop-blur-sm">
+              <span className="meta bg-grafite-950/90 px-3 py-1.5 text-[10px] text-linho-050">
                 {resumeLabel}
               </span>
             ) : null}
@@ -256,7 +256,7 @@ function YouTubeVsl({
       {/* Carregando o player (entre o clique e o início). */}
       {view === "starting" && !needsNativeTap ? (
         <div aria-hidden="true" className="absolute inset-0 z-20 flex items-center justify-center bg-black/60">
-          <span className="h-10 w-10 animate-spin rounded-full border-2 border-glim-gold/30 border-t-glim-gold" />
+          <span className="h-10 w-10 animate-spin rounded-full border-2 border-ambar-400/30 border-t-ambar-400" />
         </div>
       ) : null}
 
@@ -270,7 +270,7 @@ function YouTubeVsl({
           aria-valuenow={Math.round(progress * 100)}
           className="absolute inset-x-0 bottom-0 z-30 h-1.5 bg-white/15"
         >
-          <div className="h-full bg-glim-gold transition-[width] duration-500 ease-linear" style={{ width: `${progress * 100}%` }} />
+          <div className="h-full bg-ambar-400 transition-[width] duration-500 ease-linear" style={{ width: `${progress * 100}%` }} />
         </div>
       ) : null}
     </div>
@@ -333,13 +333,13 @@ function EmbedVsl({ vsl, posterSrc, playLabel, title, onPlay, onProgress, classN
   }, [playing, vsl.provider, onProgress]);
 
   return (
-    <div className={cn("relative aspect-video w-full overflow-hidden rounded-2xl bg-black", className)}>
+    <div className={cn("relative aspect-video w-full overflow-hidden bg-black", className)}>
       {!playing ? (
         <button
           type="button"
           onClick={handlePlay}
           aria-label={playLabel}
-          className="group absolute inset-0 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-glim-gold"
+          className="group absolute inset-0 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ambar-400"
         >
           <Image src={posterSrc} alt="" fill priority sizes="(min-width: 768px) 768px, 100vw" className="object-cover" />
           <span className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />

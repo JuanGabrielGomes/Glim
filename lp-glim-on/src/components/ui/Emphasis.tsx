@@ -4,7 +4,7 @@ import { withFootnote } from "@/components/ui/Footnote";
 
 interface EmphasisProps {
   text: string;
-  /** Trecho do próprio texto que ganha destaque dourado. */
+  /** Trecho do próprio texto que vira itálico serifado em âmbar (assinatura da marca). */
   emphasis?: string;
   tone?: Tone;
   className?: string;
@@ -17,9 +17,15 @@ export function Emphasis({ text, emphasis, tone = "dark", className }: EmphasisP
   return (
     <>
       {withFootnote(text.slice(0, index))}
-      <span className={cn(tone === "dark" ? "text-glim-gold" : "text-glim-gold-deep", className)}>
+      <em
+        className={cn(
+          "font-serif text-[1.1em] font-normal italic leading-[0.9] tracking-[-0.01em]",
+          tone === "dark" ? "text-ambar-400" : "text-ambar-700",
+          className,
+        )}
+      >
         {withFootnote(emphasis)}
-      </span>
+      </em>
       {withFootnote(text.slice(index + emphasis.length))}
     </>
   );

@@ -17,15 +17,9 @@ export function NotIncluded({ tone }: NotIncludedProps) {
       <Reveal className="max-w-3xl space-y-7">
         <SectionTitle eyebrow={eyebrow} title={title} tone={tone} />
         <p className={cn("text-base leading-relaxed md:text-lg", styles.muted)}>{intro}</p>
-        <ul className="flex flex-wrap gap-2.5">
+        <ul className="meta flex flex-wrap gap-2.5">
           {items.map((item) => (
-            <li
-              key={item}
-              className={cn(
-                "rounded-full border border-dashed px-4 py-2 font-mono text-xs md:text-[13px]",
-                tone === "dark" ? "border-white/25 text-glim-cream/85" : "border-glim-dark/25 text-glim-ink2/85",
-              )}
-            >
+            <li key={item} className={cn("border px-3.5 py-2.5 text-[11px]", styles.line)}>
               {item}
             </li>
           ))}
