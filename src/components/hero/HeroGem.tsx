@@ -124,21 +124,29 @@ function compile(gl: WebGLRenderingContext, type: number, source: string): WebGL
 }
 
 /**
- * Diamante do hero. Mostra a foto da gema (que é o LCP) e, quando o WebGL está pronto, troca
- * por um diamante 3D que gira devagar e acompanha o ponteiro de leve. Sem WebGL, ou com
- * "reduzir movimento" ligado, a foto continua no lugar.
+ * Diamante do hero. O diamante 3D entra com um fade assim que o WebGL está pronto, gira devagar e acompanha o ponteiro de leve. A foto (com transparência
+ * real, sem fundo preto) só aparece como fallback: sem WebGL, com "reduzir movimento" ligado
+ * ou se o contexto de WebGL for perdido.
  */
 export function HeroGem() {
   const reduceMotion = useReducedMotion() ?? false;
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const posterRef = useRef<HTMLImageElement | null>(null);
 
   useEffect(() => {
-    if (reduceMotion) return;
     const wrapper = wrapperRef.current;
     const canvas = canvasRef.current;
     if (!wrapper || !canvas) return;
+
+    /** Sem 3D: mostra a foto da gema (que já tem transparência) no lugar do canvas. */
+    const showPoster = () => {
+      wrapper.dataset.fallback = 'true';
+    };
+
+    if (reduceMotion) {
+      showPoster();
+      return;
+    }
 
     const gl = canvas.getContext('webgl', {
       alpha: true,
@@ -146,16 +154,25 @@ export function HeroGem() {
       antialias: true,
       powerPreference: 'low-power',
     });
-    if (!gl) return;
+    if (!gl) {
+      showPoster();
+      return;
+    }
 
     const vertex = compile(gl, gl.VERTEX_SHADER, VERTEX_SRC);
     const fragment = compile(gl, gl.FRAGMENT_SHADER, FRAGMENT_SRC);
     const program = gl.createProgram();
-    if (!vertex || !fragment || !program) return;
+    if (!vertex || !fragment || !program) {
+      showPoster();
+      return;
+    }
     gl.attachShader(program, vertex);
     gl.attachShader(program, fragment);
     gl.linkProgram(program);
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      showPoster();
+      return;
+    }
     gl.useProgram(program);
 
     const mesh = buildGemMesh();
@@ -222,7 +239,6 @@ export function HeroGem() {
 
     let frame = 0;
     let revealed = false;
-    let revealTimer = 0;
     const start = performance.now();
 
     const render = (now: number) => {
@@ -251,10 +267,6 @@ export function HeroGem() {
       if (!revealed) {
         revealed = true;
         wrapper.dataset.ready = 'true';
-        // depois do fade, tira a foto da árvore para não gastar composição à toa
-        revealTimer = window.setTimeout(() => {
-          if (posterRef.current) posterRef.current.style.display = 'none';
-        }, 900);
       }
     };
     frame = requestAnimationFrame(render);
@@ -263,13 +275,12 @@ export function HeroGem() {
       event.preventDefault();
       cancelAnimationFrame(frame);
       delete wrapper.dataset.ready;
-      if (posterRef.current) posterRef.current.style.display = '';
+      showPoster();
     };
     canvas.addEventListener('webglcontextlost', handleContextLost);
 
     return () => {
       cancelAnimationFrame(frame);
-      window.clearTimeout(revealTimer);
       window.removeEventListener('pointermove', handlePointerMove);
       canvas.removeEventListener('webglcontextlost', handleContextLost);
       resizeObserver.disconnect();
@@ -288,15 +299,14 @@ export function HeroGem() {
       className="group pointer-events-none absolute top-[46%] left-1/2 z-[3] aspect-square w-[92vw] -translate-x-1/2 -translate-y-1/2 [scale:calc(1_+_var(--hero-p,0)_*_0.6)] will-change-transform md:top-[48%] md:w-[min(52vw,720px)] md:[scale:calc(1_+_var(--hero-p,0)_*_1.7)]"
     >
       <Image
-        ref={posterRef}
-        src="/brand/gema-ambar.jpg"
+        src="/brand/gema-ambar-alpha.webp"
         alt=""
         width={1200}
         height={1200}
-        priority
-        fetchPriority="high"
+        loading="eager"
+        fetchPriority="low"
         sizes="(max-width: 820px) 92vw, 52vw"
-        className="absolute inset-0 h-full w-full -rotate-[8deg] mix-blend-screen transition-opacity duration-700 group-data-[ready=true]:opacity-0"
+        className="absolute inset-0 h-full w-full -rotate-[8deg] opacity-0 transition-opacity duration-700 group-data-[fallback=true]:opacity-100"
       />
       <canvas
         ref={canvasRef}
