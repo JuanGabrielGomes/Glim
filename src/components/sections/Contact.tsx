@@ -1,6 +1,7 @@
 'use client';
 
 import { useActionState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { submitRaioX, type RaioXFormState } from '@/app/actions';
 import { Button, TextLink } from '@/components/ui/Button';
 import { FitText } from '@/components/ui/FitText';
@@ -126,6 +127,16 @@ export function Contact() {
                 <Button type="submit" disabled={pending}>
                   {pending ? 'Enviando...' : RAIO_X.submit}
                 </Button>
+                <p className="text-pedra-500 max-w-[30em] text-sm leading-[1.6]">
+                  Usamos esses dados só para responder ao seu pedido. Saiba mais na{' '}
+                  <Link
+                    href="/privacidade"
+                    className="text-grafite-950 underline underline-offset-4"
+                  >
+                    política de privacidade
+                  </Link>
+                  .
+                </p>
                 <p
                   role={
                     state.status === 'error' || state.status === 'validation' ? 'alert' : undefined
