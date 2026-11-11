@@ -90,7 +90,7 @@ interface TextLinkProps {
 }
 
 const LINK_CLASSES =
-  'inline-block border-b border-current pb-[5px] text-[15px] leading-none font-medium whitespace-nowrap transition-opacity hover:opacity-70 md:text-base';
+  'relative after:absolute after:-inset-x-1 after:-inset-y-3 inline-block border-b border-current pb-[5px] text-[15px] leading-none font-medium whitespace-nowrap transition-opacity hover:opacity-70 md:text-base';
 
 /** Link de texto com fio de 1 px embaixo (ação secundária). */
 export function TextLink({ href, external = false, className = '', children }: TextLinkProps) {

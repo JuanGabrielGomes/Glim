@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { CONTACT_WHATSAPP_HREF, INSTAGRAM_URL } from '@/lib/content';
 import { SERVICE_PAGES } from '@/lib/services';
 
-const LINK = 'text-pedra-300 mt-2.5 block transition-colors hover:text-linho-050';
-const HEADING = 'text-linho-050 block';
+const LINK = 'text-pedra-300 block py-2 transition-colors hover:text-linho-050';
+const HEADING = 'text-linho-050 mb-1 block';
 
 /** Rodapé grafite: logo gigante, quatro colunas em mono e uma linha de meta. */
 export function Footer() {

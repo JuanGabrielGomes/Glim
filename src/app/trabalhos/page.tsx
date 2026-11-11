@@ -22,7 +22,11 @@ export const metadata: Metadata = {
     siteName: 'glim.',
     title: `${TITLE} | glim.`,
     description: DESCRIPTION,
+    images: [
+      { url: '/opengraph-image', width: 1200, height: 630, alt: 'glim. · Precisão que se vê.' },
+    ],
   },
+  twitter: { card: 'summary_large_image', images: ['/opengraph-image'] },
 };
 
 export default function TrabalhosPage() {
@@ -42,7 +46,7 @@ export default function TrabalhosPage() {
               className="mb-[clamp(40px,5vw,72px)]"
             />
           </Reveal>
-          <CaseList />
+          <CaseList titleAs="h2" />
         </main>
       </div>
       <Footer />

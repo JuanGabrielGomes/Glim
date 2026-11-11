@@ -38,7 +38,8 @@ export const CONTACT_WHATSAPP_NUMBER = '5554992181886';
 export const CONTACT_WHATSAPP_LABEL = '+55 54 99218-1886';
 export const CONTACT_WHATSAPP_MESSAGE = 'Olá, vim pelo site da glim. Quero um raio-x do meu site.';
 export const CONTACT_WHATSAPP_HREF = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent(CONTACT_WHATSAPP_MESSAGE)}`;
-export const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? 'https://instagram.com/glim.web';
+export const INSTAGRAM_URL =
+  process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? 'https://instagram.com/glim.web';
 
 export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/#trabalhos', label: 'Trabalhos' },
@@ -64,12 +65,14 @@ export const SERVICES_LIST: readonly ServiceSummary[] = [
   {
     slug: 'sites-institucionais',
     title: 'Sites institucionais',
-    description: 'Empresa, serviços e diferenciais apresentados com autoridade desde a primeira visita.',
+    description:
+      'Empresa, serviços e diferenciais apresentados com autoridade desde a primeira visita.',
   },
   {
     slug: 'ecommerce',
     title: 'E-commerce',
-    description: 'Lojas rápidas, com catálogo claro, checkout sem atrito e painel para a sua equipe.',
+    description:
+      'Lojas rápidas, com catálogo claro, checkout sem atrito e painel para a sua equipe.',
   },
   {
     slug: 'landing-pages',
@@ -79,7 +82,8 @@ export const SERVICES_LIST: readonly ServiceSummary[] = [
   {
     slug: 'sistemas-sob-medida',
     title: 'Sistemas sob medida',
-    description: 'Quando a planilha não dá mais conta: sistemas internos e produtos digitais do zero.',
+    description:
+      'Quando a planilha não dá mais conta: sistemas internos e produtos digitais do zero.',
   },
 ];
 
@@ -164,5 +168,11 @@ export const RAIO_X = {
   text: 'Em 15 minutos, por vídeo ou WhatsApp, mostramos o que está custando clientes no seu site atual e o que faríamos primeiro. Sem compromisso.',
   whatsappLabel: 'Prefiro chamar no WhatsApp',
   submit: 'Quero o raio-x',
-  needs: ['Site institucional', 'E-commerce', 'Landing page', 'Sistema sob medida', 'Ainda não sei'],
+  needs: [
+    'Site institucional',
+    'E-commerce',
+    'Landing page',
+    'Sistema sob medida',
+    'Ainda não sei',
+  ],
 } as const;

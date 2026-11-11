@@ -29,7 +29,12 @@ export function CaseStudies() {
 }
 
 /** Lista dos três cases (usada na home e no índice /trabalhos). */
-export function CaseList() {
+interface CaseListProps {
+  /** Nível do título de cada case: h3 na home (sob o h2 "Trabalhos"), h2 no índice (sob o h1). */
+  titleAs?: 'h2' | 'h3';
+}
+
+export function CaseList({ titleAs: TitleTag = 'h3' }: CaseListProps) {
   return (
     <div className="grid gap-[clamp(64px,7vw,110px)]">
       {CASE_STUDIES.map((item, index) => {
@@ -58,13 +63,16 @@ export function CaseList() {
               </Link>
 
               <div>
-                <span className="text-pedra-200 block font-serif text-[88px] leading-[0.8] italic">
+                <span
+                  aria-hidden="true"
+                  className="text-pedra-500 block font-serif text-[88px] leading-[0.8] italic"
+                >
                   0{index + 1}
                 </span>
                 <p className="meta text-pedra-500 mt-[22px]">{item.kind}</p>
-                <h3 className="mt-[18px] mb-[14px] text-[clamp(26px,2.4vw,36px)] leading-[1.05] font-medium tracking-[-0.035em]">
+                <TitleTag className="mt-[18px] mb-[14px] text-[clamp(26px,2.4vw,36px)] leading-[1.05] font-medium tracking-[-0.035em]">
                   <NoBreak>{item.title}</NoBreak>
-                </h3>
+                </TitleTag>
                 <p className="text-pedra-500">
                   <NoBreak>{item.blurb}</NoBreak>
                 </p>

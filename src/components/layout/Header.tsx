@@ -41,7 +41,11 @@ export function Header({ tone = 'linho' }: HeaderProps) {
         onDark ? 'text-linho-050' : 'text-grafite-950'
       }`}
     >
-      <Link href="/" aria-label="glim., página inicial" className="inline-flex items-center">
+      <Link
+        href="/"
+        aria-label="glim., página inicial"
+        className="relative inline-flex items-center after:absolute after:-inset-x-1 after:-inset-y-3"
+      >
         <Image
           src={onDark ? '/brand/glim-logo-linho.svg' : '/brand/glim-logo-grafite.svg'}
           alt="glim."
@@ -74,7 +78,7 @@ export function Header({ tone = 'linho' }: HeaderProps) {
         aria-expanded={isOpen}
         aria-controls="menu-mobile"
         onClick={() => setIsOpen(true)}
-        className="meta md:hidden"
+        className="meta relative after:absolute after:-inset-x-1 after:-inset-y-3 md:hidden"
       >
         Menu
       </button>
@@ -95,7 +99,11 @@ export function Header({ tone = 'linho' }: HeaderProps) {
               height={995}
               className="h-[26px] w-auto"
             />
-            <button type="button" onClick={close} className="meta">
+            <button
+              type="button"
+              onClick={close}
+              className="meta relative after:absolute after:-inset-x-1 after:-inset-y-3"
+            >
               Fechar
             </button>
           </div>

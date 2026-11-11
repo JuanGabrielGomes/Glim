@@ -29,6 +29,7 @@ export function Hero() {
           width={1200}
           height={1200}
           priority
+          fetchPriority="high"
           sizes="(max-width: 820px) 92vw, 52vw"
           className="pointer-events-none absolute top-[46%] left-1/2 z-[3] w-[92vw] max-w-none -translate-x-1/2 -translate-y-1/2 -rotate-[8deg] mix-blend-screen md:top-[48%] md:w-[min(52vw,720px)]"
         />

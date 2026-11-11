@@ -355,7 +355,8 @@ export const SERVICE_PAGES: readonly ServicePage[] = [
       },
       {
         question: 'Não entendo nada de domínio e hospedagem.',
-        answer: 'Não precisa. A glim. cuida de toda a parte técnica, da publicação ao certificado de segurança.',
+        answer:
+          'Não precisa. A glim. cuida de toda a parte técnica, da publicação ao certificado de segurança.',
       },
       {
         question: 'Quanto tempo vou precisar dedicar?',

@@ -8,17 +8,23 @@ const STRUCTURED_DATA = {
   '@context': 'https://schema.org',
   '@graph': [
     {
-      '@type': 'ProfessionalService',
+      '@type': ['LocalBusiness', 'ProfessionalService'],
       '@id': `${SITE_URL}/#organization`,
       name: SITE_NAME,
       url: SITE_URL,
-      logo: `${SITE_URL}/icon.png`,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/icon.png`,
+        width: 512,
+        height: 512,
+      },
       image: `${SITE_URL}/opengraph-image`,
       description: SITE_DESCRIPTION,
       founder: { '@type': 'Person', name: 'Juan Gabriel Gomes' },
       areaServed: { '@type': 'Country', name: 'Brasil' },
       address: {
         '@type': 'PostalAddress',
+        addressLocality: 'Carlos Barbosa',
         addressRegion: 'RS',
         addressCountry: 'BR',
       },
@@ -111,10 +117,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="pt-BR"
-      className={`h-full ${display.variable} ${serif.variable} ${mono.variable}`}
-    >
+    <html lang="pt-BR" className={`h-full ${display.variable} ${serif.variable} ${mono.variable}`}>
       <body className="bg-linho-050 text-grafite-950 min-h-full font-sans antialiased">
         <script
           type="application/ld+json"

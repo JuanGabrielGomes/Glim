@@ -42,9 +42,13 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
       siteName: 'glim.',
       title: `${service.metaTitle} | glim.`,
       description: service.metaDescription,
+      images: [
+        { url: '/opengraph-image', width: 1200, height: 630, alt: 'glim. · Precisão que se vê.' },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
+      images: ['/opengraph-image'],
       title: `${service.metaTitle} | glim.`,
       description: service.metaDescription,
     },
@@ -123,11 +127,17 @@ export default async function ServicePageRoute({ params }: ServicePageProps) {
         <main id="conteudo">
           <section className="px-[var(--m)] pt-[130px] pb-[clamp(64px,8vw,120px)] md:pt-[180px]">
             <nav aria-label="Trilha de navegação" className={EYEBROW}>
-              <Link href="/" className="transition-opacity hover:opacity-70">
+              <Link
+                href="/"
+                className="relative transition-opacity after:absolute after:-inset-x-1 after:-inset-y-3 hover:opacity-70"
+              >
                 glim.
               </Link>
               <span className="mx-2">/</span>
-              <Link href="/#servicos" className="transition-opacity hover:opacity-70">
+              <Link
+                href="/#servicos"
+                className="relative transition-opacity after:absolute after:-inset-x-1 after:-inset-y-3 hover:opacity-70"
+              >
                 Serviços
               </Link>
               <span className="mx-2">/</span>
@@ -254,8 +264,8 @@ export default async function ServicePageRoute({ params }: ServicePageProps) {
                 </h2>
                 <div className="border-pedra-200 mt-10 border-t">
                   {service.faq.map((item) => (
-                    <details key={item.question} className="group border-pedra-200 border-b py-5">
-                      <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-lg font-medium tracking-[-0.02em] marker:hidden sm:text-xl [&::-webkit-details-marker]:hidden">
+                    <details key={item.question} className="group border-pedra-200 border-b">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-lg font-medium tracking-[-0.02em] marker:hidden sm:text-xl [&::-webkit-details-marker]:hidden">
                         {item.question}
                         <span
                           aria-hidden="true"
