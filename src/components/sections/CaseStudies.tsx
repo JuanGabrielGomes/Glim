@@ -1,145 +1,90 @@
-'use client';
-
-import { m, useReducedMotion } from 'framer-motion';
-import { BrowserMockup } from '@/components/ui/BrowserMockup';
+import Link from 'next/link';
+import { TextLink } from '@/components/ui/Button';
+import { Reveal } from '@/components/ui/Reveal';
+import { SectionHead } from '@/components/ui/SectionHead';
+import { Shot } from '@/components/ui/Shot';
 import { CASE_STUDIES } from '@/lib/content';
-import { FADE_UP, VIEWPORT } from '@/lib/motion';
+import { NoBreak } from '@/components/ui/NoBreak';
 
+/** Trabalhos: três cases alternados, cada um levando para /trabalhos/[slug]. */
 export function CaseStudies() {
-  const reduceMotion = useReducedMotion() ?? false;
-
   return (
-    <div id="work">
-      {CASE_STUDIES.map((caseStudy, index) => {
+    <section
+      id="trabalhos"
+      aria-labelledby="trabalhos-title"
+      className="px-[var(--m)] py-[clamp(80px,9vw,140px)]"
+    >
+      <Reveal>
+        <SectionHead
+          id="trabalhos-title"
+          lines={['Trabalhos']}
+          caption="Sites no ar para empresas reais"
+          className="mb-[clamp(40px,5vw,72px)]"
+        />
+      </Reveal>
+
+      <CaseList />
+    </section>
+  );
+}
+
+/** Lista dos três cases (usada na home e no índice /trabalhos). */
+interface CaseListProps {
+  /** Nível do título de cada case: h3 na home (sob o h2 "Trabalhos"), h2 no índice (sob o h1). */
+  titleAs?: 'h2' | 'h3';
+}
+
+export function CaseList({ titleAs: TitleTag = 'h3' }: CaseListProps) {
+  return (
+    <div className="grid gap-[clamp(64px,7vw,110px)]">
+      {CASE_STUDIES.map((item, index) => {
         const isReversed = index % 2 === 1;
-        const isLive = caseStudy.isLive !== false;
-        const mockup = (
-          <BrowserMockup
-            label={caseStudy.client}
-            url={caseStudy.href.replace('https://', '')}
-            accent={caseStudy.mockupAccent}
-            background={caseStudy.mockupBackground}
-            imageSrc={caseStudy.imageSrc}
-            imagePosition={caseStudy.imagePosition}
-            reduceMotion={reduceMotion}
-            variant="cinema"
-          />
-        );
+        const href = `/trabalhos/${item.slug}`;
+
         return (
-          <section
-            key={caseStudy.client}
-            aria-labelledby={`case-${index}-title`}
-            className="relative flex min-h-[100dvh] items-center overflow-hidden px-4 py-24 sm:px-6 lg:px-8"
-            style={{ background: caseStudy.mockupBackground }}
-          >
-            <div className="grain-overlay pointer-events-none absolute inset-0 opacity-20" aria-hidden="true" />
-            <div
-              className={`relative mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2 lg:gap-16 ${
-                isReversed ? 'lg:[&>*:first-child]:order-2' : ''
+          <Reveal key={item.slug}>
+            <article
+              className={`grid items-end gap-[clamp(28px,4vw,64px)] ${
+                isReversed ? 'md:grid-cols-[1fr_1.55fr]' : 'md:grid-cols-[1.55fr_1fr]'
               }`}
             >
-              {isLive ? (
-                <m.a
-                  href={caseStudy.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`Abrir o site da ${caseStudy.client} em uma nova aba`}
-                  data-cursor-hover
-                  className="group block"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={VIEWPORT}
-                  variants={FADE_UP}
-                  whileHover={reduceMotion ? undefined : { y: -4 }}
-                >
-                  {mockup}
-                </m.a>
-              ) : (
-                <m.div
-                  className="group block"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={VIEWPORT}
-                  variants={FADE_UP}
-                >
-                  {mockup}
-                </m.div>
-              )}
-
-              <m.div
-                className="text-center lg:text-left"
-                initial="hidden"
-                whileInView="visible"
-                viewport={VIEWPORT}
-                variants={FADE_UP}
+              <Link
+                href={href}
+                aria-label={`Ver o case ${item.client}`}
+                className={`group block ${isReversed ? 'md:order-2' : ''}`}
               >
-                <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-                  <span
-                    className="font-mono text-xs tracking-[0.22em] uppercase"
-                    style={{ color: caseStudy.mockupAccent }}
-                  >
-                    Case 0{index + 1}
-                  </span>
-                  <span className="rounded-full border border-white/15 px-3 py-1 font-mono text-[11px] tracking-[0.18em] text-white/60 uppercase">
-                    {caseStudy.category}
-                  </span>
-                </div>
+                <Shot
+                  src={item.imageSrc}
+                  alt={item.imageAlt}
+                  width={item.imageWidth}
+                  height={item.imageHeight}
+                  sizes="(max-width: 820px) 92vw, 52vw"
+                />
+              </Link>
 
-                <h3
-                  id={`case-${index}-title`}
-                  className="font-google mx-auto mt-6 max-w-xl text-[clamp(2.1rem,4.6vw,3.75rem)] leading-[1.02] tracking-[-0.05em] text-[#f7f3ee] lg:mx-0"
+              <div>
+                <span
+                  aria-hidden="true"
+                  className="text-pedra-500 block font-serif text-[88px] leading-[0.8] italic"
                 >
-                  {caseStudy.headline}
-                </h3>
-                <p className="mx-auto mt-5 max-w-lg text-base leading-7 text-white/70 sm:text-lg lg:mx-0">
-                  {caseStudy.summary}
+                  0{index + 1}
+                </span>
+                <p className="meta text-pedra-500 mt-[22px]">{item.kind}</p>
+                <TitleTag className="mt-[18px] mb-[14px] text-[clamp(26px,2.4vw,36px)] leading-[1.05] font-medium tracking-[-0.035em]">
+                  <NoBreak>{item.title}</NoBreak>
+                </TitleTag>
+                <p className="text-pedra-500">
+                  <NoBreak>{item.blurb}</NoBreak>
                 </p>
-
-                <ul
-                  className="mt-6 flex flex-wrap justify-center gap-2 lg:justify-start"
-                  aria-label={`Destaques do case ${caseStudy.client}`}
-                >
-                  {caseStudy.highlights.map((item) => (
-                    <li
-                      key={item}
-                      className="rounded-full bg-white/[0.06] px-3 py-2 font-mono text-[11px] tracking-[0.16em] text-white/70 uppercase"
-                    >
-                      {item}
-                    </li>
+                <ul className="meta text-pedra-500 mt-[22px] mb-7 flex flex-wrap gap-x-[18px] gap-y-2">
+                  {item.tags.map((tag) => (
+                    <li key={tag}>{tag}</li>
                   ))}
                 </ul>
-
-                <div className="mt-9 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
-                  {isLive ? (
-                    <m.a
-                      href={caseStudy.href}
-                      data-cursor-hover
-                      className="inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold transition"
-                      style={{
-                        backgroundColor: caseStudy.mockupAccent,
-                        color: caseStudy.mockupAccentText ?? '#14100e',
-                      }}
-                      whileHover={{ y: -2 }}
-                      whileTap={{ scale: 0.98 }}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Ver site ao vivo
-                    </m.a>
-                  ) : null}
-                  <m.a
-                    href="#contato"
-                    data-cursor-hover
-                    className="inline-flex items-center rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-white/80 transition hover:border-white/30 hover:text-white"
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    Quero um site assim
-                  </m.a>
-                </div>
-              </m.div>
-            </div>
-          </section>
+                <TextLink href={href}>Ver case</TextLink>
+              </div>
+            </article>
+          </Reveal>
         );
       })}
     </div>

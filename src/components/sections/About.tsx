@@ -1,83 +1,56 @@
-'use client';
+import { Reveal } from '@/components/ui/Reveal';
+import { Shot } from '@/components/ui/Shot';
+import { ABOUT } from '@/lib/content';
+import { NoBreak } from '@/components/ui/NoBreak';
 
-import Image from 'next/image';
-import { m } from 'framer-motion';
-import { ABOUT, CONTACT_WHATSAPP_HREF } from '@/lib/content';
-import { FADE_UP, STAGGER, VIEWPORT } from '@/lib/motion';
-
+/** Estúdio: foto 4:5 facetada e a bio curta em primeira pessoa. */
 export function About() {
+  const [intro, emphasis, outro] = ABOUT.title;
+
   return (
     <section
-      id="sobre"
-      aria-labelledby="sobre-title"
-      className="dark relative flex min-h-[100dvh] items-center overflow-hidden bg-[#0f0c0a]"
+      id="estudio"
+      aria-labelledby="estudio-title"
+      className="px-[var(--m)] py-[clamp(80px,9vw,140px)]"
     >
-      <Image
-        src={ABOUT.photoSrc}
-        alt=""
-        fill
-        sizes="100vw"
-        quality={90}
-        className="object-cover"
-        style={{ objectPosition: 'left center' }}
-        priority={false}
-      />
-      <div className="absolute inset-0 bg-[rgba(15,12,10,0.78)] lg:bg-[linear-gradient(90deg,transparent_0%,transparent_22%,rgba(15,12,10,0.68)_42%,rgba(15,12,10,0.96)_70%)]" />
-      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0f0c0a] to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0f0c0a] to-transparent" />
-      <div className="grain-overlay pointer-events-none absolute inset-0 opacity-20" aria-hidden="true" />
+      <Reveal>
+        <div className="grid items-center gap-[clamp(32px,6vw,96px)] md:grid-cols-[0.9fr_1.1fr]">
+          <Shot
+            src={ABOUT.photoSrc}
+            alt={ABOUT.photoAlt}
+            width={842}
+            height={1264}
+            sizes="(max-width: 820px) 92vw, 42vw"
+            ratioClassName="aspect-[4/5]"
+            position="center 20%"
+            className="saturate-[0.85]"
+          />
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-24 sm:px-6 lg:px-10">
-        <m.div
-          className="ml-auto max-w-3xl"
-          initial="hidden"
-          whileInView="visible"
-          viewport={VIEWPORT}
-          variants={STAGGER}
-        >
-          <m.p
-            variants={FADE_UP}
-            className="font-mono text-[10px] tracking-[0.32em] text-[#b7ada2] uppercase sm:text-xs"
-          >
-            Quem constrói: {ABOUT.name}
-          </m.p>
-
-          <m.h2
-            id="sobre-title"
-            variants={FADE_UP}
-            className="font-google mt-6 max-w-2xl text-[clamp(1.9rem,4.4vw,3.4rem)] leading-[1.1] tracking-[-0.045em] text-[#f7f3ee]"
-          >
-            {ABOUT.lead}
-          </m.h2>
-
-          <m.p variants={FADE_UP} className="mt-6 max-w-2xl text-base leading-7 text-[#d9d3cc] sm:text-lg sm:leading-8">
-            {ABOUT.bio}
-          </m.p>
-
-          <m.ul variants={FADE_UP} className="mt-7 flex max-w-2xl flex-wrap gap-2" aria-label="Formação e atuação">
-            {ABOUT.credentials.map((item) => (
-              <li
-                key={item}
-                className="rounded-full border border-white/10 px-3 py-1.5 font-mono text-[11px] tracking-[0.14em] text-white/65 uppercase"
-              >
-                {item}
-              </li>
-            ))}
-          </m.ul>
-
-          <m.a
-            variants={FADE_UP}
-            href={CONTACT_WHATSAPP_HREF}
-            target="_blank"
-            rel="noreferrer"
-            data-cursor-hover
-            className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-[#d9d3cc] underline decoration-[#f2c48f]/40 underline-offset-4 transition hover:text-white"
-            whileHover={{ y: -1 }}
-          >
-            Falar comigo direto
-          </m.a>
-        </m.div>
-      </div>
+          <div>
+            <p className="meta text-pedra-500">Quem constrói</p>
+            <h2
+              id="estudio-title"
+              className="mt-[22px] mb-[26px] text-[clamp(30px,3.6vw,52px)] leading-[1.02] font-medium tracking-[-0.04em]"
+            >
+              {intro}{' '}
+              <em className="font-serif text-[1.1em] leading-[0.9] font-normal tracking-[-0.01em]">
+                {emphasis}
+              </em>{' '}
+              {outro}
+            </h2>
+            <p className="text-pedra-500 max-w-[34em] text-[clamp(18px,1.5vw,21px)] leading-[1.5]">
+              <NoBreak>{ABOUT.bio}</NoBreak>
+            </p>
+            <ul className="meta mt-7 flex flex-wrap gap-2.5">
+              {ABOUT.credentials.map((item) => (
+                <li key={item} className="border-pedra-200 border px-3.5 py-2.5">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </Reveal>
     </section>
   );
 }

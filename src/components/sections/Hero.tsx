@@ -1,228 +1,78 @@
-'use client';
+import Image from 'next/image';
+import { Fragment } from 'react';
+import { ButtonLink, TextLink } from '@/components/ui/Button';
+import { FitText } from '@/components/ui/FitText';
+import { HERO } from '@/lib/content';
+import { NoBreak } from '@/components/ui/NoBreak';
 
-import type { MotionValue } from 'framer-motion';
-import { m, useScroll, useTransform } from 'framer-motion';
-import { useEffect, useRef, useState, type RefObject } from 'react';
-import { LiquidLogo } from '@/components/logo/LiquidLogo';
-import { useMagnetic } from '@/components/cursor/useMagnetic';
-import { CONTACT_WHATSAPP_HREF, HERO_ACCENT_WORDS, HERO_TITLE } from '@/lib/content';
-import { FADE_UP, STAGGER, WORD_CHILD, WORD_PARENT } from '@/lib/motion';
+const MEGA_SIZE = 'mega text-[17vw] md:text-[clamp(56px,11.2vw,168px)]';
 
-type HeroProps = {
-  heroRef: RefObject<HTMLElement | null>;
-  copyY: MotionValue<number>;
-  reduceMotion: boolean;
-};
-
-const SIGNAL_METRICS = [
-  { label: 'Mensagem', value: 'Direta' },
-  { label: 'Navegação', value: 'Simples' },
-  { label: 'Código', value: 'Enxuto' },
-  { label: 'Leitura', value: 'Rápida' },
-];
-
-export function Hero({ heroRef, copyY, reduceMotion }: HeroProps) {
-  const words = HERO_TITLE.split(' ');
-  const {
-    ref: primaryCtaRef,
-    style: primaryCtaStyle,
-    onPointerMove: handlePrimaryCtaPointerMove,
-    onPointerLeave: handlePrimaryCtaPointerLeave,
-  } = useMagnetic<HTMLAnchorElement>(0.22);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
-  const cueOpacity = useTransform(scrollYProgress, [0, 0.35], [1, 0]);
-  const videoAllowed = !reduceMotion;
-
+/** Hero editorial: mega-título em duas linhas soltas com a gema à frente das letras. */
+export function Hero() {
   return (
     <section
-      id="hero"
-      ref={heroRef}
-      aria-labelledby="hero-title"
-      className="relative flex min-h-[100dvh] flex-col overflow-hidden bg-[#0b0908]"
+      id="topo"
+      className="bg-grafite-950 text-linho-050 relative min-h-[860px] overflow-hidden md:min-h-[max(100svh,760px)]"
     >
-      <div aria-hidden="true" className="absolute inset-0">
-        {videoAllowed ? (
-          <HeroVideoBackground />
-        ) : (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src="/video/hero-lamp-poster.jpg"
-            alt=""
-            className="h-full w-full object-cover opacity-90"
-          />
-        )}
-        <div className="absolute inset-0 block bg-[radial-gradient(ellipse_at_center,rgba(11,9,8,0.5)_0%,rgba(11,9,8,0.82)_55%,rgba(11,9,8,0.95)_100%)] lg:hidden" />
-        <div className="absolute inset-0 hidden bg-[radial-gradient(ellipse_at_center,transparent_18%,rgba(11,9,8,0.55)_62%,rgba(11,9,8,0.92)_100%)] lg:block" />
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0b0908] to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0b0908] to-transparent" />
-      </div>
-
-      <a
-        href="#topo"
-        aria-label="glim."
-        className="relative z-10 mt-6 ml-6 self-start sm:mt-8 sm:ml-8"
-        data-cursor-hover
-      >
-        <LiquidLogo className="h-6 w-20 sm:h-7 sm:w-24" />
-      </a>
-
-      <div className="relative z-10 flex flex-1 items-center px-4 py-10 sm:px-6 lg:px-10">
-        <m.div
-          className="mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-16"
-          initial="hidden"
-          animate="visible"
-          variants={STAGGER}
-          style={reduceMotion ? undefined : { y: copyY }}
-        >
-          <div className="text-center lg:text-left">
-            <m.p
-              variants={FADE_UP}
-              className="mx-auto max-w-[26ch] text-balance font-mono text-[10px] tracking-[0.2em] text-[#b7ada2] uppercase sm:max-w-none sm:text-xs sm:tracking-[0.32em] lg:mx-0"
-            >
-              Glim / Do conceito ao código, o insight é claro.
-            </m.p>
-
-            <m.h1
-              id="hero-title"
-              className="font-google mx-auto mt-6 max-w-[13ch] text-[clamp(2.3rem,6.4vw,4.6rem)] leading-[0.98] tracking-[-0.05em] text-[#f5f0ea] sm:mt-8 lg:mx-0"
-              variants={WORD_PARENT}
-            >
-              {words.map((word, index) => {
-                const normalizedWord = word.toLocaleLowerCase().replace(/[.,!?;:]/g, '');
-                const isAccentWord = HERO_ACCENT_WORDS.has(normalizedWord);
-
-                return (
-                  <span key={`${word}-${index}`} className="inline-block pr-[0.16em] pb-[0.08em]">
-                    <m.span
-                      className={
-                        isAccentWord
-                          ? 'inline-block bg-[linear-gradient(135deg,#f7dcc0,#f2b77b)] bg-clip-text font-sans font-semibold tracking-[-0.048em] text-transparent'
-                          : 'font-google inline-block'
-                      }
-                      variants={WORD_CHILD}
-                    >
-                      {word}
-                    </m.span>
-                  </span>
-                );
-              })}
-            </m.h1>
-          </div>
-
-          <div className="text-center lg:text-right">
-            <m.p
-              variants={FADE_UP}
-              className="mx-auto max-w-[30rem] text-base leading-7 text-[#d9d3cc] sm:text-lg sm:leading-8 lg:mr-0 lg:ml-auto"
-            >
-              Sites e produtos digitais com direção visual e engenharia sólida, pra transformar
-              visitantes em clientes antes mesmo da primeira conversa.
-            </m.p>
-
-            <m.div
-              variants={FADE_UP}
-              className="mx-auto mt-7 flex max-w-md flex-wrap items-center justify-center gap-x-5 gap-y-2 lg:mr-0 lg:ml-auto lg:justify-end"
-            >
-              {SIGNAL_METRICS.map((metric) => (
-                <span
-                  key={metric.label}
-                  className="font-mono text-[10px] tracking-[0.2em] text-[#a89e93] uppercase"
-                >
-                  {metric.label} <span className="text-[#e7e1d9]">{metric.value}</span>
-                </span>
-              ))}
-            </m.div>
-
-            <m.div
-              variants={FADE_UP}
-              className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-end"
-            >
-              <m.a
-                ref={primaryCtaRef}
-                href="#contato"
-                data-cursor-hover
-                className="group bg-glim-diamond text-glim-dark relative inline-flex items-center justify-center overflow-hidden rounded-full px-6 py-3 text-sm font-semibold shadow-[0_18px_44px_-22px_rgba(242,183,123,0.85)] sm:px-8 sm:py-4 sm:text-base"
-                style={primaryCtaStyle}
-                onPointerMove={handlePrimaryCtaPointerMove}
-                onPointerLeave={handlePrimaryCtaPointerLeave}
-                whileHover={{ y: -2, scale: 1.01 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-[1px] rounded-full bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.46),transparent_52%)] opacity-80 transition-opacity group-hover:opacity-100"
-                />
-                <span className="relative">Iniciar Projeto</span>
-              </m.a>
-              <m.a
-                href={CONTACT_WHATSAPP_HREF}
-                data-cursor-hover
-                className="inline-flex items-center gap-2 text-sm font-medium text-[#d9d3cc] underline decoration-[#f2c48f]/40 underline-offset-4 transition hover:text-white"
-                whileHover={{ y: -1 }}
-              >
-                ou agendar diagnóstico
-              </m.a>
-            </m.div>
-          </div>
-        </m.div>
-      </div>
-
-      <m.div
+      <div
         aria-hidden="true"
-        className="relative z-10 flex flex-none flex-col items-center gap-2 pb-6 sm:pb-8"
-        style={reduceMotion ? undefined : { opacity: cueOpacity }}
-      >
-        <span className="font-mono text-[9px] tracking-[0.3em] text-[#b7ada2] uppercase">Role</span>
-        <m.span
-          className="h-8 w-px bg-[linear-gradient(180deg,rgba(245,240,234,0.4),transparent)]"
-          animate={reduceMotion ? undefined : { scaleY: [0.4, 1, 0.4] }}
-          transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ transformOrigin: 'top' }}
+        className="absolute top-[46%] left-1/2 aspect-square w-[min(70vw,900px)] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(circle,rgb(240_168_85/0.30),rgb(240_168_85/0)_62%)] md:top-[46%]"
+      />
+
+      <h1 className="contents">
+        <span className="absolute inset-x-[var(--m)] top-[120px] z-[2] md:top-[150px]">
+          <FitText lines={['Precisão']} className={MEGA_SIZE} />
+        </span>
+        <Image
+          src="/brand/gema-ambar.jpg"
+          alt=""
+          width={1200}
+          height={1200}
+          priority
+          fetchPriority="high"
+          sizes="(max-width: 820px) 92vw, 52vw"
+          className="pointer-events-none absolute top-[46%] left-1/2 z-[3] w-[92vw] max-w-none -translate-x-1/2 -translate-y-1/2 -rotate-[8deg] mix-blend-screen md:top-[48%] md:w-[min(52vw,720px)]"
         />
-      </m.div>
+        <span className="absolute inset-x-[var(--m)] bottom-[250px] z-[2] text-right md:bottom-[150px]">
+          <FitText
+            lines={[
+              <Fragment key="que-se-ve">
+                que se <span className="text-ambar-400">vê.</span>
+              </Fragment>,
+            ]}
+            className={MEGA_SIZE}
+          />
+        </span>
+      </h1>
+
+      <p className="caps absolute top-[170px] right-[var(--m)] z-[4] hidden text-right md:block">
+        {HERO.side.map((item) => (
+          <span key={item} className="block">
+            {item}
+          </span>
+        ))}
+      </p>
+
+      <div className="absolute inset-x-[var(--m)] bottom-14 z-[4] md:right-auto md:bottom-[170px] md:max-w-[400px]">
+        <p className="text-pedra-300 mb-[22px] text-base leading-[1.5] md:mb-7 md:text-[19px]">
+          <NoBreak>{HERO.lead}</NoBreak>
+        </p>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-[18px] md:gap-x-[22px]">
+          <ButtonLink href="/#raio-x" tone="linho">
+            {HERO.cta}
+          </ButtonLink>
+          <TextLink href="/#trabalhos">{HERO.secondary}</TextLink>
+        </div>
+      </div>
+
+      <dl className="meta text-pedra-300 border-grafite-800 absolute inset-x-0 bottom-0 z-[4] hidden grid-cols-4 gap-6 border-t px-[var(--m)] pt-[22px] pb-7 md:grid">
+        {HERO.facts.map((fact) => (
+          <div key={fact.label}>
+            <dt>{fact.label}</dt>
+            <dd className="text-linho-050 mt-1">{fact.value}</dd>
+          </div>
+        ))}
+      </dl>
     </section>
-  );
-}
-
-function HeroVideoBackground() {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [canPlayVideo, setCanPlayVideo] = useState(true);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const fallbackToPoster = () => setCanPlayVideo(false);
-    const playResult = video.play();
-    if (playResult && typeof playResult.catch === 'function') {
-      playResult.catch(fallbackToPoster);
-    }
-
-    video.addEventListener('error', fallbackToPoster);
-    return () => video.removeEventListener('error', fallbackToPoster);
-  }, []);
-
-  if (!canPlayVideo) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src="/video/hero-lamp-poster.jpg" alt="" className="h-full w-full object-cover opacity-90" />
-    );
-  }
-
-  return (
-    <video
-      ref={videoRef}
-      className="h-full w-full object-cover opacity-90"
-      autoPlay
-      muted
-      loop
-      playsInline
-      disablePictureInPicture
-      controls={false}
-      preload="auto"
-      poster="/video/hero-lamp-poster.jpg"
-    >
-      <source src="/video/hero-lamp.webm" type="video/webm" />
-      <source src="/video/hero-lamp.mp4" type="video/mp4" />
-    </video>
   );
 }

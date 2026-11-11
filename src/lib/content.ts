@@ -1,212 +1,178 @@
-export type NavItem = { href: '#abordagem' | '#servicos' | '#work' | '#sobre' | '#contato'; label: string };
-export type Pillar = { title: string; description: string; mobileDescription: string };
-export type Capability = {
+export type NavItem = { href: string; label: string };
+
+export interface ServiceSummary {
   slug: string;
   title: string;
   description: string;
-  mobileDescription: string;
-  badge: string;
-  idealFor: readonly string[];
-  mobileIdealFor: string;
-};
-export type CaseStudy = {
+}
+
+export interface CaseSummary {
+  slug: string;
   client: string;
-  category: string;
-  headline: string;
-  summary: string;
-  outcome: string;
+  /** Linha mono acima do título: "Cliente · tipo de trabalho". */
+  kind: string;
+  title: string;
+  blurb: string;
+  tags: readonly string[];
+  /** Site ao vivo do cliente. */
   href: string;
-  /** false esconde os links para o site (ex.: site temporariamente fora do ar). Padrão: true. */
-  isLive?: boolean;
-  highlights: readonly string[];
-  deliverables: readonly string[];
-  imageSrc?: string;
-  imagePosition?: string;
-  mockupAccent: string;
-  mockupAccentText?: string;
-  mockupBackground: string;
-};
-export type TechStackItem = { label: string; detail: string };
+  /** false: o site está fora do ar, então o link "ver ao vivo" não deve aparecer. */
+  isLive: boolean;
+  imageSrc: string;
+  imageWidth: number;
+  imageHeight: number;
+  imageAlt: string;
+}
+
+export interface AboutInfo {
+  name: string;
+  role: string;
+  title: readonly [string, string, string];
+  bio: string;
+  credentials: readonly string[];
+  photoSrc: string;
+  photoAlt: string;
+}
 
 export const CONTACT_WHATSAPP_NUMBER = '5554992181886';
 export const CONTACT_WHATSAPP_LABEL = '+55 54 99218-1886';
-export const CONTACT_WHATSAPP_HREF = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent('Ola, vim pelo site da glim. Quero iniciar um projeto.')}`;
-export const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? 'https://instagram.com/glim.web';
-
-export const HERO_TITLE = 'O nível do seu negócio precisa aparecer antes da conversa.';
-export const HERO_ACCENT_WORDS = new Set(['nível', 'aparecer']);
+export const CONTACT_WHATSAPP_MESSAGE = 'Olá, vim pelo site da glim. Quero um raio-x do meu site.';
+export const CONTACT_WHATSAPP_HREF = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent(CONTACT_WHATSAPP_MESSAGE)}`;
+export const INSTAGRAM_URL =
+  process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? 'https://instagram.com/glim.web';
 
 export const NAV_ITEMS: readonly NavItem[] = [
-  { href: '#abordagem', label: 'Pilares' },
-  { href: '#servicos', label: 'Serviços' },
-  { href: '#work', label: 'Trabalhos' },
-  { href: '#sobre', label: 'Quem constrói' },
-  { href: '#contato', label: 'Contato' },
+  { href: '/#trabalhos', label: 'Trabalhos' },
+  { href: '/#servicos', label: 'Serviços' },
+  { href: '/#processo', label: 'Processo' },
+  { href: '/#estudio', label: 'Estúdio' },
 ];
 
-export const PILLARS: readonly Pillar[] = [
-  {
-    title: 'Agilidade Lúcida',
-    mobileDescription: 'Colocamos no ar o que importa, com direção clara.',
-    description:
-      'Começamos pelo que precisa entrar no ar e pelo que precisa ficar claro para quem visita. Velocidade com propósito, não pressa.',
-  },
-  {
-    title: 'Precisão Geométrica',
-    mobileDescription: 'Texto, layout e interação trabalham a favor da leitura.',
-    description:
-      'Texto, layout e interação têm função. Cada pixel é lapidado até sobrar só o que serve à leitura.',
-  },
-  {
-    title: 'Experiência Fluida',
-    mobileDescription: 'Interfaces simples, leves e fáceis de entender.',
-    description:
-      'O site precisa ser fácil de percorrer, entender e acionar, pra ninguém desistir antes de virar cliente.',
-  },
-];
+export const HERO = {
+  lead: 'Desenhamos e construímos sob medida para empresas que já são boas no que fazem e precisam parecer à altura na internet.',
+  cta: 'Pedir um raio-x do meu site',
+  secondary: 'Ver trabalhos',
+  side: ['Sites', 'Lojas', 'Sistemas'],
+  facts: [
+    { label: 'Prazo padrão', value: '4 semanas' },
+    { label: 'Código', value: 'Próprio, sem template' },
+    { label: 'Depois da entrega', value: '30 dias de ajustes' },
+    { label: 'Atendimento', value: 'Serra Gaúcha · Brasil' },
+  ],
+} as const;
 
-export const CAPABILITIES: readonly Capability[] = [
-  {
-    slug: 'landing-pages',
-    title: 'Landing Pages',
-    mobileDescription: 'Páginas objetivas para lançamento, campanha ou validação.',
-    description:
-      'Páginas para lançamento, campanha ou validação, com proposta bem apresentada, boa hierarquia de informação e CTA resolvido.',
-    badge: 'Lançamento e conversão',
-    idealFor: ['Validação de produto', 'Campanhas', 'Geração de leads'],
-    mobileIdealFor: 'Validação, campanhas e leads',
-  },
+export const SERVICES_LIST: readonly ServiceSummary[] = [
   {
     slug: 'sites-institucionais',
-    title: 'Sites Institucionais',
-    mobileDescription: 'Sites que apresentam empresa e serviços com mais autoridade.',
+    title: 'Sites institucionais',
     description:
-      'Sites que apresentam empresa, serviços e diferenciais com mais consistência, ajudando a construir percepção de valor desde a primeira visita.',
-    badge: 'Posicionamento e apresentação',
-    idealFor: ['Empresas em crescimento', 'Reposicionamento', 'Fortalecimento de marca'],
-    mobileIdealFor: 'Crescimento, reposicionamento e marca',
+      'Empresa, serviços e diferenciais apresentados com autoridade desde a primeira visita.',
   },
   {
     slug: 'ecommerce',
     title: 'E-commerce',
-    mobileDescription: 'Lojas claras, rápidas e com compra sem fricção.',
     description:
-      'Lojas com navegação simples, páginas de produto objetivas e fluxo de compra sem fricção desnecessária.',
-    badge: 'Operação e venda',
-    idealFor: [
-      'Marcas que querem vender mais',
-      'Operações que precisam de eficiência',
-      'Produtos com alto valor percebido',
-    ],
-    mobileIdealFor: 'Venda, eficiência e percepção de valor',
+      'Lojas rápidas, com catálogo claro, checkout sem atrito e painel para a sua equipe.',
+  },
+  {
+    slug: 'landing-pages',
+    title: 'Landing pages',
+    description: 'Uma página, uma tarefa: levar quem chegou do anúncio até o contato.',
   },
   {
     slug: 'sistemas-sob-medida',
-    title: 'Plataformas Sob Medida',
-    mobileDescription: 'Sistemas e produtos digitais construídos pra necessidade real do seu negócio.',
+    title: 'Sistemas sob medida',
     description:
-      'Quando uma solução pronta não resolve, construímos do zero: sistemas internos, produtos digitais e automações desenhados exatamente pra forma como o seu negócio funciona.',
-    badge: 'Software sob medida',
-    idealFor: [
-      'Processos que hoje dependem de planilha',
-      'Produtos digitais próprios',
-      'Regras de negócio específicas',
-    ],
-    mobileIdealFor: 'Processos manuais, produtos próprios e regras específicas',
+      'Quando a planilha não dá mais conta: sistemas internos e produtos digitais do zero.',
   },
 ];
 
-export const TECH_STACK: readonly TechStackItem[] = [
-  { label: 'Next.js', detail: 'Base de aplicação' },
-  { label: 'TypeScript', detail: 'Tipagem de ponta a ponta' },
-  { label: 'Tailwind CSS', detail: 'Sistema de design' },
-  { label: 'Framer Motion', detail: 'Motion com intenção' },
-  { label: 'Supabase', detail: 'Dados e autenticação' },
-  { label: 'Vercel', detail: 'Deploy e performance' },
-];
+export const GLIM_ON_CARD = {
+  eyebrow: 'glim. On · escopo fechado',
+  title: 'Site em 7 dias',
+  text: 'Site institucional de uma página. R$ 939 no Pix ou 12× de R$ 97.',
+  cta: 'Conhecer o glim. On',
+  href: '/servicos/glim-on',
+} as const;
 
-export const CASE_STUDIES: readonly CaseStudy[] = [
+export const PROCESS = {
+  weeks: '4',
+  caption: ['Semanas, do briefing', 'ao site no ar'],
+  promise: ['Prazo escrito na proposta.', 'Se mudar,', 'você sabe antes.'],
+} as const;
+
+export const PRINCIPLE = {
+  label: 'Princípio Nº 01',
+  quote: 'Um site bem feito não chama atenção para si. Chama clientes.',
+} as const;
+
+export const CASE_STUDIES: readonly CaseSummary[] = [
   {
+    slug: 'ottea-studio',
     client: 'Ottea Studio',
-    category: 'Branding, conteúdo e estratégia de marca',
-    headline: 'Um site editorial, sensorial e claro para apresentar processo, serviços e posicionamento.',
-    summary:
-      'Para a Ottea Studio, desenhamos um site que organiza serviços, história e proposta em uma navegação autoral, sem perder objetividade comercial.',
-    outcome:
-      'O resultado equilibra identidade forte com leitura fácil do que a empresa faz, como trabalha e por onde começar.',
+    kind: 'Ottea Studio · branding e estratégia',
+    title: 'Um site editorial que explica o que o estúdio faz em uma rolagem.',
+    blurb:
+      'Serviços, história e proposta organizados numa navegação autoral, sem perder a clareza comercial.',
+    tags: ['PT e EN', 'Claro e escuro', 'SEO'],
     href: 'https://otteastudio.com',
-    highlights: ['PT e EN', 'Tema claro e escuro', 'SEO estrutural', 'Motion leve'],
-    deliverables: [
-      'Arquitetura da informação',
-      'Landing institucional',
-      'Direção visual editorial',
-      'Base técnica em Next.js',
-    ],
-    mockupAccent: '#3f5c47',
-    mockupAccentText: '#f7f3ee',
-    mockupBackground: 'linear-gradient(160deg, #2a2320 0%, #1b1613 60%, #120e0c 100%)',
+    isLive: true,
     imageSrc: '/cases/ottea.jpg',
-    imagePosition: 'left 20%',
+    imageWidth: 3346,
+    imageHeight: 1751,
+    imageAlt: 'Site da Ottea Studio',
   },
   {
+    slug: 'sabores-em-foco',
     client: 'Sabores em Foco',
-    category: 'Produção fotográfica e presença digital',
-    headline: 'Um portfólio afiado para um estúdio que vive de comunicar apetite em imagem.',
-    summary:
-      'Para a Sabores em Foco, construímos um site-portfólio que organiza produção fotográfica, gestão de perfil e cobertura de eventos em uma vitrine editorial de alto impacto visual.',
-    outcome:
-      'Cada seção existe para fechar cliente: a fotografia carrega a primeira impressão, o texto resolve o resto.',
+    kind: 'Sabores em Foco · fotografia gastronômica',
+    title: 'Um portfólio onde a foto faz a primeira impressão e o texto fecha o cliente.',
+    blurb: 'Vitrine full-bleed, serviços em destaque e contato direto em cada seção.',
+    tags: ['Portfólio', 'Tipografia editorial', 'WhatsApp'],
     href: 'https://saboresemfoco.com',
-    highlights: ['Portfólio full-bleed', 'Tipografia editorial', 'Showcase de serviços', 'Contato direto'],
-    deliverables: [
-      'Curadoria e direção de portfólio',
-      'Landing institucional',
-      'Direção visual editorial',
-      'Base técnica em Next.js',
-    ],
-    mockupAccent: '#e2725b',
-    mockupBackground: 'linear-gradient(160deg, #3a1f16 0%, #23110c 60%, #170a07 100%)',
+    isLive: true,
     imageSrc: '/cases/sabores.jpg',
-    imagePosition: 'center 35%',
+    imageWidth: 3349,
+    imageHeight: 1735,
+    imageAlt: 'Site da Sabores em Foco',
   },
   {
+    slug: 'mocellin-joias',
     client: 'Mocellin Joias',
-    category: 'E-commerce e experiência de produto',
-    headline: 'Uma loja com atmosfera de joalheria física, sem perder velocidade de e-commerce.',
-    summary:
-      'Para a Mocellin Joias, desenvolvemos uma loja com navegação por categoria, páginas de produto objetivas e uma atmosfera visual escura e sofisticada, condizente com o valor percebido das peças.',
-    outcome:
-      'O catálogo comunica luxo sem perder clareza de compra, do primeiro clique ao carrinho.',
+    kind: 'Mocellin Joias · e-commerce',
+    title: 'Uma loja com atmosfera de joalheria física e a velocidade de um e-commerce.',
+    blurb: 'Catálogo por categoria, páginas de produto objetivas e checkout sem fricção.',
+    tags: ['Catálogo', 'Checkout', 'Painel próprio'],
     href: 'https://mocellinjoias.com.br',
     isLive: false,
-    highlights: ['Catálogo por categoria', 'Atmosfera escura premium', 'Checkout otimizado', 'WhatsApp integrado'],
-    deliverables: [
-      'Arquitetura de e-commerce',
-      'Direção visual premium',
-      'Catálogo e páginas de produto',
-      'Base técnica em Next.js',
-    ],
-    mockupAccent: '#c9a15a',
-    mockupBackground: 'linear-gradient(160deg, #17181c 0%, #0e0f12 60%, #08090b 100%)',
     imageSrc: '/cases/mocellin.jpg',
-    imagePosition: 'center',
+    imageWidth: 3337,
+    imageHeight: 1751,
+    imageAlt: 'Loja da Mocellin Joias',
   },
-] as const;
-
-export type AboutInfo = {
-  name: string;
-  role: string;
-  lead: string;
-  bio: string;
-  credentials: readonly string[];
-  photoSrc: string;
-};
+];
 
 export const ABOUT: AboutInfo = {
   name: 'Juan Gabriel Gomes',
   role: 'Fundador da glim.',
-  lead: 'Comecei pela engenharia. O diferencial é entregar o que funciona de verdade pra empresas.',
-  bio: 'Sou técnico em Informática pela UFRN e hoje curso Engenharia de Software. É essa base que sustenta como a glim. trabalha: entender o problema real de um negócio e saber exatamente o que precisa acontecer no código para virar produto funcional, não só bonito. Atuo como desenvolvedor fullstack, da arquitetura ao pixel final.',
-  credentials: ['Técnico em Informática (UFRN)', 'Engenharia de Software', 'Full Stack'],
-  photoSrc: '/team/juan-bg.jpg',
+  title: ['Um estúdio pequeno de propósito.', 'Quem vende', 'é quem desenha e programa.'],
+  bio: 'Sou Juan Gabriel Gomes, técnico em Informática pela UFRN e estudante de Engenharia de Software. Atendo cada projeto da conversa ao deploy: entendo o problema do negócio e sei exatamente o que precisa acontecer no código para virar um site que funciona.',
+  credentials: ['Técnico em Informática · UFRN', 'Engenharia de Software', 'Full stack'],
+  photoSrc: '/team/juan-1.jpg',
+  photoAlt: 'Juan Gabriel Gomes, fundador da glim.',
 };
+
+export const RAIO_X = {
+  title: ['Raio-x'],
+  heading: ['Quer saber o que', 'cortar', 'no seu site?'],
+  text: 'Em 15 minutos, por vídeo ou WhatsApp, mostramos o que está custando clientes no seu site atual e o que faríamos primeiro. Sem compromisso.',
+  whatsappLabel: 'Prefiro chamar no WhatsApp',
+  submit: 'Quero o raio-x',
+  needs: [
+    'Site institucional',
+    'E-commerce',
+    'Landing page',
+    'Sistema sob medida',
+    'Ainda não sei',
+  ],
+} as const;
