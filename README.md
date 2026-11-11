@@ -57,6 +57,7 @@ src/
     trabalhos/page.tsx             # índice de cases
     trabalhos/[slug]/              # página de case (+ opengraph-image)
     servicos/[slug]/page.tsx       # páginas de serviço (SEO, FAQ, preço do glim. On)
+    privacidade/page.tsx           # política de privacidade (texto em lib/privacy.ts)
     actions.ts                     # server action do raio-x (Nodemailer)
     layout.tsx                     # fontes, metadata base, JSON-LD (LocalBusiness + WebSite)
     opengraph-image.tsx            # imagem de compartilhamento da home
@@ -97,6 +98,7 @@ public/
 - **Movimento:** entradas de 900 ms (`Reveal`) e zoom de 1,02 nos prints. Tudo respeita `prefers-reduced-motion`.
 - **Desempenho de rolagem:** `Reveal` só em texto; nunca envolva imagem grande nem elemento com `backdrop-filter`. O canto facetado das imagens usa `faceta-falsa` (triângulo da cor do fundo), não `clip-path`. Medido com Edge e rolagem real: quadros acima de 33 ms caíram de 20 para 0.
 - **Sem travessões** (— e –) nos textos.
+- **Privacidade:** a política (`src/lib/privacy.ts`) afirma que o site não usa analytics, pixels nem cookies de rastreamento. Se isso mudar (Analytics, Pixel da Meta, novo formulário), **atualize a política no mesmo PR**.
 
 ## SEO
 

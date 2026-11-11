@@ -71,7 +71,12 @@ export function Footer() {
 
       <div className="meta text-pedra-300 mt-6 flex flex-col gap-2.5 md:flex-row md:justify-between">
         <span>© {new Date().getFullYear()} glim. · engenharia e design digital</span>
-        <span>glimweb.com</span>
+        <span className="flex gap-6">
+          <Link href="/privacidade" className="hover:text-linho-050 transition-colors">
+            Política de privacidade
+          </Link>
+          <span>glimweb.com</span>
+        </span>
       </div>
     </footer>
   );
