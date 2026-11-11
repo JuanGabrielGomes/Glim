@@ -1,69 +1,80 @@
-import type { InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
+import type { InputHTMLAttributes, ReactNode, SelectHTMLAttributes } from 'react';
 
-export function InputField({
-  id,
-  name,
-  label,
-  error,
-  ...props
-}: {
+interface FieldShellProps {
   id: string;
-  name: string;
   label: string;
   error?: string;
-} & Omit<InputHTMLAttributes<HTMLInputElement>, 'id' | 'name'>) {
+  children: ReactNode;
+}
+
+const CONTROL =
+  'text-grafite-950 border-pedra-300 focus:border-grafite-950 w-full rounded-none border-0 border-b bg-transparent py-3 text-[17px] leading-[1.4] outline-none transition-colors placeholder:text-pedra-500/80 aria-[invalid=true]:border-ambar-700';
+
+function FieldShell({ id, label, error, children }: FieldShellProps) {
   return (
-    <label className="block">
-      <span className="mb-2 block text-sm font-medium text-[#4f4a46] dark:text-[#efebe8]">
+    <div className="grid gap-2">
+      <label htmlFor={id} className="meta text-pedra-500">
         {label}
-      </span>
-      <input
-        id={id}
-        name={name}
-        className={`focus:border-glim-diamond focus:ring-glim-diamond/30 w-full rounded-[1.15rem] border bg-white/70 px-4 py-3 text-sm text-[#2f2b28] transition outline-none focus:ring-2 dark:bg-white/[0.06] dark:text-[#fbfaf8] ${error ? 'border-[#d6945a] dark:border-[#d6945a]' : 'border-black/10 dark:border-white/10'}`}
-        aria-invalid={Boolean(error)}
-        aria-describedby={error ? `${id}-error` : undefined}
-        {...props}
-      />
+      </label>
+      {children}
       {error ? (
-        <span id={`${id}-error`} className="mt-2 block text-sm text-[#995b27] dark:text-[#f0c49a]">
+        <p id={`${id}-error`} role="alert" className="text-ambar-700 text-sm">
           {error}
-        </span>
+        </p>
       ) : null}
-    </label>
+    </div>
   );
 }
 
-export function TextareaField({
-  id,
-  name,
-  label,
-  error,
-  ...props
-}: {
+interface InputFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id' | 'name' | 'className'> {
   id: string;
   name: string;
   label: string;
   error?: string;
-} & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'id' | 'name'>) {
+}
+
+/** Campo de texto com só a linha de baixo, label real e erro inline. */
+export function InputField({ id, name, label, error, ...rest }: InputFieldProps) {
   return (
-    <label className="block">
-      <span className="mb-2 block text-sm font-medium text-[#4f4a46] dark:text-[#efebe8]">
-        {label}
-      </span>
-      <textarea
+    <FieldShell id={id} label={label} error={error}>
+      <input
         id={id}
         name={name}
-        className={`focus:border-glim-diamond focus:ring-glim-diamond/30 min-h-[9.5rem] w-full rounded-[1.15rem] border bg-white/70 px-4 py-3 text-sm text-[#2f2b28] transition outline-none focus:ring-2 dark:bg-white/[0.06] dark:text-[#fbfaf8] ${error ? 'border-[#d6945a] dark:border-[#d6945a]' : 'border-black/10 dark:border-white/10'}`}
+        className={CONTROL}
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${id}-error` : undefined}
-        {...props}
+        {...rest}
       />
-      {error ? (
-        <span id={`${id}-error`} className="mt-2 block text-sm text-[#995b27] dark:text-[#f0c49a]">
-          {error}
-        </span>
-      ) : null}
-    </label>
+    </FieldShell>
+  );
+}
+
+interface SelectFieldProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'id' | 'name' | 'className' | 'children'> {
+  id: string;
+  name: string;
+  label: string;
+  options: readonly string[];
+  error?: string;
+}
+
+/** Select no mesmo estilo dos campos de texto. */
+export function SelectField({ id, name, label, options, error, ...rest }: SelectFieldProps) {
+  return (
+    <FieldShell id={id} label={label} error={error}>
+      <select
+        id={id}
+        name={name}
+        className={CONTROL}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? `${id}-error` : undefined}
+        {...rest}
+      >
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </FieldShell>
   );
 }

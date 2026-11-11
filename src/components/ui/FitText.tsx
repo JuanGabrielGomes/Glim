@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useRef, type ElementType } from 'react';
+import { useEffect, useRef, type ElementType, type ReactNode } from 'react';
 
 interface FitTextProps {
-  /** Cada item é uma linha inteira. Nunca quebre no meio de uma palavra. */
-  lines: readonly string[];
+  /** Cada item é uma linha inteira (texto ou JSX, ex.: com uma palavra em âmbar). Nunca quebre no meio de uma palavra. */
+  lines: readonly ReactNode[];
   as?: ElementType;
   id?: string;
   className?: string;
@@ -51,12 +51,12 @@ export function FitText({ lines, as: Tag = 'span', id, className = '', minSize =
       observer.disconnect();
       window.removeEventListener('resize', refitIfWidthChanged);
     };
-  }, [lines, minSize]);
+  }, [lines.length, minSize]);
 
   return (
     <Tag ref={ref} id={id} className={`block max-w-full whitespace-nowrap ${className}`.trim()}>
       {lines.map((line, index) => (
-        <span key={line} className="block">
+        <span key={index} className="block">
           {line}
           {index < lines.length - 1 ? ' ' : null}
         </span>

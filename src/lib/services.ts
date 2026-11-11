@@ -20,19 +20,19 @@ export type ServicePage = {
 export const SERVICE_PROCESS = [
   {
     title: 'Diagnóstico',
-    text: 'Entendemos o negócio, o público e o objetivo antes de abrir qualquer ferramenta. Aqui nasce o escopo.',
+    text: 'Entendemos o negócio, o público e o objetivo antes de abrir qualquer ferramenta.',
   },
   {
     title: 'Direção',
-    text: 'Definimos estrutura, mensagem e visual. Você aprova o caminho antes de a construção começar.',
+    text: 'Estrutura, mensagem e telas no Figma. Você aprova antes do código.',
   },
   {
     title: 'Construção',
-    text: 'Design e código andam juntos, com Next.js, TypeScript e uma base pensada pra performance e SEO.',
+    text: 'Design e código juntos, com Next.js e uma base pensada para velocidade e SEO.',
   },
   {
-    title: 'Entrega e evolução',
-    text: 'Publicamos, acompanhamos os primeiros resultados e deixamos o projeto pronto pra crescer.',
+    title: 'Entrega',
+    text: 'Site no ar, domínio configurado, treinamento e 30 dias de ajustes.',
   },
 ] as const;
 

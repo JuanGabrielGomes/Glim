@@ -10,6 +10,7 @@
   --glim-diamond: #f2b77b;
   --glim-cinema: #14100e;
   --glim-cinema-deep: #0b0908;
+  --m: clamp(20px, 4.4vw, 64px);
 }
 
 .dark {
@@ -45,7 +46,7 @@
   --font-serif: var(--font-instrument-serif);
   --font-mono: var(--font-jetbrains-mono);
   --font-sans: var(--font-inter-tight);
-  /* transitório: os componentes da home antiga ainda usam font-google (some na Fase 2) */
+  /* transitório: as páginas de serviço ainda usam font-google (some no re-skin da Fase 3) */
   --font-google: var(--font-inter-tight);
 }
 
@@ -62,101 +63,9 @@ body {
     color 220ms ease;
 }
 
-.dark {
-  color-scheme: dark;
-}
-
 ::selection {
-  background: color-mix(in srgb, var(--glim-diamond) 40%, transparent);
-  color: var(--foreground);
-}
-
-.glass-panel {
-  position: relative;
-  border: 1px solid rgba(74, 70, 67, 0.1);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.46)),
-    rgba(255, 255, 255, 0.38);
-  box-shadow: 0 32px 110px -58px rgba(74, 70, 67, 0.5);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-}
-
-.glass-panel::before {
-  content: '';
-  position: absolute;
-  inset: 1px;
-  border-radius: inherit;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.55),
-    rgba(255, 255, 255, 0.1) 36%,
-    transparent 70%
-  );
-  pointer-events: none;
-}
-
-.dark .glass-panel {
-  border-color: rgba(249, 248, 246, 0.14);
-  background:
-    linear-gradient(180deg, rgba(249, 248, 246, 0.09), rgba(249, 248, 246, 0.03)),
-    linear-gradient(145deg, rgba(242, 183, 123, 0.06), transparent 68%),
-    rgba(255, 255, 255, 0.018);
-  box-shadow: 0 32px 110px -58px rgba(0, 0, 0, 0.76);
-}
-
-.dark .glass-panel::before {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.14),
-    rgba(255, 255, 255, 0.04) 36%,
-    transparent 70%
-  );
-}
-
-.glass-shimmer {
-  overflow: hidden;
-}
-
-.glass-shimmer::after {
-  content: '';
-  position: absolute;
-  top: -22%;
-  left: -36%;
-  width: 28%;
-  height: 160%;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.06) 18%,
-    rgba(255, 255, 255, 0.52) 50%,
-    rgba(255, 255, 255, 0.08) 82%,
-    transparent 100%
-  );
-  opacity: 0;
-  transform: translateX(-180%) rotate(18deg);
-  transition:
-    transform 0.95s ease,
-    opacity 0.45s ease;
-  pointer-events: none;
-}
-
-.glass-shimmer:hover::after {
-  opacity: 1;
-  transform: translateX(420%) rotate(18deg);
-}
-
-@keyframes glim-marquee {
-  from {
-    transform: translateX(0%);
-  }
-  to {
-    transform: translateX(-16.6667%);
-  }
-}
-
-.animate-marquee {
-  animation: glim-marquee 34s linear infinite;
+  background: color-mix(in srgb, var(--color-ambar-400) 45%, transparent);
+  color: var(--color-grafite-950);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -101,8 +101,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  colorScheme: 'dark',
-  themeColor: '#14100E',
+  colorScheme: 'light',
+  themeColor: '#1C1A18',
 };
 
 export default function RootLayout({
@@ -113,9 +113,9 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`dark h-full ${display.variable} ${serif.variable} ${mono.variable}`}
+      className={`h-full ${display.variable} ${serif.variable} ${mono.variable}`}
     >
-      <body className="min-h-full bg-[#14100E] font-sans text-[#F5F0EA] antialiased">
+      <body className="bg-linho-050 text-grafite-950 min-h-full font-sans antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA) }}
