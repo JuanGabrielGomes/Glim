@@ -42,49 +42,48 @@ export function CaseList({ titleAs: TitleTag = 'h3' }: CaseListProps) {
         const href = `/trabalhos/${item.slug}`;
 
         return (
-          <Reveal key={item.slug}>
-            <article
-              className={`grid items-end gap-[clamp(28px,4vw,64px)] ${
-                isReversed ? 'md:grid-cols-[1fr_1.55fr]' : 'md:grid-cols-[1.55fr_1fr]'
-              }`}
+          <article
+            key={item.slug}
+            className={`grid items-end gap-[clamp(28px,4vw,64px)] ${
+              isReversed ? 'md:grid-cols-[1fr_1.55fr]' : 'md:grid-cols-[1.55fr_1fr]'
+            }`}
+          >
+            <Link
+              href={href}
+              aria-label={`Ver o case ${item.client}`}
+              className={`group block ${isReversed ? 'md:order-2' : ''}`}
             >
-              <Link
-                href={href}
-                aria-label={`Ver o case ${item.client}`}
-                className={`group block ${isReversed ? 'md:order-2' : ''}`}
-              >
-                <Shot
-                  src={item.imageSrc}
-                  alt={item.imageAlt}
-                  width={item.imageWidth}
-                  height={item.imageHeight}
-                  sizes="(max-width: 820px) 92vw, 52vw"
-                />
-              </Link>
+              <Shot
+                src={item.imageSrc}
+                alt={item.imageAlt}
+                width={item.imageWidth}
+                height={item.imageHeight}
+                sizes="(max-width: 820px) 92vw, 52vw"
+              />
+            </Link>
 
-              <div>
-                <span
-                  aria-hidden="true"
-                  className="text-pedra-500 block font-serif text-[88px] leading-[0.8] italic"
-                >
-                  0{index + 1}
-                </span>
-                <p className="meta text-pedra-500 mt-[22px]">{item.kind}</p>
-                <TitleTag className="mt-[18px] mb-[14px] text-[clamp(26px,2.4vw,36px)] leading-[1.05] font-medium tracking-[-0.035em]">
-                  <NoBreak>{item.title}</NoBreak>
-                </TitleTag>
-                <p className="text-pedra-500">
-                  <NoBreak>{item.blurb}</NoBreak>
-                </p>
-                <ul className="meta text-pedra-500 mt-[22px] mb-7 flex flex-wrap gap-x-[18px] gap-y-2">
-                  {item.tags.map((tag) => (
-                    <li key={tag}>{tag}</li>
-                  ))}
-                </ul>
-                <TextLink href={href}>Ver case</TextLink>
-              </div>
-            </article>
-          </Reveal>
+            <Reveal>
+              <span
+                aria-hidden="true"
+                className="text-pedra-500 block font-serif text-[88px] leading-[0.8] italic"
+              >
+                0{index + 1}
+              </span>
+              <p className="meta text-pedra-500 mt-[22px]">{item.kind}</p>
+              <TitleTag className="mt-[18px] mb-[14px] text-[clamp(26px,2.4vw,36px)] leading-[1.05] font-medium tracking-[-0.035em]">
+                <NoBreak>{item.title}</NoBreak>
+              </TitleTag>
+              <p className="text-pedra-500">
+                <NoBreak>{item.blurb}</NoBreak>
+              </p>
+              <ul className="meta text-pedra-500 mt-[22px] mb-7 flex flex-wrap gap-x-[18px] gap-y-2">
+                {item.tags.map((tag) => (
+                  <li key={tag}>{tag}</li>
+                ))}
+              </ul>
+              <TextLink href={href}>Ver case</TextLink>
+            </Reveal>
+          </article>
         );
       })}
     </div>

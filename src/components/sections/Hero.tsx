@@ -1,6 +1,6 @@
-import Image from 'next/image';
 import { Fragment } from 'react';
 import { ButtonLink, TextLink } from '@/components/ui/Button';
+import { HeroGem } from '@/components/hero/HeroGem';
 import { FitText } from '@/components/ui/FitText';
 import { HERO } from '@/lib/content';
 import { NoBreak } from '@/components/ui/NoBreak';
@@ -23,16 +23,6 @@ export function Hero() {
         <span className="absolute inset-x-[var(--m)] top-[120px] z-[2] md:top-[150px]">
           <FitText lines={['Precisão']} className={MEGA_SIZE} />
         </span>
-        <Image
-          src="/brand/gema-ambar.jpg"
-          alt=""
-          width={1200}
-          height={1200}
-          priority
-          fetchPriority="high"
-          sizes="(max-width: 820px) 92vw, 52vw"
-          className="pointer-events-none absolute top-[46%] left-1/2 z-[3] w-[92vw] max-w-none -translate-x-1/2 -translate-y-1/2 -rotate-[8deg] mix-blend-screen md:top-[48%] md:w-[min(52vw,720px)]"
-        />
         <span className="absolute inset-x-[var(--m)] bottom-[250px] z-[2] text-right md:bottom-[150px]">
           <FitText
             lines={[
@@ -44,6 +34,8 @@ export function Hero() {
           />
         </span>
       </h1>
+
+      <HeroGem />
 
       <p className="caps absolute top-[170px] right-[var(--m)] z-[4] hidden text-right md:block">
         {HERO.side.map((item) => (

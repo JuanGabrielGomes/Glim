@@ -21,8 +21,8 @@ export function Capabilities() {
         />
       </Reveal>
 
-      <Reveal>
-        <div className="grid items-start gap-[clamp(32px,5vw,80px)] md:grid-cols-[1.25fr_1fr]">
+      <div className="grid items-start gap-[clamp(32px,5vw,80px)] md:grid-cols-[1.25fr_1fr]">
+        <Reveal>
           <ul className="border-pedra-200 border-t">
             {SERVICES_LIST.map((service, index) => (
               <li key={service.slug} className="border-pedra-200 border-b">
@@ -49,10 +49,10 @@ export function Capabilities() {
               </li>
             ))}
           </ul>
+        </Reveal>
 
-          <GlimOnCard />
-        </div>
-      </Reveal>
+        <GlimOnCard />
+      </div>
     </section>
   );
 }

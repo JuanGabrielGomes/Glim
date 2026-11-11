@@ -85,6 +85,26 @@ p {
   clip-path: polygon(0 0, calc(100% - var(--f, 28px)) 0, 100% var(--f, 28px), 100% 100%, 0 100%);
 }
 
+/* Canto facetado sem clip-path: triângulo da cor do fundo (--corner) por cima do elemento. */
+@utility faceta-falsa {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: calc(var(--f, 28px) + 1px);
+    height: calc(var(--f, 28px) + 1px);
+    background: linear-gradient(
+      to bottom left,
+      var(--corner, var(--color-linho-050)) 50%,
+      transparent 50%
+    );
+    pointer-events: none;
+  }
+}
+
 @utility vidro {
   background: rgb(245 240 235 / 0.12);
   -webkit-backdrop-filter: blur(34px) saturate(1.25);

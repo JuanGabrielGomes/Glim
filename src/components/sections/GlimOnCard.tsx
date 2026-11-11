@@ -8,7 +8,7 @@ export function GlimOnCard() {
   return (
     <Link
       href={GLIM_ON_CARD.href}
-      className="faceta text-linho-050 relative isolate block min-h-[460px] overflow-hidden md:min-h-[520px]"
+      className="faceta-falsa text-linho-050 relative isolate block min-h-[460px] overflow-hidden [--corner:var(--color-linho-100)] md:min-h-[520px]"
     >
       <Image
         src="/fotos/luz-dourada.jpg"
