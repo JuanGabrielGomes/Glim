@@ -11,6 +11,8 @@ interface ShotProps {
   priority?: boolean;
   /** Tamanho do corte facetado no canto superior direito, em px. */
   faceta?: number;
+  /** Cor do fundo atrás da imagem: é ela que "recorta" o canto. Padrão: linho-050. */
+  cornerColor?: string;
   /** object-position da imagem (o print costuma ancorar no topo). */
   position?: string;
   /** Classe de proporção; padrão 16/9,6. */
@@ -19,8 +21,9 @@ interface ShotProps {
 }
 
 /**
- * Imagem com moldura facetada (canto superior direito a 45°). Coloque dentro de um
- * elemento `group` para ganhar o zoom de 1,02 no hover.
+ * Imagem com moldura facetada (canto superior direito a 45°). O corte é um triângulo da cor do
+ * fundo por cima da imagem, e não um clip-path: clip-path em imagem grande custa caro a cada
+ * quadro de rolagem. Coloque dentro de um elemento `group` para o zoom de 1,02 no hover.
  */
 export function Shot({
   src,
@@ -30,15 +33,19 @@ export function Shot({
   sizes,
   priority = false,
   faceta = 28,
+  cornerColor = 'var(--color-linho-050)',
   position = 'top',
   ratioClassName = 'aspect-[16/9.6]',
   className = '',
 }: ShotProps) {
-  const style: CSSProperties & { '--f': string } = { '--f': `${faceta}px` };
+  const style: CSSProperties & { '--f': string; '--corner': string } = {
+    '--f': `${faceta}px`,
+    '--corner': cornerColor,
+  };
 
   return (
     <div
-      className={`faceta bg-linho-100 relative overflow-hidden ${ratioClassName} ${className}`.trim()}
+      className={`faceta-falsa bg-linho-100 relative overflow-hidden ${ratioClassName} ${className}`.trim()}
       style={style}
     >
       <Image

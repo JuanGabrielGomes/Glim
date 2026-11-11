@@ -14,14 +14,17 @@ export function Principle() {
         sizes="100vw"
         className="-z-10 object-cover"
       />
-      <Reveal className="w-full max-w-[820px]">
-        <Glass tone="escuro" faceta={28} className="p-[clamp(36px,5vw,64px)]">
+      {/* O vidro fica parado; só o texto entra. Animar opacidade num elemento com backdrop-filter trava a rolagem. */}
+      <Glass tone="escuro" faceta={28} className="w-full max-w-[820px] p-[clamp(36px,5vw,64px)]">
+        <Reveal>
           <p className="meta text-pedra-200">{PRINCIPLE.label}</p>
+        </Reveal>
+        <Reveal delay={0.12}>
           <blockquote className="mt-7 font-serif text-[clamp(34px,4vw,60px)] leading-[1.05] tracking-[-0.01em] text-balance italic">
             {PRINCIPLE.quote}
           </blockquote>
-        </Glass>
-      </Reveal>
+        </Reveal>
+      </Glass>
     </section>
   );
 }
