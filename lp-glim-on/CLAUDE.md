@@ -29,19 +29,21 @@ Fluxo: anúncio → esta página (VSL) → checkout Kiwify (externo) → /obriga
 - Variáveis de ambiente documentadas em .env.example
 
 ## Identidade visual
-- Cores (as mesmas do site institucional, na raiz deste repositório): glim.dark #4A4643
-  (fundo escuro, texto principal), glim.light #F9F8F6 (fundo claro, off-white),
-  glim.gold #F2B77B (acento — o diamante), hover #E2A96B
-- Tipografia: títulos em Google Sans Flex (a mesma do site, licença OFL), peso 400 e
-  tracking negativo, sem negrito — o arquivo src/app/fonts/GoogleSansFlex-latin.woff2
-  só tem o peso 400; corpo em Inter, dados técnicos (preço, prazo, números, garantia)
-  em Space Mono
+- Marca v1, a mesma do site institucional (raiz deste repositório). Tokens no
+  tailwind.config.ts: grafite 950/900/800 (fundos escuros), linho 050/100 (fundos claros),
+  pedra 700/500/300/200 (texto secundário e linhas), âmbar 400 (só sobre fundo escuro),
+  âmbar 500/700 (texto sobre fundo claro)
+- Tipografia: Inter Tight (títulos e corpo, peso 500 nos títulos, tracking negativo),
+  Instrument Serif itálico apenas na palavra de destaque do título e nos números grandes,
+  JetBrains Mono para dados técnicos (preço, prazo, garantia, eyebrows em caixa alta)
+- Assinatura "faceta": corte de 45° no canto superior direito de botões, cartões e do
+  player (classe .faceta, tamanho via --f). Sem cantos arredondados
 - Ponto final em diamante: marcadores de lista e selos usam um losango geométrico
   (não círculo, não check verde, não emoji)
-- Glow sutil no tom gold para destacar UM elemento por vez (o preço, o CTA)
-- Estética: boutique, minimalista, precisa — glassmorphism leve, linhas finas,
-  muito respiro. Não é página de infoproduto: nada de vermelho piscando, setas
-  chamativas, selos de "oferta imperdível".
+- Sem glow, glassmorphism, grade ou grão. Contraste vem de grafite x linho e de UM acento
+  âmbar por vez (preço, números)
+- Estética: boutique, minimalista, precisa, muito respiro. Não é página de infoproduto:
+  nada de vermelho piscando, setas chamativas, selos de "oferta imperdível".
 
 ## Tom de voz
 Técnico-sábio, claro, pragmático, levemente acolhedor. Fala direto com o dono do

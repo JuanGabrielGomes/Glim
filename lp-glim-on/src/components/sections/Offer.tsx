@@ -18,14 +18,14 @@ export function Offer({ tone }: OfferProps) {
   const styles = toneStyles[tone];
 
   return (
-    <Section id="oferta" tone={tone} glow="right">
+    <Section id="oferta" tone={tone}>
       <div className="grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-14">
         <Reveal className="space-y-8">
           <SectionTitle eyebrow={eyebrow} title={title} titleEmphasis={titleEmphasis} tone={tone} />
-          <ul className="grid gap-3 sm:grid-cols-2">
+          <ul className={cn("grid gap-x-8 sm:grid-cols-2", styles.line)}>
             {items.map((item) => (
-              <li key={item} className={cn("flex gap-3 rounded-2xl p-4 text-[0.95rem] leading-snug", styles.card)}>
-                <Diamond className="mt-1.5 h-2.5 w-2.5" />
+              <li key={item} className={cn("flex gap-3 border-t py-4 text-[0.95rem] leading-snug", styles.line)}>
+                <Diamond className={cn("mt-1.5 h-2.5 w-2.5", tone === "dark" ? "fill-ambar-400" : "fill-ambar-700")} />
                 <span>{item}</span>
               </li>
             ))}
@@ -33,12 +33,12 @@ export function Offer({ tone }: OfferProps) {
         </Reveal>
 
         <Reveal delay={0.08}>
-          <div className="gold-ring rounded-[2rem] bg-glim-ink p-7 text-center text-glim-cream shadow-glow-lg md:p-10">
-            <p className="mx-auto max-w-xs text-sm leading-relaxed text-glim-cream/70">{comparison}</p>
-            <div className="my-7 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+          <div className="faceta bg-grafite-950 p-7 text-center text-linho-050 [--f:32px] md:p-10">
+            <p className="mx-auto max-w-xs text-sm leading-relaxed text-pedra-300">{comparison}</p>
+            <div className="my-7 h-px bg-grafite-800" />
             <PriceDisplay />
             {site.spotsAvailable !== null ? (
-              <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-glim-gold/30 px-3 py-1 font-mono text-xs text-glim-gold">
+              <p className="meta mt-5 inline-flex items-center gap-2 border border-grafite-800 px-3 py-1.5 text-ambar-400">
                 <Diamond className="h-2 w-2" />
                 {spotsLabel(site.spotsAvailable)}
               </p>
@@ -48,7 +48,7 @@ export function Offer({ tone }: OfferProps) {
               </div>
             )}
             <CheckoutButton className="mt-7 w-full py-4 text-base md:text-lg">{landing.cta.label}</CheckoutButton>
-            <p className="mt-4 font-mono text-[11px] leading-relaxed text-glim-cream/70">{landing.cta.support}</p>
+            <p className="mt-4 font-mono text-[11px] leading-relaxed text-pedra-300">{landing.cta.support}</p>
           </div>
         </Reveal>
       </div>

@@ -53,7 +53,7 @@ export function StickyCta({ label, afterId, hideIds }: StickyCtaProps) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: reduce ? 0 : 24 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="fixed inset-x-0 bottom-0 z-40 border-t border-glim-light/10 bg-glim-dark/85 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur md:hidden"
+          className="fixed inset-x-0 bottom-0 z-40 border-t border-grafite-800 bg-grafite-950 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 md:hidden"
         >
           <CheckoutButton className="w-full">{label}</CheckoutButton>
         </motion.div>

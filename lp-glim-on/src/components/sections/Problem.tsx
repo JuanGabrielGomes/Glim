@@ -18,7 +18,7 @@ export function Problem({ tone }: ProblemProps) {
   const styles = toneStyles[tone];
 
   return (
-    <Section tone={tone} glow="right">
+    <Section tone={tone}>
       <div className="grid gap-10 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-16">
         <Reveal className="space-y-6">
           <SectionTitle eyebrow={eyebrow} title={title} titleEmphasis={titleEmphasis} tone={tone} />
@@ -26,7 +26,7 @@ export function Problem({ tone }: ProblemProps) {
         </Reveal>
 
         <Reveal delay={0.08}>
-          <figure className={cn("rounded-[1.75rem] p-7 md:p-9", styles.card)}>
+          <figure className={cn("p-7 md:p-9", styles.card)}>
             <div aria-hidden="true" className="flex flex-wrap gap-2.5 md:gap-3">
               {Array.from({ length: STAT_TOTAL }, (_, i) => (
                 <Diamond
@@ -35,18 +35,20 @@ export function Problem({ tone }: ProblemProps) {
                     "h-5 w-5 md:h-6 md:w-6",
                     i < STAT_FILLED
                       ? tone === "dark"
-                        ? "fill-glim-gold"
-                        : "fill-glim-gold-deep"
+                        ? "fill-ambar-400"
+                        : "fill-ambar-700"
                       : "fill-current opacity-15",
                   )}
                 />
               ))}
             </div>
             <p className="mt-7 text-xl leading-snug tracking-[-0.01em] md:text-2xl">
-              <span className={cn("font-mono font-bold", styles.accent)}>{statLead}</span>
+              <span className={cn("font-display font-semibold", styles.accent)}>{statLead}</span>
               {statRest}
             </p>
-            <figcaption className={cn("mt-4 font-mono text-[11px]", styles.muted)}>{source}</figcaption>
+            <figcaption className={cn("meta mt-4 text-[10px] normal-case tracking-[0.04em]", styles.muted)}>
+              {source}
+            </figcaption>
           </figure>
         </Reveal>
       </div>

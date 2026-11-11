@@ -1,24 +1,27 @@
 import type { Metadata } from "next";
-import { Inter, Space_Mono } from "next/font/google";
-import localFont from "next/font/local";
+import { Inter_Tight, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import { MetaPixel } from "@/components/analytics/MetaPixel";
 import { PRODUCT_NAME } from "@/content/site";
 import { SITE_URL } from "@/lib/site-url";
 import "./globals.css";
 
-// Mesma Google Sans Flex do site da glim. (licença OFL), recortada para latim e com os
-// eixos fixos no padrão do site (peso 400). Só o tamanho óptico (opsz) segue variável.
-const display = localFont({
-  src: "./fonts/GoogleSansFlex-latin.woff2",
-  weight: "400",
-  style: "normal",
+// Tipografia da marca v1 (a mesma do site institucional).
+const display = Inter_Tight({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
   variable: "--font-display",
   display: "swap",
 });
-const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
-const mono = Space_Mono({
+const serif = Instrument_Serif({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-serif",
+  display: "swap",
+});
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
   variable: "--font-mono",
   display: "swap",
 });
@@ -30,7 +33,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
+    <html lang="pt-BR" className={`${display.variable} ${serif.variable} ${mono.variable}`}>
       <body>
         {children}
         <MetaPixel />

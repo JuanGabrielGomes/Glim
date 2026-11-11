@@ -8,12 +8,11 @@ import { withAttribution } from "@/lib/attribution";
 
 interface CheckoutButtonProps {
   children: React.ReactNode;
-  glow?: boolean;
   className?: string;
 }
 
 /** Botão de compra: abre o checkout na mesma aba, com a origem da visita, e dispara o evento personalizado CliqueCheckout (o InitiateCheckout vem da Kiwify). */
-export function CheckoutButton({ children, glow, className }: CheckoutButtonProps) {
+export function CheckoutButton({ children, className }: CheckoutButtonProps) {
   const [href, setHref] = useState(site.checkoutUrl);
 
   useEffect(() => {
@@ -21,7 +20,7 @@ export function CheckoutButton({ children, glow, className }: CheckoutButtonProp
   }, []);
 
   return (
-    <Button href={href} glow={glow} className={className} onClick={trackCheckoutClick}>
+    <Button href={href} className={className} onClick={trackCheckoutClick}>
       {children}
     </Button>
   );

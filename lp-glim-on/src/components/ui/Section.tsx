@@ -2,29 +2,23 @@ import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
 
 export type Tone = "dark" | "light";
-export type GlowPosition = "left" | "right" | "center" | "none";
 
+/** Estilos por tom de seção (marca v1): grafite escuro ou linho claro, sem brilhos, grade ou grão. */
 export const toneStyles: Record<Tone, { bg: string; line: string; card: string; muted: string; accent: string }> = {
   dark: {
-    bg: "bg-glim-cinema text-glim-cream",
-    line: "border-white/10",
-    card: "border border-white/10 bg-white/[0.04] backdrop-blur-sm",
-    muted: "text-glim-cream/70",
-    accent: "text-glim-gold",
+    bg: "bg-grafite-950 text-linho-050",
+    line: "border-grafite-800",
+    card: "border border-grafite-800 bg-grafite-900",
+    muted: "text-pedra-300",
+    accent: "text-ambar-400",
   },
   light: {
-    bg: "bg-glim-light text-glim-ink2",
-    line: "border-glim-dark/15",
-    card: "border border-glim-dark/10 bg-white/70 shadow-[0_24px_80px_-48px_rgba(74,70,67,0.55)]",
-    muted: "text-glim-ink2/75",
-    accent: "text-glim-gold-deep",
+    bg: "bg-linho-050 text-grafite-950",
+    line: "border-pedra-200",
+    card: "border border-pedra-200 bg-linho-100",
+    muted: "text-pedra-500",
+    accent: "text-ambar-700",
   },
-};
-
-const glowPlacement: Record<Exclude<GlowPosition, "none">, string> = {
-  left: "-left-40 top-10",
-  right: "-right-40 top-1/3",
-  center: "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
 };
 
 interface SectionProps {
@@ -32,33 +26,11 @@ interface SectionProps {
   children: React.ReactNode;
   id?: string;
   className?: string;
-  glow?: GlowPosition;
 }
 
-/** Seção com o fundo "vivo" do site institucional: grade com máscara, brilho dourado e granulado. */
-export function Section({ tone, children, id, className, glow = "none" }: SectionProps) {
-  const dark = tone === "dark";
-
+export function Section({ tone, children, id, className }: SectionProps) {
   return (
-    <section id={id} className={cn("relative overflow-hidden py-16 md:py-28", toneStyles[tone].bg, className)}>
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div
-          className={cn(
-            "absolute inset-0 [mask-image:radial-gradient(ellipse_at_50%_0%,black_10%,transparent_70%)]",
-            dark ? "grid-dark" : "grid-light",
-          )}
-        />
-        {glow !== "none" ? (
-          <div
-            className={cn(
-              "absolute h-[26rem] w-[26rem] rounded-full blur-3xl",
-              glowPlacement[glow],
-              dark ? "bg-glim-gold/[0.13]" : "bg-glim-gold/25",
-            )}
-          />
-        ) : null}
-        <div className={cn("grain absolute inset-0", dark ? "opacity-40" : "opacity-60")} />
-      </div>
+    <section id={id} className={cn("relative py-16 md:py-28", toneStyles[tone].bg, className)}>
       <Container className="relative">{children}</Container>
     </section>
   );

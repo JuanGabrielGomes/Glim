@@ -7,17 +7,17 @@ export function Hero() {
   const { kicker, title, titleEmphasis, subtitle } = landing.hero;
 
   return (
-    <section className="relative text-glim-cream">
+    <section className="relative text-linho-050">
       <Container className="relative pb-4 pt-10 md:pb-10 md:pt-16">
-        <header className="mx-auto max-w-4xl space-y-3 text-center md:space-y-6">
-          <p className="inline-flex items-center gap-2 rounded-full border border-glim-gold/30 bg-glim-gold/10 px-3 py-1 font-mono text-[10px] tracking-[-0.01em] sm:text-[11px] text-glim-gold md:px-4 md:text-xs">
+        <header className="mx-auto max-w-4xl space-y-4 text-center md:space-y-7">
+          <p className="meta inline-flex items-center gap-2.5 text-[10px] text-ambar-400 sm:text-xs">
             <Diamond className="h-2 w-2" />
             {kicker}
           </p>
-          <h1 className="mx-auto max-w-[20ch] text-balance font-display text-[clamp(1.85rem,7.4vw,4.4rem)] font-normal leading-[1.02] tracking-[-0.05em]">
+          <h1 className="mx-auto max-w-[20ch] text-balance font-display text-[clamp(1.85rem,7.4vw,4.4rem)] font-medium leading-[1.02] tracking-[-0.05em]">
             <Emphasis text={title} emphasis={titleEmphasis} />
           </h1>
-          <p className="mx-auto max-w-2xl text-pretty text-[0.92rem] leading-snug text-glim-cream/75 md:text-lg md:leading-relaxed">
+          <p className="mx-auto max-w-2xl text-pretty text-[0.95rem] leading-snug text-pedra-300 md:text-lg md:leading-relaxed">
             {subtitle}
           </p>
         </header>

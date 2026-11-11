@@ -14,17 +14,22 @@ export function About({ tone }: AboutProps) {
   const { eyebrow, title, text, photo } = landing.about;
 
   return (
-    <Section tone={tone} glow="left">
+    <Section tone={tone}>
       <Reveal className={cn("grid gap-10 md:items-center", photo && "md:grid-cols-[minmax(0,380px)_1fr] md:gap-14")}>
         {photo ? (
-          <div className="gold-ring mx-auto w-full max-w-[22rem] rounded-[2rem] p-1.5 shadow-glow-lg md:max-w-none">
+          <div
+            className={cn(
+              "faceta mx-auto w-full max-w-[22rem] overflow-hidden [--f:28px] md:max-w-none",
+              tone === "dark" ? "bg-grafite-900" : "bg-linho-100",
+            )}
+          >
             <Image
               src={photo.src}
               alt={photo.alt}
               width={photo.width}
               height={photo.height}
               sizes="(min-width: 768px) 380px, 88vw"
-              className="h-auto w-full rounded-[1.65rem]"
+              className="h-auto w-full saturate-[0.9]"
             />
           </div>
         ) : null}

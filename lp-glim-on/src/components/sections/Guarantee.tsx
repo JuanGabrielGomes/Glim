@@ -13,24 +13,15 @@ export function Guarantee({ tone }: GuaranteeProps) {
   const styles = toneStyles[tone];
 
   return (
-    <Section tone={tone} glow="left">
+    <Section tone={tone}>
       <Reveal className="grid items-center gap-10 md:grid-cols-[auto_1fr] md:gap-16">
-        {/* Selo: losango com o prazo legal. */}
-        <div aria-hidden="true" className="relative mx-auto flex h-52 w-52 items-center justify-center md:h-64 md:w-64">
-          <div
-            className={cn(
-              "absolute h-36 w-36 rotate-45 rounded-[1.6rem] md:h-44 md:w-44",
-              styles.card,
-              tone === "dark" ? "border-glim-gold/50" : "border-glim-gold-deep/40",
-            )}
-          />
-          <div className="relative text-center">
-            <p className={cn("font-mono text-[4.5rem] font-bold leading-none tracking-[-0.06em] md:text-[5.5rem]", styles.accent)}>
-              {seal.value}
-            </p>
-            <p className="font-mono text-sm uppercase tracking-[0.3em]">{seal.unit}</p>
-            <p className={cn("mt-2 font-mono text-[10px] tracking-[0.12em]", styles.muted)}>{seal.caption}</p>
-          </div>
+        {/* Selo: o prazo legal em numeral serifado gigante, como o "4" do processo do site. */}
+        <div aria-hidden="true" className="mx-auto text-center md:mx-0 md:text-left">
+          <p className={cn("font-serif text-[9rem] italic leading-[0.75] tracking-[-0.06em] md:text-[12rem]", styles.accent)}>
+            {seal.value}
+          </p>
+          <p className="meta mt-5">{seal.unit}</p>
+          <p className={cn("meta mt-2 text-[10px] normal-case tracking-[0.06em]", styles.muted)}>{seal.caption}</p>
         </div>
         <div className="max-w-2xl space-y-6">
           <SectionTitle eyebrow={eyebrow} title={title} titleEmphasis={titleEmphasis} tone={tone} />

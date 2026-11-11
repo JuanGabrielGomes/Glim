@@ -26,7 +26,7 @@ export function Portfolio({ tone }: PortfolioProps) {
           <ul className="grid gap-6 md:grid-cols-2">
             {items.map((item) => (
               <li key={item.name}>
-                <Reveal className={cn("overflow-hidden rounded-3xl", styles.card)}>
+                <Reveal className={cn("overflow-hidden", styles.card)}>
                   <Image
                     src={item.image.src}
                     alt={item.image.alt}
