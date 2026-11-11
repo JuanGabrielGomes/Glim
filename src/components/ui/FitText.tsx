@@ -17,7 +17,13 @@ interface FitTextProps {
  * caber na largura do elemento. Passe o tamanho base em `className` (ex.: `mega text-[...]`);
  * o ajuste só mexe no `font-size` inline.
  */
-export function FitText({ lines, as: Tag = 'span', id, className = '', minSize = 28 }: FitTextProps) {
+export function FitText({
+  lines,
+  as: Tag = 'span',
+  id,
+  className = '',
+  minSize = 28,
+}: FitTextProps) {
   const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {

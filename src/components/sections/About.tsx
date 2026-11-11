@@ -1,6 +1,7 @@
 import { Reveal } from '@/components/ui/Reveal';
 import { Shot } from '@/components/ui/Shot';
 import { ABOUT } from '@/lib/content';
+import { NoBreak } from '@/components/ui/NoBreak';
 
 /** Estúdio: foto 4:5 facetada e a bio curta em primeira pessoa. */
 export function About() {
@@ -32,10 +33,14 @@ export function About() {
               className="mt-[22px] mb-[26px] text-[clamp(30px,3.6vw,52px)] leading-[1.02] font-medium tracking-[-0.04em]"
             >
               {intro}{' '}
-              <em className="font-serif text-[1.1em] leading-[0.9] font-normal tracking-[-0.01em]">{emphasis}</em>{' '}
+              <em className="font-serif text-[1.1em] leading-[0.9] font-normal tracking-[-0.01em]">
+                {emphasis}
+              </em>{' '}
               {outro}
             </h2>
-            <p className="text-pedra-500 max-w-[34em] text-[clamp(18px,1.5vw,21px)] leading-[1.5]">{ABOUT.bio}</p>
+            <p className="text-pedra-500 max-w-[34em] text-[clamp(18px,1.5vw,21px)] leading-[1.5]">
+              <NoBreak>{ABOUT.bio}</NoBreak>
+            </p>
             <ul className="meta mt-7 flex flex-wrap gap-2.5">
               {ABOUT.credentials.map((item) => (
                 <li key={item} className="border-pedra-200 border px-3.5 py-2.5">

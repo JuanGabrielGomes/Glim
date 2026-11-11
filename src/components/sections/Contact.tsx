@@ -7,6 +7,7 @@ import { FitText } from '@/components/ui/FitText';
 import { InputField, SelectField } from '@/components/ui/FormFields';
 import { Reveal } from '@/components/ui/Reveal';
 import { CONTACT_WHATSAPP_HREF, RAIO_X } from '@/lib/content';
+import { NoBreak } from '@/components/ui/NoBreak';
 
 const INITIAL_STATE: RaioXFormState = { status: 'idle', message: '' };
 
@@ -37,10 +38,14 @@ export function Contact() {
             />
             <h3 className="mt-[30px] mb-[22px] text-[clamp(30px,3.6vw,52px)] leading-[1.02] font-medium tracking-[-0.04em]">
               {lead}{' '}
-              <em className="font-serif text-[1.1em] leading-[0.9] font-normal tracking-[-0.01em]">{emphasis}</em>{' '}
+              <em className="font-serif text-[1.1em] leading-[0.9] font-normal tracking-[-0.01em]">
+                {emphasis}
+              </em>{' '}
               {tail}
             </h3>
-            <p className="text-pedra-500 max-w-[34em] text-[clamp(18px,1.5vw,21px)] leading-[1.5]">{RAIO_X.text}</p>
+            <p className="text-pedra-500 max-w-[34em] text-[clamp(18px,1.5vw,21px)] leading-[1.5]">
+              <NoBreak>{RAIO_X.text}</NoBreak>
+            </p>
             <p className="mt-[34px]">
               <TextLink href={CONTACT_WHATSAPP_HREF} external>
                 {RAIO_X.whatsappLabel}
@@ -49,9 +54,11 @@ export function Contact() {
           </div>
 
           {state.status === 'success' ? (
-            <div role="status" className="self-start border-pedra-300 border-t pt-8">
+            <div role="status" className="border-pedra-300 self-start border-t pt-8">
               <p className="meta text-ambar-700">Pedido enviado</p>
-              <p className="mt-4 max-w-[28em] text-2xl leading-[1.2] font-medium tracking-[-0.03em]">{state.message}</p>
+              <p className="mt-4 max-w-[28em] text-2xl leading-[1.2] font-medium tracking-[-0.03em]">
+                {state.message}
+              </p>
               <p className="mt-8">
                 <TextLink href={CONTACT_WHATSAPP_HREF} external>
                   Adiantar pelo WhatsApp
@@ -120,7 +127,9 @@ export function Contact() {
                   {pending ? 'Enviando...' : RAIO_X.submit}
                 </Button>
                 <p
-                  role={state.status === 'error' || state.status === 'validation' ? 'alert' : undefined}
+                  role={
+                    state.status === 'error' || state.status === 'validation' ? 'alert' : undefined
+                  }
                   aria-live="polite"
                   className="text-ambar-700 min-h-6 text-sm"
                 >

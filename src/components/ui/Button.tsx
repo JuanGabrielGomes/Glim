@@ -15,8 +15,10 @@ interface ButtonLinkProps {
   children: ReactNode;
 }
 
-interface ButtonActionProps
-  extends Omit<ComponentPropsWithoutRef<'button'>, 'className' | 'children'> {
+interface ButtonActionProps extends Omit<
+  ComponentPropsWithoutRef<'button'>,
+  'className' | 'children'
+> {
   compact?: boolean;
   tone?: ButtonTone;
   className?: string;

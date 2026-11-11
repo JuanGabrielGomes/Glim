@@ -26,7 +26,10 @@ function FieldShell({ id, label, error, children }: FieldShellProps) {
   );
 }
 
-interface InputFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id' | 'name' | 'className'> {
+interface InputFieldProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  'id' | 'name' | 'className'
+> {
   id: string;
   name: string;
   label: string;
@@ -49,7 +52,10 @@ export function InputField({ id, name, label, error, ...rest }: InputFieldProps)
   );
 }
 
-interface SelectFieldProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'id' | 'name' | 'className' | 'children'> {
+interface SelectFieldProps extends Omit<
+  SelectHTMLAttributes<HTMLSelectElement>,
+  'id' | 'name' | 'className' | 'children'
+> {
   id: string;
   name: string;
   label: string;

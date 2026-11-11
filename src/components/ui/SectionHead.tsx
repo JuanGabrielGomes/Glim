@@ -27,7 +27,9 @@ export function SectionHead({
   const captionColor = tone === 'grafite' ? 'text-pedra-300' : 'text-pedra-500';
 
   return (
-    <header className={`grid items-end gap-4 sm:gap-10 md:grid-cols-[1fr_auto] ${className}`.trim()}>
+    <header
+      className={`grid items-end gap-4 sm:gap-10 md:grid-cols-[1fr_auto] ${className}`.trim()}
+    >
       <FitText
         as={as}
         id={id}

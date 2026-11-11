@@ -8,7 +8,10 @@ const HEADING = 'text-linho-050 block';
 
 /** Rodapé grafite: logo gigante, quatro colunas em mono e uma linha de meta. */
 export function Footer() {
-  const instagramHandle = INSTAGRAM_URL.replace(/^https?:\/\/(www\.)?instagram\.com\//, '@').replace(/\/$/, '');
+  const instagramHandle = INSTAGRAM_URL.replace(
+    /^https?:\/\/(www\.)?instagram\.com\//,
+    '@'
+  ).replace(/\/$/, '');
 
   return (
     <footer className="bg-grafite-950 text-linho-050 px-[var(--m)] pt-20 pb-9">

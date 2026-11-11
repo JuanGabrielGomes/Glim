@@ -11,7 +11,13 @@ interface GlassProps {
 }
 
 /** Card de vidro (backdrop-filter) com fallback sólido quando o navegador não suporta. */
-export function Glass({ tone = 'escuro', faceta = 0, as: Tag = 'div', className = '', children }: GlassProps) {
+export function Glass({
+  tone = 'escuro',
+  faceta = 0,
+  as: Tag = 'div',
+  className = '',
+  children,
+}: GlassProps) {
   const surface = tone === 'escuro' ? 'vidro-escuro text-linho-050' : 'vidro text-grafite-950';
   const style: (CSSProperties & { '--f': string }) | undefined =
     faceta > 0 ? { '--f': `${faceta}px` } : undefined;

@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 import { ButtonLink, TextLink } from '@/components/ui/Button';
 import { FitText } from '@/components/ui/FitText';
 import { HERO } from '@/lib/content';
+import { NoBreak } from '@/components/ui/NoBreak';
 
 const MEGA_SIZE = 'mega text-[17vw] md:text-[clamp(56px,11.2vw,168px)]';
 
@@ -52,7 +53,9 @@ export function Hero() {
       </p>
 
       <div className="absolute inset-x-[var(--m)] bottom-14 z-[4] md:right-auto md:bottom-[170px] md:max-w-[400px]">
-        <p className="text-pedra-300 mb-[22px] text-base leading-[1.5] md:mb-7 md:text-[19px]">{HERO.lead}</p>
+        <p className="text-pedra-300 mb-[22px] text-base leading-[1.5] md:mb-7 md:text-[19px]">
+          <NoBreak>{HERO.lead}</NoBreak>
+        </p>
         <div className="flex flex-wrap items-center gap-x-4 gap-y-[18px] md:gap-x-[22px]">
           <ButtonLink href="/#raio-x" tone="linho">
             {HERO.cta}

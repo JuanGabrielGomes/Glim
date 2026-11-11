@@ -6,8 +6,14 @@ import { useEffect, useState } from 'react';
 import { ButtonLink } from '@/components/ui/Button';
 import { NAV_ITEMS } from '@/lib/content';
 
-/** Cabeçalho sobre o hero grafite. No celular, "Menu" abre uma folha cheia em grafite. */
-export function Header() {
+interface HeaderProps {
+  /** linho: texto claro sobre fundo grafite (home). grafite: texto escuro sobre fundo linho (páginas internas). */
+  tone?: 'linho' | 'grafite';
+}
+
+/** Cabeçalho sobre o topo da página. No celular, "Menu" abre uma folha cheia em grafite. */
+export function Header({ tone = 'linho' }: HeaderProps) {
+  const onDark = tone === 'linho';
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -30,10 +36,14 @@ export function Header() {
   const close = () => setIsOpen(false);
 
   return (
-    <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-[var(--m)] py-6 text-linho-050 md:py-7">
+    <header
+      className={`absolute inset-x-0 top-0 z-30 flex items-center justify-between px-[var(--m)] py-6 md:py-7 ${
+        onDark ? 'text-linho-050' : 'text-grafite-950'
+      }`}
+    >
       <Link href="/" aria-label="glim., página inicial" className="inline-flex items-center">
         <Image
-          src="/brand/glim-logo-linho.svg"
+          src={onDark ? '/brand/glim-logo-linho.svg' : '/brand/glim-logo-grafite.svg'}
           alt="glim."
           width={1874}
           height={995}
@@ -42,7 +52,10 @@ export function Header() {
         />
       </Link>
 
-      <nav aria-label="Navegação principal" className="hidden gap-[34px] text-[15px] leading-none md:flex">
+      <nav
+        aria-label="Navegação principal"
+        className="hidden gap-[34px] text-[15px] leading-none md:flex"
+      >
         {NAV_ITEMS.map((item) => (
           <Link key={item.href} href={item.href} className="transition-opacity hover:opacity-70">
             {item.label}
@@ -51,7 +64,7 @@ export function Header() {
       </nav>
 
       <div className="hidden md:block">
-        <ButtonLink href="/#raio-x" tone="linho" compact>
+        <ButtonLink href="/#raio-x" tone={onDark ? 'linho' : 'grafite'} compact>
           Pedir um raio-x
         </ButtonLink>
       </div>

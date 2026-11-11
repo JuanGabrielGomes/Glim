@@ -35,7 +35,9 @@ export function Capabilities() {
                     <p className="text-[clamp(22px,2vw,30px)] leading-[1.1] font-medium tracking-[-0.03em]">
                       {service.title}
                     </p>
-                    <p className="text-pedra-500 mt-1.5 max-w-[34em] text-base">{service.description}</p>
+                    <p className="text-pedra-500 mt-1.5 max-w-[34em] text-base">
+                      {service.description}
+                    </p>
                   </div>
                   <span
                     aria-hidden="true"
