@@ -53,6 +53,7 @@ const DETAILS: Record<string, CaseDetail> = {
     headline: ['Um portfólio onde a foto faz a primeira impressão', 'e o texto fecha o cliente.'],
     clientLine: 'Sabores em Foco, fotografia gastronômica',
     delivery: 'Site-portfólio em uma página',
+    timeline: '3 semanas',
     challenge: [
       'A Sabores em Foco vive de comunicar apetite em imagem. O site precisava deixar a fotografia carregar a primeira impressão e, logo em seguida, explicar o que o estúdio oferece e como contratar.',
       'Produção fotográfica, gestão de perfil e cobertura de eventos tinham que caber numa vitrine só, sem competir entre si.',
@@ -76,6 +77,7 @@ const DETAILS: Record<string, CaseDetail> = {
     headline: ['Uma loja com atmosfera de joalheria física', 'e a velocidade de um e-commerce.'],
     clientLine: 'Mocellin Joias, joalheria',
     delivery: 'Loja virtual com painel próprio',
+    timeline: '4 semanas',
     challenge: [
       'Joia é compra de alto valor percebido: a loja online precisava passar a mesma confiança e o mesmo cuidado de um balcão de joalheria, sem ficar lenta nem confusa.',
       'O catálogo tinha que comunicar sofisticação e, ao mesmo tempo, deixar o caminho até a compra óbvio.',
