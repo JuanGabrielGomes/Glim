@@ -189,6 +189,7 @@ export function HeroGem() {
     gl.blendFunc(gl.ONE, gl.ONE);
     gl.clearColor(0, 0, 0, 0);
 
+    const heroSection = document.getElementById('topo');
     const pointer = { x: 0, y: 0, easedX: 0, easedY: 0 };
     const handlePointerMove = (event: PointerEvent) => {
       pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -231,7 +232,8 @@ export function HeroGem() {
       pointer.easedX += (pointer.x - pointer.easedX) * 0.04;
       pointer.easedY += (pointer.y - pointer.easedY) * 0.04;
 
-      const spin = ((now - start) / 1000) * SPIN_SPEED;
+      const advance = Number.parseFloat(heroSection?.style.getPropertyValue('--hero-p') || '0');
+      const spin = ((now - start) / 1000) * SPIN_SPEED + advance * 1.2;
       const model = multiply(
         rotationZ(-0.1 + pointer.easedX * 0.04),
         multiply(rotationX(TILT + pointer.easedY * 0.08), rotationY(spin + pointer.easedX * 0.12))
@@ -283,7 +285,7 @@ export function HeroGem() {
     <div
       ref={wrapperRef}
       aria-hidden="true"
-      className="group pointer-events-none absolute top-[46%] left-1/2 z-[3] aspect-square w-[92vw] -translate-x-1/2 -translate-y-1/2 md:top-[48%] md:w-[min(52vw,720px)]"
+      className="group pointer-events-none absolute top-[46%] left-1/2 z-[3] aspect-square w-[92vw] -translate-x-1/2 -translate-y-1/2 [scale:calc(1_+_var(--hero-p,0)_*_0.6)] will-change-transform md:top-[48%] md:w-[min(52vw,720px)] md:[scale:calc(1_+_var(--hero-p,0)_*_1.7)]"
     >
       <Image
         ref={posterRef}

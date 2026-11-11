@@ -68,6 +68,7 @@ src/
     ui/                            # Button, FitText, SectionHead, Shot, Glass, Reveal, NoBreak, FormFields
     providers/                     # MotionProvider (LazyMotion) e SmoothScroll (Lenis)
     hero/HeroGem.tsx               # diamante 3D do hero em WebGL, com a foto como poster e fallback
+    hero/HeroScroll.tsx            # progresso de rolagem do hero (--hero-p): o diamante avança e os textos saem
   lib/
     content.ts                     # copy da home, cases (resumo), nav, contato
     cases.ts                       # detalhe de cada case (desafio, o que fizemos, entregas)
