@@ -27,7 +27,7 @@ export function Capabilities() {
             {SERVICES_LIST.map((service, index) => (
               <li key={service.slug} className="border-pedra-200 border-b">
                 <Link
-                  href={`/servicos/${service.slug}`}
+                  href={service.href ?? `/servicos/${service.slug}`}
                   className="group grid grid-cols-[40px_1fr] items-baseline gap-x-5 py-[26px] md:grid-cols-[56px_1fr_auto]"
                 >
                   <span className="meta text-pedra-500">0{index + 1}</span>

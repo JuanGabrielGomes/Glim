@@ -4,6 +4,8 @@ export interface ServiceSummary {
   slug: string;
   title: string;
   description: string;
+  /** Rota própria, quando a página não fica em /servicos/<slug>. */
+  href?: string;
 }
 
 export interface CaseSummary {
@@ -84,6 +86,12 @@ export const SERVICES_LIST: readonly ServiceSummary[] = [
     title: 'Sistemas sob medida',
     description:
       'Quando a planilha não dá mais conta: sistemas internos e produtos digitais do zero.',
+  },
+  {
+    slug: 'saloes',
+    title: 'Agenda online para salões',
+    description: 'O cliente marca sozinho, com a cara do salão. Site próprio incluído.',
+    href: '/saloes',
   },
 ];
 
