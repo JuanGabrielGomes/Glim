@@ -55,7 +55,11 @@ const H2 =
 const SECTION = 'px-[var(--m)] py-[clamp(64px,8vw,120px)]';
 const SERIF = 'font-serif font-normal tracking-[-0.01em]';
 
-const whatsappHref = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent(SALOES_WHATSAPP_TEXT)}`;
+// Prévia ao vivo de um salão de exemplo (projeto glim-previa, sempre com noindex).
+const PREVIA_SITE = 'https://previa.glimweb.com/barbearia-modelo';
+const PREVIA_AGENDA = `${PREVIA_SITE}/agendar`;
+
+const whatsappHref =`https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent(SALOES_WHATSAPP_TEXT)}`;
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -209,6 +213,14 @@ export default function SaloesPage() {
                     você abrir no próprio celular e testar a agenda antes de decidir qualquer coisa.
                   </NoBreak>
                 </p>
+                <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-5">
+                  <ButtonLink href={PREVIA_SITE} external>
+                    Abrir a prévia ao vivo
+                  </ButtonLink>
+                  <TextLink href={PREVIA_AGENDA} external>
+                    Testar só a agenda
+                  </TextLink>
+                </div>
               </Reveal>
             </div>
           </section>
