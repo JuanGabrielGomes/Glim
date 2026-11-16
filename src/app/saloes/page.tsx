@@ -26,7 +26,7 @@ import { SITE_URL } from '@/lib/seo';
 const PAGE_URL = `${SITE_URL}/saloes`;
 const TITLE = 'Agenda online e site para salões e barbearias';
 const DESCRIPTION =
-  'O cliente escolhe o serviço, o profissional e o horário e confirma no WhatsApp do salão. Agenda online e site próprio, a partir de R$ 59 por mês, sem taxa por agendamento.';
+  'O cliente escolhe o serviço, o profissional e o horário e reserva na hora. Agenda online e site próprio, a partir de R$ 59 por mês, sem taxa por agendamento.';
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -139,8 +139,8 @@ export default function SaloesPage() {
                 </p>
                 <p className="text-pedra-500 mt-6 max-w-[34em] text-[clamp(18px,1.5vw,21px)] leading-[1.5]">
                   <NoBreak>
-                    Ele escolhe o serviço, o profissional e o horário, e chega no WhatsApp do salão
-                    com tudo preenchido. Junto, um site próprio, com as suas fotos e as suas cores.
+                    Ele escolhe o serviço, vê o valor, escolhe como vai pagar e reserva na hora, sem
+                    esperar resposta. Junto, um site próprio, com as suas fotos e as suas cores.
                   </NoBreak>
                 </p>
                 <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-5">

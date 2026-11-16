@@ -44,19 +44,19 @@ export const EXEMPLO_APP = {
 export const PASSOS = [
   {
     title: 'Escolhe',
-    text: 'Serviço, profissional, dia e horário, numa tela com a identidade do salão.',
+    text: 'Serviço com o valor, profissional, dia, horário e forma de pagamento, numa tela com a identidade do salão.',
   },
   {
     title: 'Reserva',
-    text: 'O horário fica bloqueado na hora. Ninguém marca em cima.',
+    text: 'Reservar horário já bloqueia a agenda na hora. Ninguém marca em cima, e o cliente não precisa chamar no WhatsApp.',
   },
   {
-    title: 'Confirma',
-    text: 'Ele cai no WhatsApp do salão com a mensagem pronta: serviço, nome e horário.',
+    title: 'Avisa',
+    text: 'Se quiser, ele avisa o salão no WhatsApp com a mensagem pronta: serviço, nome e horário. É um extra.',
   },
   {
     title: 'Você gerencia',
-    text: 'No painel, você abre e fecha horários, muda serviços e preços e vê a agenda do dia.',
+    text: 'No painel, você abre e fecha horários, muda serviços e valores e vê a agenda do dia.',
   },
 ] as const;
 
@@ -77,6 +77,8 @@ export const SEM_AGENDA = [
 
 export const ENTRA = [
   'Agenda online com a identidade do salão',
+  'Valor de cada serviço e forma de pagamento escolhida pelo cliente',
+  'Taxa de cancelamento que você define, como 20% do valor',
   'Painel de horários, serviços e clientes',
   'Site próprio, com as suas fotos e as suas cores',
   'Domínio, hospedagem e segurança',
@@ -120,9 +122,19 @@ export const FAQ = [
       'Não. Você cancela quando quiser. A mensalidade só começa quando a agenda entra no ar e cobre domínio, hospedagem, segurança e ajustes pequenos.',
   },
   {
+    question: 'Dá para cobrar taxa de cancelamento?',
+    answer:
+      'Dá. Você define a porcentagem do valor do agendamento, por exemplo 20%, e ela aparece para o cliente, já calculada em reais, antes de ele reservar.',
+  },
+  {
+    question: 'O cliente precisa chamar no WhatsApp para garantir o horário?',
+    answer:
+      'Não. O botão Reservar horário já deixa o horário reservado na agenda. O aviso no WhatsApp do salão é um extra, para quem quiser.',
+  },
+  {
     question: 'O que o cliente precisa instalar?',
     answer:
-      'Nada. A agenda abre no navegador do celular, pelo link que vai na bio do Instagram, e a confirmação chega no WhatsApp do salão.',
+      'Nada. A agenda abre no navegador do celular, pelo link que vai na bio do Instagram.',
   },
 ] as const;
 
