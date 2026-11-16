@@ -47,6 +47,9 @@ export function Footer() {
               {service.name}
             </Link>
           ))}
+          <Link href="/saloes" className={LINK}>
+            Agenda para salões
+          </Link>
         </nav>
 
         <div>
