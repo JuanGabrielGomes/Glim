@@ -68,8 +68,8 @@ export function Header({ tone = 'linho' }: HeaderProps) {
       </nav>
 
       <div className="hidden md:block">
-        <ButtonLink href="/#raio-x" tone={onDark ? 'linho' : 'grafite'} compact>
-          Pedir um raio-x
+        <ButtonLink href="/#conversa" tone={onDark ? 'linho' : 'grafite'} compact>
+          Vamos conversar
         </ButtonLink>
       </div>
 
@@ -123,8 +123,8 @@ export function Header({ tone = 'linho' }: HeaderProps) {
           </nav>
 
           <div className="mt-auto pt-10">
-            <ButtonLink href="/#raio-x" tone="linho" className="w-full justify-center">
-              Pedir um raio-x do meu site
+            <ButtonLink href="/#conversa" tone="linho" className="w-full justify-center">
+              Falar sobre o meu site
             </ButtonLink>
           </div>
         </div>

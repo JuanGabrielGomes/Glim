@@ -36,7 +36,8 @@ export interface AboutInfo {
 
 export const CONTACT_WHATSAPP_NUMBER = '5554992181886';
 export const CONTACT_WHATSAPP_LABEL = '+55 54 99218-1886';
-export const CONTACT_WHATSAPP_MESSAGE = 'Olá, vim pelo site da glim. Quero um raio-x do meu site.';
+export const CONTACT_WHATSAPP_MESSAGE =
+  'Olá, vim pelo site da glim. Quero conversar sobre um site para a minha empresa.';
 export const CONTACT_WHATSAPP_HREF = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent(CONTACT_WHATSAPP_MESSAGE)}`;
 export const INSTAGRAM_URL =
   process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? 'https://instagram.com/glim.web';
@@ -50,7 +51,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
 
 export const HERO = {
   lead: 'Desenhamos e construímos sob medida para empresas que já são boas no que fazem e precisam parecer à altura na internet.',
-  cta: 'Pedir um raio-x do meu site',
+  cta: 'Falar sobre o meu site',
   secondary: 'Ver trabalhos',
   side: ['Sites', 'Lojas', 'Sistemas'],
   facts: [
@@ -163,11 +164,11 @@ export const ABOUT: AboutInfo = {
 };
 
 export const RAIO_X = {
-  title: ['Raio-x'],
-  heading: ['Quer saber o que', 'cortar', 'no seu site?'],
-  text: 'Em 15 minutos, por vídeo ou WhatsApp, mostramos o que está custando clientes no seu site atual e o que faríamos primeiro. Sem compromisso.',
+  title: ['Conversa'],
+  heading: ['Com site ou', 'sem site,', 'começa com um oi.'],
+  text: 'Em 15 minutos, por vídeo ou WhatsApp. Se você ainda não tem site, entendemos o negócio e mostramos o caminho para começar. Se já tem, mostramos o que está custando clientes e o que faríamos primeiro. Sem compromisso.',
   whatsappLabel: 'Prefiro chamar no WhatsApp',
-  submit: 'Quero o raio-x',
+  submit: 'Quero conversar',
   needs: [
     'Site institucional',
     'E-commerce',

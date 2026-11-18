@@ -57,8 +57,8 @@ export function Footer() {
           <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className={LINK}>
             Instagram {instagramHandle}
           </a>
-          <Link href="/#raio-x" className={LINK}>
-            Raio-x gratuito
+          <Link href="/#conversa" className={LINK}>
+            Primeira conversa gratuita
           </Link>
         </div>
 

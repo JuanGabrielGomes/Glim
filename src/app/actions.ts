@@ -70,11 +70,11 @@ function buildValidationErrors(values: RaioXValues): RaioXFieldErrors {
 function buildEmailText(values: RaioXValues) {
   const whatsappDigits = values.whatsapp.replace(/\D/g, '');
   return [
-    `Novo pedido de raio-x: ${values.company}`,
+    `Novo pedido de conversa: ${values.company}`,
     '',
     `Nome: ${values.name}`,
     `Empresa: ${values.company}`,
-    `Site atual: ${values.currentSite || 'Não informado'}`,
+    `Site atual: ${values.currentSite || 'Ainda não tem site'}`,
     `WhatsApp: ${values.whatsapp} (https://wa.me/55${whatsappDigits.replace(/^55/, '')})`,
     `O que precisa: ${values.need}`,
   ].join('\n');
@@ -84,10 +84,10 @@ function buildEmailHtml(values: RaioXValues) {
   const whatsappDigits = values.whatsapp.replace(/\D/g, '').replace(/^55/, '');
   return `
     <div style="font-family: Arial, sans-serif; color: #1c1a18; line-height: 1.7;">
-      <h1 style="margin: 0 0 16px; font-size: 22px;">Novo pedido de raio-x</h1>
+      <h1 style="margin: 0 0 16px; font-size: 22px;">Novo pedido de conversa</h1>
       <p style="margin: 0 0 8px;"><strong>Nome:</strong> ${escapeHtml(values.name)}</p>
       <p style="margin: 0 0 8px;"><strong>Empresa:</strong> ${escapeHtml(values.company)}</p>
-      <p style="margin: 0 0 8px;"><strong>Site atual:</strong> ${escapeHtml(values.currentSite || 'Não informado')}</p>
+      <p style="margin: 0 0 8px;"><strong>Site atual:</strong> ${escapeHtml(values.currentSite || 'Ainda não tem site')}</p>
       <p style="margin: 0 0 8px;"><strong>WhatsApp:</strong> <a href="https://wa.me/55${escapeHtml(whatsappDigits)}">${escapeHtml(values.whatsapp)}</a></p>
       <p style="margin: 0;"><strong>O que precisa:</strong> ${escapeHtml(values.need)}</p>
     </div>
@@ -148,7 +148,7 @@ export async function submitRaioX(
     await transporter.sendMail({
       to: CONTACT_TO_EMAIL,
       from: fromEmail,
-      subject: `Raio-x · ${values.company}`,
+      subject: `Conversa · ${values.company}`,
       text: buildEmailText(values),
       html: buildEmailHtml(values),
     });

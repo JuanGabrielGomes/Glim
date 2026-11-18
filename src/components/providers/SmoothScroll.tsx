@@ -12,7 +12,7 @@ interface SmoothScrollProps {
 /**
  * Rolagem com inércia (Lenis) só para a roda do mouse e o touchpad. No celular a rolagem
  * continua nativa. Desligada em prefers-reduced-motion. Links de âncora da mesma página
- * (/#raio-x) deslizam em vez de pular.
+ * (/#conversa) deslizam em vez de pular.
  */
 export function SmoothScroll({ children }: SmoothScrollProps) {
   const reduceMotion = useReducedMotion() ?? false;

@@ -68,8 +68,8 @@ export default async function ServicePageRoute({ params }: ServicePageProps) {
   const pageUrl = `${SITE_URL}/servicos/${service.slug}`;
   const whatsappHref = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent(service.whatsappText)}`;
   const otherServices = SERVICE_PAGES.filter((item) => item.slug !== service.slug);
-  const primaryHref = service.externalUrl ?? '/#raio-x';
-  const primaryLabel = service.externalUrl ? 'Quero meu site no ar' : 'Pedir um raio-x do meu site';
+  const primaryHref = service.externalUrl ?? '/#conversa';
+  const primaryLabel = service.externalUrl ? 'Quero meu site no ar' : 'Falar sobre o meu site';
 
   const structuredData = {
     '@context': 'https://schema.org',

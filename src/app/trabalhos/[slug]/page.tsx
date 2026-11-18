@@ -187,7 +187,7 @@ export default async function CasePage({ params }: CasePageProps) {
                 </TextLink>
               </p>
             </div>
-            <ButtonLink href="/#raio-x" tone="linho">
+            <ButtonLink href="/#conversa" tone="linho">
               Quero um site assim
             </ButtonLink>
           </section>
