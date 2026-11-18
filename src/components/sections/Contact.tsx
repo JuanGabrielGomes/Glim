@@ -12,7 +12,7 @@ import { NoBreak } from '@/components/ui/NoBreak';
 
 const INITIAL_STATE: RaioXFormState = { status: 'idle', message: '' };
 
-/** Raio-x: o formulário curto de conversão (cinco campos) e o atalho para o WhatsApp. */
+/** Primeira conversa: o formulário curto de conversão (cinco campos) e o atalho para o WhatsApp. */
 export function Contact() {
   const formRef = useRef<HTMLFormElement | null>(null);
   const [state, formAction, pending] = useActionState(submitRaioX, INITIAL_STATE);
@@ -24,16 +24,18 @@ export function Contact() {
 
   return (
     <section
-      id="raio-x"
-      aria-labelledby="raio-x-title"
+      id="conversa"
+      aria-labelledby="conversa-title"
       className="bg-linho-100 px-[var(--m)] py-[clamp(80px,9vw,140px)]"
     >
+      {/* Alvo antigo, para não quebrar links já compartilhados (/#raio-x). */}
+      <span id="raio-x" aria-hidden="true" className="sr-only" />
       <Reveal>
         <div className="grid gap-[clamp(32px,6vw,96px)] md:grid-cols-2">
           <div>
             <FitText
               as="h2"
-              id="raio-x-title"
+              id="conversa-title"
               lines={[...RAIO_X.title]}
               className="mega text-[15vw] md:text-[clamp(44px,7.6vw,112px)]"
             />
@@ -96,8 +98,8 @@ export function Contact() {
               <InputField
                 id="currentSite"
                 name="currentSite"
-                label="Site atual"
-                placeholder="www.suaempresa.com.br ou só o Instagram"
+                label="Site atual (se tiver)"
+                placeholder="Seu site ou Instagram. Se ainda não tem, pode deixar em branco"
                 autoComplete="url"
                 inputMode="url"
                 defaultValue={state.values?.currentSite}

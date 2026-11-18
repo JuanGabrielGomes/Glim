@@ -26,7 +26,7 @@ export interface PrivacySection {
 export const PRIVACY = {
   metaTitle: 'Política de privacidade',
   metaDescription:
-    'Como o site da glim. trata dados pessoais: o que coletamos no formulário do raio-x, para que usamos e como você pode exercer seus direitos pela LGPD.',
+    'Como o site da glim. trata dados pessoais: o que coletamos no formulário de contato, para que usamos e como você pode exercer seus direitos pela LGPD.',
   title: 'Política de privacidade',
   lastUpdated: '11 de novembro de 2026',
   intro:
@@ -47,7 +47,7 @@ export const PRIVACY = {
       blocks: [
         {
           type: 'p',
-          text: 'O único formulário do site é o do raio-x. Quando você o envia, recebemos os dados que você mesmo preenche:',
+          text: 'O único formulário do site é o de contato. Quando você o envia, recebemos os dados que você mesmo preenche:',
         },
         {
           type: 'list',
@@ -70,7 +70,7 @@ export const PRIVACY = {
       blocks: [
         {
           type: 'p',
-          text: 'Usamos esses dados apenas para responder ao seu pedido: entrar em contato pelo WhatsApp, preparar o raio-x do seu site e, se você quiser, conversar sobre um projeto. Não vendemos seus dados e não os usamos para enviar publicidade de terceiros.',
+          text: 'Usamos esses dados apenas para responder ao seu pedido: entrar em contato pelo WhatsApp, preparar a nossa primeira conversa e, se você quiser, conversar sobre um projeto. Não vendemos seus dados e não os usamos para enviar publicidade de terceiros.',
         },
         {
           type: 'p',

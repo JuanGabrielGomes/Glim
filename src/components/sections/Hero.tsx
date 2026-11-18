@@ -68,7 +68,7 @@ export function Hero() {
             <NoBreak>{HERO.lead}</NoBreak>
           </p>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-[18px] md:gap-x-[22px]">
-            <ButtonLink href="/#raio-x" tone="linho">
+            <ButtonLink href="/#conversa" tone="linho">
               {HERO.cta}
             </ButtonLink>
             <TextLink href="/#trabalhos">{HERO.secondary}</TextLink>
