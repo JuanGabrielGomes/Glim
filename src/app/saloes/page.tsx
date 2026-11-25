@@ -13,6 +13,7 @@ import { CONTACT_WHATSAPP_NUMBER } from '@/lib/content';
 import {
   CONDICOES,
   ENTRA,
+  EXEMPLOS,
   EXEMPLO_APP,
   FAQ,
   PASSOS,
@@ -59,9 +60,8 @@ const H2 =
 const SECTION = 'px-[var(--m)] py-[clamp(64px,8vw,120px)]';
 const SERIF = 'font-serif font-normal tracking-[-0.01em]';
 
-// Prévia ao vivo de um salão de exemplo (projeto glim-previa, sempre com noindex).
-const PREVIA_SITE = 'https://previa.glimweb.com/barbearia-modelo';
-const PREVIA_AGENDA = `${PREVIA_SITE}/agendar`;
+// Salões fictícios ao vivo no projeto glim-previa (sempre com noindex).
+const PREVIA = 'https://previa.glimweb.com';
 
 const whatsappHref = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent(SALOES_WHATSAPP_TEXT)}`;
 const whatsappProHref = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent(SALOES_PRO_WHATSAPP_TEXT)}`;
@@ -152,7 +152,7 @@ export default function SaloesPage() {
                   <ButtonLink href={whatsappHref} external>
                     Marcar uma conversa
                   </ButtonLink>
-                  <TextLink href="#previa">Ver como fica</TextLink>
+                  <TextLink href="#previa">Ver exemplos</TextLink>
                 </div>
               </div>
 
@@ -180,56 +180,103 @@ export default function SaloesPage() {
             </div>
           </section>
 
-          {/* prévia */}
+          {/* exemplos */}
           <section id="previa" aria-labelledby="previa-titulo" className="bg-linho-100">
-            <div
-              className={`${SECTION} grid items-center gap-[clamp(40px,6vw,96px)] md:grid-cols-[1.25fr_1fr]`}
-            >
-              <div className="relative pr-6 pb-10 md:pr-20">
-                <div className="faceta overflow-hidden shadow-[0_40px_90px_-40px_rgba(28,26,24,0.55)] [--f:28px]">
-                  <Image
-                    src="/saloes/barbearia-desktop.png"
-                    alt="Site de uma barbearia de exemplo, com a agenda online"
-                    width={1440}
-                    height={900}
-                    sizes="(max-width: 820px) 92vw, 56vw"
-                    className="block h-auto w-full"
-                  />
-                </div>
-                <div className="bg-grafite-950 absolute right-0 -bottom-2 w-[130px] rounded-[28px] p-[6px] shadow-[0_30px_60px_-20px_rgba(28,26,24,0.7)] md:w-[190px] md:rounded-[34px] md:p-[7px]">
-                  <Image
-                    src="/saloes/barbearia-mobile.png"
-                    alt="Tela de agendamento no celular"
-                    width={780}
-                    height={1560}
-                    sizes="190px"
-                    className="block h-auto w-full rounded-[22px] md:rounded-[28px]"
-                  />
-                </div>
+            <div className={SECTION}>
+              <div className="grid items-end gap-[clamp(24px,4vw,64px)] md:grid-cols-[1.1fr_1fr]">
+                <Reveal>
+                  <p className={EYEBROW}>Como fica</p>
+                  <h2 id="previa-titulo" className={H2}>
+                    Cada salão parte de uma ideia.{' '}
+                    <em className={`${SERIF} text-[1.1em] leading-[0.9]`}>A página nasce dela.</em>
+                  </h2>
+                </Reveal>
+                <Reveal delay={0.1}>
+                  <p className="text-pedra-500 max-w-[34em] text-[clamp(17px,1.4vw,20px)] leading-[1.55]">
+                    <NoBreak>
+                      Três salões fictícios, feitos do jeito que a gente faz os de verdade: o
+                      conceito sai do nome, vira um desenho que só aquele salão tem, e a agenda
+                      entra no mesmo idioma. Abra no celular e teste. No primeiro contato, a gente
+                      faz isso com o seu.
+                    </NoBreak>
+                  </p>
+                </Reveal>
               </div>
 
-              <Reveal>
-                <p className={EYEBROW}>Como fica</p>
-                <h2 id="previa-titulo" className={H2}>
-                  Veja o site e a agenda de um salão de exemplo.
-                </h2>
-                <p className="text-pedra-500 mt-6 max-w-[34em] text-[clamp(17px,1.4vw,20px)] leading-[1.55]">
-                  <NoBreak>
-                    A imagem mostra uma barbearia fictícia, só para demonstração. No primeiro
-                    contato, a gente monta uma prévia assim com o nome, as cores e as fotos do seu
-                    salão, para você abrir no próprio celular e testar a agenda antes de decidir
-                    qualquer coisa.
-                  </NoBreak>
-                </p>
-                <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-5">
-                  <ButtonLink href={PREVIA_SITE} external>
-                    Abrir a prévia ao vivo
-                  </ButtonLink>
-                  <TextLink href={PREVIA_AGENDA} external>
-                    Testar só a agenda
-                  </TextLink>
-                </div>
-              </Reveal>
+              <ul className="mt-[clamp(40px,5vw,72px)] grid gap-[clamp(40px,4vw,56px)] lg:grid-cols-3 lg:gap-8">
+                {EXEMPLOS.map((ex, i) => (
+                  <li key={ex.slug}>
+                    <Reveal delay={i * 0.08}>
+                      <a
+                        href={`${PREVIA}/${ex.slug}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group relative block pr-10 pb-8 md:pr-14"
+                      >
+                        <div className="faceta overflow-hidden shadow-[0_30px_70px_-36px_rgba(28,26,24,0.55)] [--f:22px]">
+                          <Image
+                            src={`/saloes/${ex.slug}-desktop.jpg`}
+                            alt={`Site do ${ex.nome}, salão fictício de exemplo`}
+                            width={1440}
+                            height={900}
+                            sizes="(max-width: 1024px) 88vw, 30vw"
+                            className="block h-auto w-full transition-transform duration-500 group-hover:scale-[1.02]"
+                          />
+                        </div>
+                        <div className="bg-grafite-950 absolute right-0 bottom-0 w-[30%] min-w-[96px] rounded-[20px] p-[5px] shadow-[0_24px_50px_-18px_rgba(28,26,24,0.7)]">
+                          <Image
+                            src={`/saloes/${ex.slug}-mobile.jpg`}
+                            alt={`Agenda do ${ex.nome} no celular`}
+                            width={780}
+                            height={1560}
+                            sizes="140px"
+                            className="block h-auto w-full rounded-[16px]"
+                          />
+                        </div>
+                      </a>
+                      <div className="mt-6 flex items-start justify-between gap-4">
+                        <div>
+                          <p className="meta text-pedra-500">{ex.tipo}</p>
+                          <p className="mt-2 text-[22px] font-medium tracking-[-0.03em]">
+                            {ex.nome}
+                          </p>
+                          <p className="mt-1 font-serif text-[19px] italic">{ex.conceito}</p>
+                          <p className="text-pedra-500 mt-2 text-[15px] leading-relaxed">
+                            {ex.assinatura}
+                          </p>
+                        </div>
+                        <span className="mt-1 flex shrink-0" aria-hidden="true">
+                          {ex.cores.map((c) => (
+                            <span
+                              key={c}
+                              className="border-linho-050 -ml-1.5 h-6 w-6 rounded-full border-2 first:ml-0"
+                              style={{ background: c }}
+                            />
+                          ))}
+                        </span>
+                      </div>
+                      <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-[15px] font-medium">
+                        <a
+                          href={`${PREVIA}/${ex.slug}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="border-grafite-950 border-b pb-0.5 transition-opacity hover:opacity-70"
+                        >
+                          Abrir o site <span aria-hidden="true">↗</span>
+                        </a>
+                        <a
+                          href={`${PREVIA}/${ex.slug}/agendar`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="border-grafite-950 border-b pb-0.5 transition-opacity hover:opacity-70"
+                        >
+                          Testar a agenda <span aria-hidden="true">↗</span>
+                        </a>
+                      </div>
+                    </Reveal>
+                  </li>
+                ))}
+              </ul>
             </div>
           </section>
 
