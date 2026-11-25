@@ -17,6 +17,8 @@ import {
   FAQ,
   PASSOS,
   PLANOS,
+  PRODUTO,
+  SALOES_PRO_WHATSAPP_TEXT,
   SALOES_WHATSAPP_TEXT,
   SEM_AGENDA,
   brl,
@@ -39,7 +41,9 @@ export const metadata: Metadata = {
     siteName: 'glim.',
     title: `${TITLE} | glim.`,
     description: DESCRIPTION,
-    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'glim. · Precisão que se vê.' }],
+    images: [
+      { url: '/opengraph-image', width: 1200, height: 630, alt: 'glim. · Precisão que se vê.' },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -59,7 +63,8 @@ const SERIF = 'font-serif font-normal tracking-[-0.01em]';
 const PREVIA_SITE = 'https://previa.glimweb.com/barbearia-modelo';
 const PREVIA_AGENDA = `${PREVIA_SITE}/agendar`;
 
-const whatsappHref =`https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent(SALOES_WHATSAPP_TEXT)}`;
+const whatsappHref = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent(SALOES_WHATSAPP_TEXT)}`;
+const whatsappProHref = `https://wa.me/${CONTACT_WHATSAPP_NUMBER}?text=${encodeURIComponent(SALOES_PRO_WHATSAPP_TEXT)}`;
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -177,8 +182,10 @@ export default function SaloesPage() {
 
           {/* prévia */}
           <section id="previa" aria-labelledby="previa-titulo" className="bg-linho-100">
-            <div className={`${SECTION} grid items-center gap-[clamp(40px,6vw,96px)] md:grid-cols-[1.25fr_1fr]`}>
-              <div className="relative pb-10 pr-6 md:pr-20">
+            <div
+              className={`${SECTION} grid items-center gap-[clamp(40px,6vw,96px)] md:grid-cols-[1.25fr_1fr]`}
+            >
+              <div className="relative pr-6 pb-10 md:pr-20">
                 <div className="faceta overflow-hidden shadow-[0_40px_90px_-40px_rgba(28,26,24,0.55)] [--f:28px]">
                   <Image
                     src="/saloes/barbearia-desktop.png"
@@ -189,7 +196,7 @@ export default function SaloesPage() {
                     className="block h-auto w-full"
                   />
                 </div>
-                <div className="bg-grafite-950 absolute -bottom-2 right-0 w-[130px] rounded-[28px] p-[6px] shadow-[0_30px_60px_-20px_rgba(28,26,24,0.7)] md:w-[190px] md:rounded-[34px] md:p-[7px]">
+                <div className="bg-grafite-950 absolute right-0 -bottom-2 w-[130px] rounded-[28px] p-[6px] shadow-[0_30px_60px_-20px_rgba(28,26,24,0.7)] md:w-[190px] md:rounded-[34px] md:p-[7px]">
                   <Image
                     src="/saloes/barbearia-mobile.png"
                     alt="Tela de agendamento no celular"
@@ -208,9 +215,10 @@ export default function SaloesPage() {
                 </h2>
                 <p className="text-pedra-500 mt-6 max-w-[34em] text-[clamp(17px,1.4vw,20px)] leading-[1.55]">
                   <NoBreak>
-                    A imagem mostra uma barbearia fictícia, só para demonstração. No primeiro contato,
-                    a gente monta uma prévia assim com o nome, as cores e as fotos do seu salão, para
-                    você abrir no próprio celular e testar a agenda antes de decidir qualquer coisa.
+                    A imagem mostra uma barbearia fictícia, só para demonstração. No primeiro
+                    contato, a gente monta uma prévia assim com o nome, as cores e as fotos do seu
+                    salão, para você abrir no próprio celular e testar a agenda antes de decidir
+                    qualquer coisa.
                   </NoBreak>
                 </p>
                 <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-5">
@@ -261,24 +269,36 @@ export default function SaloesPage() {
                 <table className="mt-8 w-full max-w-[34em] text-left text-[15px] md:text-base">
                   <thead>
                     <tr className="meta text-pedra-300">
-                      <th className="pb-3 font-medium" scope="col"><span className="sr-only">Valor</span></th>
-                      <th className="pb-3 font-medium" scope="col">1º ano</th>
-                      <th className="pb-3 font-medium" scope="col">Do 2º ano</th>
+                      <th className="pb-3 font-medium" scope="col">
+                        <span className="sr-only">Valor</span>
+                      </th>
+                      <th className="pb-3 font-medium" scope="col">
+                        1º ano
+                      </th>
+                      <th className="pb-3 font-medium" scope="col">
+                        Do 2º ano
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr className="border-grafite-800 border-t">
-                      <th scope="row" className="text-pedra-300 py-4 font-normal">{EXEMPLO_APP.app}</th>
+                      <th scope="row" className="text-pedra-300 py-4 font-normal">
+                        {EXEMPLO_APP.app}
+                      </th>
                       <td>{brl(EXEMPLO_APP.appAno)}</td>
                       <td>{brl(EXEMPLO_APP.appAno)}</td>
                     </tr>
                     <tr className="border-grafite-800 border-t">
-                      <th scope="row" className="text-pedra-300 py-4 font-normal">glim.</th>
+                      <th scope="row" className="text-pedra-300 py-4 font-normal">
+                        glim.
+                      </th>
                       <td>{brl(EXEMPLO_APP.glimAno1)}</td>
                       <td className="text-ambar-400">{brl(EXEMPLO_APP.glimAno2)}</td>
                     </tr>
                     <tr className="border-grafite-800 border-t">
-                      <th scope="row" className="text-pedra-300 py-4 font-normal">Site próprio</th>
+                      <th scope="row" className="text-pedra-300 py-4 font-normal">
+                        Site próprio
+                      </th>
                       <td colSpan={2}>Incluído, sem custo à parte</td>
                     </tr>
                   </tbody>
@@ -299,8 +319,8 @@ export default function SaloesPage() {
                 </h3>
                 <p className="text-pedra-300 mt-4 max-w-[34em] text-[clamp(17px,1.4vw,19px)] leading-[1.55]">
                   <NoBreak>
-                    Todo cliente que não consegue marcar na hora marca em outro lugar. A agenda online
-                    resolve isso sem trocar o seu jeito de atender.
+                    Todo cliente que não consegue marcar na hora marca em outro lugar. A agenda
+                    online resolve isso sem trocar o seu jeito de atender.
                   </NoBreak>
                 </p>
                 <ul className="mt-10">
@@ -399,7 +419,10 @@ export default function SaloesPage() {
                       key={item}
                       className="border-pedra-200 flex items-center gap-4 border-b py-5 text-lg"
                     >
-                      <span aria-hidden="true" className="bg-grafite-950 h-[7px] w-[7px] rotate-45" />
+                      <span
+                        aria-hidden="true"
+                        className="bg-grafite-950 h-[7px] w-[7px] rotate-45"
+                      />
                       {item}
                     </li>
                   ))}
@@ -417,34 +440,115 @@ export default function SaloesPage() {
               </h2>
             </Reveal>
 
-            <div className="mt-10 grid gap-6 md:grid-cols-2">
-              {PLANOS.map((plano) => (
-                <div key={plano.nome} className="border-pedra-200 border p-8 md:p-10">
-                  <p className="text-2xl font-medium tracking-[-0.03em]">{plano.nome}</p>
-                  <p className="text-pedra-500 mt-1">
-                    {plano.para}
-                    {plano.extra ? ` · +${brl(plano.extra)}/mês por profissional a mais` : ''}
-                  </p>
-                  <p className="mt-10 flex items-baseline gap-2">
-                    <span className="text-[clamp(56px,6vw,84px)] leading-none font-semibold tracking-[-0.05em]">
-                      {brl(plano.mensal)}
-                    </span>
-                    <span className="text-pedra-500">/mês</span>
-                  </p>
-                  <div className="border-pedra-200 mt-6 border-t pt-5">
-                    <p className="flex items-baseline justify-between gap-4">
-                      <span className="text-[17px] font-medium">+ implantação, paga uma vez</span>
-                      <span className="text-3xl font-semibold tracking-[-0.04em]">
-                        {brl(plano.implantacao)}
+            <p className="text-pedra-500 mt-6 max-w-[34em] text-[clamp(17px,1.4vw,20px)] leading-[1.55]">
+              <NoBreak>
+                {`Três planos do ${PRODUTO}. Cada um traz tudo do anterior: dá para começar num e subir depois, sem refazer nada.`}
+              </NoBreak>
+            </p>
+
+            <div className="mt-12 grid gap-6 lg:grid-cols-3 lg:items-stretch">
+              {PLANOS.map((plano, i) => {
+                const plus = plano.id === 'plus';
+                const pro = plano.id === 'pro';
+                const sub = pro ? 'text-pedra-300' : 'text-pedra-500';
+                return (
+                  <div
+                    key={plano.id}
+                    className={`flex flex-col p-8 md:p-9 ${
+                      pro
+                        ? 'bg-grafite-950 text-linho-050'
+                        : plus
+                          ? 'bg-linho-100 ring-grafite-950 shadow-[0_30px_70px_-40px_rgba(28,26,24,0.45)] ring-2 ring-inset lg:-my-5 lg:py-14'
+                          : 'border-pedra-200 border'
+                    }`}
+                  >
+                    <div className="flex min-h-[24px] flex-wrap items-center gap-2">
+                      {plus && (
+                        <span className="meta bg-grafite-950 text-ambar-400 px-2 py-1">
+                          Recomendado
+                        </span>
+                      )}
+                      {pro && (
+                        <span className="meta border-linho-050/25 text-pedra-200 border px-2 py-1">
+                          Lista de espera
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-5 text-2xl font-medium tracking-[-0.03em]">{plano.nome}</p>
+                    <p className={`${sub} mt-1`}>
+                      {plano.para}
+                      {plano.extra ? ` · +${brl(plano.extra)}/mês por profissional a mais` : ''}
+                    </p>
+                    <p className="mt-8 flex items-baseline gap-2">
+                      <span className="text-[clamp(56px,5vw,76px)] leading-none font-semibold tracking-[-0.05em]">
+                        {brl(plano.mensal)}
                       </span>
+                      <span className={sub}>/mês</span>
                     </p>
-                    <p className="text-pedra-500 mt-3 text-[15px]">
-                      Em 3x no cartão, ou Pix com 50% no início e 50% na entrega.
+                    <p className={`${sub} mt-3 text-[15px]`}>
+                      +{' '}
+                      <span
+                        className={`font-medium ${pro ? 'text-linho-050' : 'text-grafite-950'}`}
+                      >
+                        {brl(plano.implantacao)}
+                      </span>{' '}
+                      de implantação, paga uma vez
                     </p>
+                    <div
+                      className={`mt-8 border-t pt-5 ${pro ? 'border-linho-050/15' : 'border-pedra-200'}`}
+                    >
+                      <p className={`meta ${pro ? 'text-pedra-300' : 'text-pedra-500'}`}>
+                        {i === 0 ? 'Inclui' : 'Tudo do plano anterior, mais:'}
+                      </p>
+                      <ul className="mt-4 grid gap-3 text-[15px]">
+                        {plano.itens.map((item) => (
+                          <li key={item} className="flex items-start gap-3">
+                            <span
+                              aria-hidden="true"
+                              className={`mt-[7px] h-[6px] w-[6px] shrink-0 rotate-45 ${pro ? 'bg-ambar-400' : 'bg-grafite-950'}`}
+                            />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="min-h-10 flex-1" />
+                    {pro ? (
+                      <>
+                        <ButtonLink
+                          href={whatsappProHref}
+                          external
+                          tone="linho"
+                          className="justify-between"
+                        >
+                          Entrar na lista <span aria-hidden="true">→</span>
+                        </ButtonLink>
+                        <p className="text-pedra-300 mt-3 text-[13px]">
+                          Ainda sem data de entrega. Avisamos quando abrir vaga.
+                        </p>
+                      </>
+                    ) : plus ? (
+                      <ButtonLink href={whatsappHref} external className="justify-between">
+                        Quero o Plus <span aria-hidden="true">→</span>
+                      </ButtonLink>
+                    ) : (
+                      <a
+                        href={whatsappHref}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="border-pedra-200 hover:bg-grafite-950 hover:text-linho-050 inline-flex items-center justify-between gap-3 border px-5 py-[15px] text-[15px] leading-none font-medium transition-colors md:px-[26px] md:py-[18px] md:text-base"
+                      >
+                        Quero o {plano.nome} <span aria-hidden="true">→</span>
+                      </a>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
+
+            <p className="text-pedra-500 mt-10 text-[15px]">
+              Implantação em 3x no cartão, ou Pix com 50% no início e 50% na entrega.
+            </p>
 
             <ul className="border-pedra-200 mt-8 grid border-t md:grid-cols-3">
               {CONDICOES.map((item) => (

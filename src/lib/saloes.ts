@@ -8,20 +8,50 @@ export const brl = (value: number) =>
     maximumFractionDigits: 0,
   });
 
+/** Nome do produto para salões e barbearias. */
+export const PRODUTO = 'glim. salon';
+
+/**
+ * Planos do glim. salon, empilhados: cada um tem tudo do anterior.
+ * Fonte: glim-saloes/lib/planos.ts. Até o piloto rodar, o PRO é "Entrar na lista",
+ * sem data de entrega.
+ */
 export const PLANOS = [
   {
+    id: 'essencial',
     nome: 'Essencial',
     para: 'Até 3 profissionais',
     mensal: 59,
     implantacao: 790,
     extra: null,
+    itens: [
+      'Agenda online com a marca do salão',
+      'Painel de horários, serviços e valores',
+      'Site próprio de bônus',
+    ],
   },
   {
-    nome: 'Salão',
+    id: 'plus',
+    nome: 'Plus',
     para: 'Até 6 profissionais',
     mensal: 79,
     implantacao: 990,
     extra: 15,
+    itens: [
+      'Acesso por profissional',
+      'Ficha do cliente',
+      'Relatório mensal',
+      'Google configurado',
+    ],
+  },
+  {
+    id: 'pro',
+    nome: 'PRO',
+    para: 'Até 6 profissionais',
+    mensal: 229,
+    implantacao: 1290,
+    extra: 15,
+    itens: ['Atendente de IA no WhatsApp do salão', 'Lembretes no WhatsApp'],
   },
 ] as const;
 
@@ -109,12 +139,17 @@ export const FAQ = [
   {
     question: 'Quanto custa por mês e por agendamento?',
     answer:
-      'O plano Essencial custa R$ 59 por mês, até 3 profissionais, e o plano Salão R$ 79, até 6 profissionais. Não existe taxa por agendamento: o valor é o mesmo com 50 ou 500 horários no mês.',
+      'O Essencial custa R$ 59 por mês, até 3 profissionais. O Plus custa R$ 79, até 6 profissionais, e o PRO R$ 229, com o atendente de IA no WhatsApp. No Plus e no PRO, cada profissional a mais custa R$ 15 por mês. Não existe taxa por agendamento: o valor é o mesmo com 50 ou 500 horários no mês.',
   },
   {
     question: 'Como funciona a implantação?',
     answer:
-      'É um valor pago uma vez: R$ 790 no Essencial e R$ 990 no Salão. Pode ser em 3x no cartão ou no Pix, com 50% no início e 50% na entrega.',
+      'É um valor pago uma vez: R$ 790 no Essencial, R$ 990 no Plus e R$ 1.290 no PRO. Pode ser em 3x no cartão ou no Pix, com 50% no início e 50% na entrega.',
+  },
+  {
+    question: 'O que muda do Plus para o PRO?',
+    answer:
+      'O PRO tem tudo do Plus e mais um atendente de IA que responde e manda lembretes no WhatsApp do salão. Ele ainda não tem data de entrega: dá para entrar na lista, começar no Plus e subir para o PRO quando abrir vaga.',
   },
   {
     question: 'Tem fidelidade?',
@@ -133,10 +168,12 @@ export const FAQ = [
   },
   {
     question: 'O que o cliente precisa instalar?',
-    answer:
-      'Nada. A agenda abre no navegador do celular, pelo link que vai na bio do Instagram.',
+    answer: 'Nada. A agenda abre no navegador do celular, pelo link que vai na bio do Instagram.',
   },
 ] as const;
+
+export const SALOES_PRO_WHATSAPP_TEXT =
+  'Oi, Juan! Vi a página de salões e barbearias no site da glim. e quero entrar na lista do plano PRO do glim. salon.';
 
 export const SALOES_WHATSAPP_TEXT =
   'Oi, Juan! Vi a página de salões e barbearias no site da glim. e quero conversar sobre a agenda online.';
