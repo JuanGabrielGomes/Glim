@@ -48,7 +48,7 @@ export function Footer() {
             </Link>
           ))}
           <Link href="/saloes" className={LINK}>
-            Agenda para salões
+            glim. salon
           </Link>
         </nav>
 
