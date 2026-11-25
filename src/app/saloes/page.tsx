@@ -14,6 +14,7 @@ import {
   CONDICOES,
   ENTRA,
   EXEMPLOS,
+  COMPARACAO_APP,
   EXEMPLO_APP,
   FAQ,
   PASSOS,
@@ -129,7 +130,7 @@ export default function SaloesPage() {
               <span className="text-grafite-950">Salões e barbearias</span>
             </nav>
 
-            <p className="meta text-ambar-700 mt-8">Para salões e barbearias</p>
+            <p className="meta text-ambar-700 mt-8">{PRODUTO} · para salões e barbearias</p>
             <h1 className="my-5 md:mb-9">
               <FitText
                 lines={['Agenda online']}
@@ -308,52 +309,52 @@ export default function SaloesPage() {
                   </NoBreak>
                 </p>
                 <p className="meta text-pedra-300 mt-10">
-                  Exemplo: {EXEMPLO_APP.profissionais} profissionais no {EXEMPLO_APP.app}
+                  Exemplo: {EXEMPLO_APP.profissionais} profissionais no {COMPARACAO_APP.app}, plano{' '}
+                  {EXEMPLO_APP.plano}
                 </p>
                 <p className="mt-3 text-[clamp(64px,8vw,112px)] leading-[0.9] font-semibold tracking-[-0.05em]">
                   −{EXEMPLO_APP.economia}%
                 </p>
-                <table className="mt-8 w-full max-w-[34em] text-left text-[15px] md:text-base">
+                <table className="mt-8 w-full max-w-[34em] text-left text-[15px] md:text-base [&_td]:pr-3 [&_th]:pr-3">
+                  <caption className="sr-only">
+                    Quanto custa por ano no {COMPARACAO_APP.app} e na glim., a partir do 2º ano
+                  </caption>
                   <thead>
                     <tr className="meta text-pedra-300">
                       <th className="pb-3 font-medium" scope="col">
-                        <span className="sr-only">Valor</span>
+                        Profissionais
                       </th>
                       <th className="pb-3 font-medium" scope="col">
-                        1º ano
+                        {COMPARACAO_APP.app}
                       </th>
                       <th className="pb-3 font-medium" scope="col">
-                        Do 2º ano
+                        glim.
+                      </th>
+                      <th className="pb-3 text-right font-medium" scope="col">
+                        Economia
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="border-grafite-800 border-t">
-                      <th scope="row" className="text-pedra-300 py-4 font-normal">
-                        {EXEMPLO_APP.app}
-                      </th>
-                      <td>{brl(EXEMPLO_APP.appAno)}</td>
-                      <td>{brl(EXEMPLO_APP.appAno)}</td>
-                    </tr>
-                    <tr className="border-grafite-800 border-t">
-                      <th scope="row" className="text-pedra-300 py-4 font-normal">
-                        glim.
-                      </th>
-                      <td>{brl(EXEMPLO_APP.glimAno1)}</td>
-                      <td className="text-ambar-400">{brl(EXEMPLO_APP.glimAno2)}</td>
-                    </tr>
-                    <tr className="border-grafite-800 border-t">
-                      <th scope="row" className="text-pedra-300 py-4 font-normal">
-                        Site próprio
-                      </th>
-                      <td colSpan={2}>Incluído, sem custo à parte</td>
-                    </tr>
+                    {COMPARACAO_APP.linhas.map((l) => (
+                      <tr key={l.profissionais} className="border-grafite-800 border-t">
+                        <th scope="row" className="py-4 font-normal">
+                          {l.profissionais}
+                        </th>
+                        <td className="text-pedra-300">{brl(l.appAno)}</td>
+                        <td>
+                          {brl(l.glimAno2)}{' '}
+                          <span className="text-pedra-300 text-sm">{l.plano}</span>
+                        </td>
+                        <td className="text-ambar-400 text-right">−{l.economia}%</td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
                 <p className="text-pedra-300 mt-4 max-w-[34em] text-sm">
-                  Valores por ano. Exemplo com o Plano Essencial da glim. e a tabela de preços do{' '}
-                  {EXEMPLO_APP.app} para 3 agendas. Na reunião, fazemos a conta com o valor que você
-                  paga hoje.
+                  <NoBreak>
+                    {`Valores por ano, a partir do 2º ano, com a tabela do ${COMPARACAO_APP.app} (R$ 99,99 + R$ 20 por agenda a mais). No 1º ano entra a implantação, paga uma vez. O site próprio vem incluído. Na reunião, fazemos a conta com o valor que você paga hoje.`}
+                  </NoBreak>
                 </p>
               </Reveal>
 

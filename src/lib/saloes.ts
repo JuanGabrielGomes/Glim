@@ -94,31 +94,44 @@ export const EXEMPLOS = [
 export const LANCAMENTO = { implantacao: 590, vagas: 5 } as const;
 
 /**
- * Exemplo de economia para quem já paga um app de agenda: 3 profissionais no Booksy
- * (R$ 99,99 + R$ 20 por agenda adicional) contra o plano Essencial da glim.
+ * Economia para quem já paga um app de agenda: Booksy (R$ 99,99 + R$ 20 por agenda adicional,
+ * biz.booksy.com) contra o plano da glim. que comporta o mesmo número de profissionais.
+ * Conta por ano, a partir do 2º ano (o 1º inclui a implantação, paga uma vez).
  */
-const BOOKSY_MES = 99.99 + 20 * 2;
-export const EXEMPLO_APP = {
+const BOOKSY_BASE = 99.99;
+const BOOKSY_AGENDA_EXTRA = 20;
+const booksyMes = (n: number) => BOOKSY_BASE + BOOKSY_AGENDA_EXTRA * (n - 1);
+
+export const COMPARACAO_APP = {
   app: 'Booksy',
-  profissionais: 3,
-  appAno: Math.round(BOOKSY_MES * 12),
-  glimAno1: PLANOS[0].implantacao + PLANOS[0].mensal * 12,
-  glimAno2: PLANOS[0].mensal * 12,
-  economia: Math.round((1 - (PLANOS[0].mensal * 12) / (BOOKSY_MES * 12)) * 100),
-} as const;
+  linhas: ([3, 4, 6] as const).map((n) => {
+    const plano = n <= 3 ? PLANOS[0] : PLANOS[1];
+    const appAno = booksyMes(n) * 12;
+    const glimAno = plano.mensal * 12;
+    return {
+      profissionais: n,
+      plano: plano.nome,
+      appAno: Math.round(appAno),
+      glimAno1: plano.implantacao + glimAno,
+      glimAno2: glimAno,
+      economia: Math.round((1 - glimAno / appAno) * 100),
+    };
+  }),
+};
+export const EXEMPLO_APP = COMPARACAO_APP.linhas[0];
 
 export const PASSOS = [
   {
     title: 'Escolhe',
-    text: 'Serviço com o valor, profissional, dia, horário e forma de pagamento, numa tela com a identidade do salão.',
+    text: 'Serviço com o valor, profissional, dia, horário e como vai pagar no salão, numa tela com a identidade do salão.',
   },
   {
     title: 'Reserva',
     text: 'Reservar horário já bloqueia a agenda na hora. Ninguém marca em cima, e o cliente não precisa chamar no WhatsApp.',
   },
   {
-    title: 'Avisa',
-    text: 'Se quiser, ele avisa o salão no WhatsApp com a mensagem pronta: serviço, nome e horário. É um extra.',
+    title: 'Avisa o salão, se quiser',
+    text: 'Depois de reservar, o cliente pode mandar um aviso para o WhatsApp do salão, com a mensagem pronta. É ele quem envia. Lembrete automático é do plano Pro.',
   },
   {
     title: 'Você gerencia',
@@ -143,8 +156,8 @@ export const SEM_AGENDA = [
 
 export const ENTRA = [
   'Agenda online com a identidade do salão',
-  'Valor de cada serviço e forma de pagamento escolhida pelo cliente',
-  'Taxa de cancelamento que você define, como 20% do valor',
+  'Valor de cada serviço e forma de pagamento escolhida pelo cliente (a cobrança é no salão)',
+  'Taxa de cancelamento que você define, como 20% do valor, mostrada antes de reservar',
   'Painel de horários, serviços e clientes',
   'Site próprio, com as suas fotos e as suas cores',
   'Domínio, hospedagem e segurança',
@@ -188,6 +201,11 @@ export const FAQ = [
       'O Pro tem tudo do Plus e mais um atendente de IA que responde e manda lembretes no WhatsApp do salão. Ele ainda não tem data de entrega: dá para entrar na lista, começar no Plus e subir para o Pro quando abrir vaga.',
   },
   {
+    question: 'O cliente paga pela agenda?',
+    answer:
+      'Não. Ele escolhe como vai pagar (Pix, cartão ou no local, conforme você liberar) e paga no salão, como hoje. A agenda ainda não cobra online nem pede sinal.',
+  },
+  {
     question: 'Tem fidelidade?',
     answer:
       'Não. Você cancela quando quiser. A mensalidade só começa quando a agenda entra no ar e cobre domínio, hospedagem, segurança e ajustes pequenos.',
@@ -195,12 +213,12 @@ export const FAQ = [
   {
     question: 'Dá para cobrar taxa de cancelamento?',
     answer:
-      'Dá. Você define a porcentagem do valor do agendamento, por exemplo 20%, e ela aparece para o cliente, já calculada em reais, antes de ele reservar.',
+      'Dá. Você define a porcentagem do valor do agendamento, por exemplo 20%, e o prazo sem taxa. A regra aparece para o cliente, já calculada em reais, antes de ele reservar. A cobrança é feita por você, no salão: a agenda ainda não cobra online nem pede sinal.',
   },
   {
     question: 'O cliente precisa chamar no WhatsApp para garantir o horário?',
     answer:
-      'Não. O botão Reservar horário já deixa o horário reservado na agenda. O aviso no WhatsApp do salão é um extra, para quem quiser.',
+      'Não. O botão Reservar horário já deixa o horário reservado na agenda. Depois, se quiser, o cliente manda um aviso para o WhatsApp do salão. Esse aviso é ele quem envia; os lembretes automáticos no WhatsApp fazem parte do plano Pro.',
   },
   {
     question: 'O que o cliente precisa instalar?',
